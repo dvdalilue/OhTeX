@@ -1,0 +1,16 @@
+use babel {lang : spanish}
+use hyperref
+use lipsum
+
+doc1 :: Article {
+    font : 12pt
+    paper : letter
+}
+
+doc1.title = 'My very first otex file'
+
+doc1.author = 'David Lilue'
+
+doc1.date = 'November 29, 2015'
+
+doc1.print

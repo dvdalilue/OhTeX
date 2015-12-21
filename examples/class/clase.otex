@@ -1,0 +1,122 @@
+use t1enc
+use inputenc { lang: latin1 }
+use enumerate
+use hyperref
+
+main :: Document {
+  font: 11pt
+  type: article
+}
+
+main {
+  textwidth: 42eM
+  oddsizemargin: oddsidemargin - 5eM
+  textheight: 145ex
+  topmargin: -16ex
+  parskip: parskip + baselineskip
+}
+
+hreff :: Procedure {
+  arity: 1
+  action: Action {
+    h: href {
+      url: $1
+      name: $1
+    }
+    write h
+  }
+}
+
+thesection :: Procedure {
+  arity: 0
+  action: Action {
+    write Latex {
+      literal: '\arabic{section}'
+    }
+  }
+}
+
+reopen main {
+  section: -1
+}
+
+thesubsection :: Procedure {
+  arity: 0
+  action: Action {
+    write Latex {
+      literal: '\arabic{section}.\arabic{subsection}.'
+    }
+  }
+}
+
+texto1: Text {
+  text: let {
+    str1: "Universidad Simón Bolívar"
+    str2: "Departamento de Computación y Tecnología de la Información"
+    str3: "CI3725 -- Traductores e Interpretadores"
+    str4: "Octubre 2013 -- Enero 2014"
+    } in str1 + ln + str2 + ln + str3 + ln + str4
+  size: footnotesize
+  ident: 0
+}
+
+titulo :: Title {
+    align: center
+    size: large
+    text:
+    'Guía de Estudio - Clase 00
+    
+    Conceptos Básicos'
+}
+
+parafo1 :: Text {
+  text: 
+    'Este documento proporciona enlaces a guías y parciales con ejercicios
+    relacionados al tema de \emph{Conceptos Básicos}:'
+}
+
+lista1 :: List {
+  items: let {
+        it1: 'Láminas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos Básicos} de Carlos Pérez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.'
+        it2: 'Secciones 2.1 y 2.2 del \href{http://www.amazon.com/Languages-Machines-Introduction-Computer-Science/dp/0321322215}{Sudkamp}.'
+        it3: 'Capítulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
+    } in [it1, it2, it3]
+}
+
+-- Otra opción
+
+lista1 :: List {
+  items: [
+        'Láminas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos Básicos} de Carlos Pérez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.',
+        'Secciones 2.1 y 2.2 del \href{http://www.amazon.com/Languages-Machines-Introduction-Computer-Science/dp/0321322215}{Sudkamp}.',
+        'Capítulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
+  ]
+}
+
+lista2 :: List {
+    enumerate: false -- Este valor por defecto es false, pero solo para ilustrar si se quiere enumerar solo debe ponerse en true
+    items: [
+        'En el \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725\_aj12/archivos/e1\_sol.pdf}{1er parcial} de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725\_aj12/index.html}{Abril-Julio 2012}:',
+        [
+            'Pregunta 0.g.'
+        ],
+        'En el \href{http://ldc.usb.ve/~emhn/cursos/ci3725/201304/P1-Soluci\%C3\%B3n.pdf}{1er parcial} de \href{http://ldc.usb.ve/~emhn/cursos/ci3725/201304/}{Abril-Julio 2013}:',
+            ['Pregunta 1.3.']
+    ]
+}
+
+-- Sintaxis para armar un documento final debe ser diferente. La cual debe concentrarse en la extructura del documento.
+
+main <- {
+    texto1
+    titulo
+    parafo1
+    'Lecturas adicionales:' <- {
+        lista1
+    }
+    'Ejercicios sugeridos de Parciales:' <- {
+        lista2
+    }
+}
+
+-- main.append(texto1)
