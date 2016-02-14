@@ -16,16 +16,16 @@ main {
   parskip: parskip + baselineskip
 }
 
-hreff :: Procedure {
-  arity: 1
-  action: Action {
-    h: href {
-      url: $1
-      name: $1
-    }
-    write h
-  }
-}
+.. hreff :: Procedure {
+..   arity: 1
+..   action: Action {
+..     h: href {
+..       url: $1
+..       name: $1
+..     }
+..     write h
+..   }
+.. }
 
 thesection :: Procedure {
   arity: 0
@@ -36,7 +36,7 @@ thesection :: Procedure {
   }
 }
 
-reopen main {
+main {
   section: -1
 }
 
@@ -51,10 +51,10 @@ thesubsection :: Procedure {
 
 texto1: Text {
   text: let {
-    str1: "Universidad Simón Bolívar"
-    str2: "Departamento de Computación y Tecnología de la Información"
-    str3: "CI3725 -- Traductores e Interpretadores"
-    str4: "Octubre 2013 -- Enero 2014"
+    str1: 'Universidad SimÃ³n BolÃ­var'
+    str2: 'Departamento de ComputaciÃ³n y TecnologÃ­a de la InformaciÃ³n'
+    str3: 'CI3725 -- Traductores e Interpretadores'
+    str4: 'Octubre 2013 -- Enero 2014'
     } in str1 + ln + str2 + ln + str3 + ln + str4
   size: footnotesize
   ident: 0
@@ -63,38 +63,36 @@ texto1: Text {
 titulo :: Title {
     align: center
     size: large
-    text:
-    'Guía de Estudio - Clase 00
-    
-    Conceptos Básicos'
+    text:'GuÃ­a de Estudio - Clase 00
+
+    Conceptos BÃ¡sicos'
 }
 
 parafo1 :: Text {
-  text: 
-    'Este documento proporciona enlaces a guías y parciales con ejercicios
-    relacionados al tema de \emph{Conceptos Básicos}:'
+  text: 'Este documento proporciona enlaces a guÃ­as y parciales con ejercicios
+  relacionados al tema de \emph{Conceptos BÃ¡sicos}:'
 }
 
 lista1 :: List {
   items: let {
-        it1: 'Láminas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos Básicos} de Carlos Pérez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.'
+        it1: 'LÃ¡minas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos BÃ¡sicos} de Carlos PÃ©rez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.'
         it2: 'Secciones 2.1 y 2.2 del \href{http://www.amazon.com/Languages-Machines-Introduction-Computer-Science/dp/0321322215}{Sudkamp}.'
-        it3: 'Capítulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
+        it3: 'CapÃ­tulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
     } in [it1, it2, it3]
 }
 
--- Otra opción
+.. Otra opciÃ³n
 
 lista1 :: List {
   items: [
-        'Láminas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos Básicos} de Carlos Pérez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.',
+        'LÃ¡minas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos BÃ¡sicos} de Carlos PÃ©rez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.',
         'Secciones 2.1 y 2.2 del \href{http://www.amazon.com/Languages-Machines-Introduction-Computer-Science/dp/0321322215}{Sudkamp}.',
-        'Capítulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
+        'CapÃ­tulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
   ]
 }
 
 lista2 :: List {
-    enumerate: false -- Este valor por defecto es false, pero solo para ilustrar si se quiere enumerar solo debe ponerse en true
+    enumerate: false .. Este valor por defecto es false, pero solo para ilustrar si se quiere enumerar solo debe ponerse en true
     items: [
         'En el \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725\_aj12/archivos/e1\_sol.pdf}{1er parcial} de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725\_aj12/index.html}{Abril-Julio 2012}:',
         [
@@ -105,18 +103,8 @@ lista2 :: List {
     ]
 }
 
--- Sintaxis para armar un documento final debe ser diferente. La cual debe concentrarse en la extructura del documento.
-
-main <- {
-    texto1
-    titulo
-    parafo1
-    'Lecturas adicionales:' <- {
-        lista1
-    }
-    'Ejercicios sugeridos de Parciales:' <- {
-        lista2
-    }
-}
-
--- main.append(texto1)
+..{
+    Todo lo que se encuentre dentro de este bloque sera ignorado. El uso de
+    comentarios de bloques anidados es considerado un mala practica pero
+    sucedera de igual forma, ..{ asi que es posible hacerlo. }..
+}..
