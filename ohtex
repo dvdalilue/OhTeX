@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $1 ]]; then
+	#echo $1
+	fileN="${1%.*}"
+	echo $fileN
+	ruby $1 > "$fileN".tex
+	pdflatex "$fileN".tex
+	rm -f "$fileN".out "$fileN".aux "$fileN".log
+	exit
+fi
+
+echo "Missing argument!"
