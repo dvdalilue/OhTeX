@@ -1,7 +1,7 @@
 class Parser
 
     token  'and' 'break' 'case' 'class' 'do' 'else' 'elsif' 'false' 'for' 'fun'
-           'if' 'in' 'let' 'loop' 'nil' 'nl' 'or' 'rescue' 'return' 'self' 'super'
+           'if' 'loop' 'nil' 'nl' 'or' 'rescue' 'return' 'self' 'super'
            'true' 'try' 'until' 'use' 'when' 'while' 'string' 'identifier'
            'constant' 'size' 'number' '{' '}' '[' ']' '(' ')' '.' '::' ':' ';'
            ',' '+' '-' '*' '/' '%' '=' '!' '==' '!=' '<' '<=' '>' '>=' '<<'
@@ -31,11 +31,9 @@ class Parser
         'for'        'TkFor'
         'fun'        'TkFun'
         'if'         'TkIf'
-        'in'         'TkIn'
-        'let'        'TkLet'
         'loop'       'TkLoop'
         'nil'        'TkNil'
-        'nl '        'TkNewLine'
+        'nl'         'TkNewLine'
         'or'         'TkOr'
         'rescue'     'TkRescue'
         'return'     'TkReturn'
@@ -60,7 +58,7 @@ class Parser
         ','          'TkComma'
         '+'          'TkPlus'
         '-'          'TkMinus'
-        '*'          'TkArterisk'
+        '*'          'TkAsterisk'
         '/'          'TkSlash'
         '%'          'TkPercent'
         '='          'TkAssign'
@@ -68,14 +66,14 @@ class Parser
         '=='         'TkEqual'
         '!='         'TkNotEqual'
         '<'          'TkLess'
-        '<='         'TkLessEqual'
+        '<='         'TkLessEq'
         '>'          'TkGreater'
-        '>='         'TkGreaterEqual'
+        '>='         'TkGreaterEq'
         '<<'         'TkInsert'
         'string'     'TkString'
         'identifier' 'TkIdentifier'
         'constant'   'TkConstant'
-        'size'       'TkSize'
+        'size'       'TkNumSize'
         'number'     'TkNumber'
 end
 
@@ -83,88 +81,96 @@ start Program
 
 rule
 
-    Program: LinesPlus Packages Elements
-           | Packages Elements
+    Program: ObjectList           { result = Program::new(val[0]) }
+           | LinesPlus ObjectList { result = Program::new(val[1]) }
            ;
 
-    Packages: Packages 'use' PackList LinesPlus
-            | 'use' PackList LinesPlus
-            ;
-
-    PackList: PackList ',' 'identifier'
-            | 'identifier'
-            ;
-
-    Elements: Elements Object
-            | Elements LinesPlus Object
-            | Object
-            ;
-
-    Object: 'identifier' '::' 'constant' Args
-          #| 'identifier' '::' 'constant' # shift-reduce
-          ;
-
-    Args: LinesPlus '{' LinesPlus ArgList LinesPlus '}'
-        | LinesPlus '{' ArgList LinesPlus '}'
-        | LinesPlus '{' LinesPlus ArgList '}'
-        | '{' LinesPlus ArgList LinesPlus '}'
-        | '{' ArgList LinesPlus '}'
-        | '{' LinesPlus ArgList '}'
-        | '{' ArgList '}'
-        | '{' '}' #'nl'
-        ;
-
-    ArgList: ArgList LinesPlus SingletonArg
-           | SingletonArg
-           ;
-
-    SingletonArg: 'identifier' ':' Expression
-                ;
-
-    Expression: 'string'
-              | 'size'
-              | 'number'
-              | 'true'
-              | 'false'
-              | 'identifier'
-              | Array
-              | '-' Expression =UMINUS
-              | '!' Expression
-              | Expression '+' Expression
-              | Expression '-' Expression
-              | Expression '*' Expression
-              | Expression '/' Expression
-              | Expression '%' Expression
-              | Expression 'and' Expression
-              | Expression 'or' Expression
-              | Expression '==' Expression
-              | Expression '!=' Expression
-              | Expression '<' Expression
-              | Expression '<=' Expression
-              | Expression '>' Expression
-              | Expression '>=' Expression
-              | '(' Expression ')'
+    ObjectList: /* empty rule */            { result = []                 }
+              | Object                      { result = [val[0]]           }
+              | Object LinesPlus ObjectList { result = (val[2] << val[0]) }
               ;
 
-    Array: '[' LinesPlus ArrayList LinesPlus ']'
-         | '[' ArrayList LinesPlus ']'
-         | '[' LinesPlus ArrayList ']'
-         | '[' ArrayList ']'
-         ;
+    Object: Package  { result = val[0] }
+          | Instance { result = val[0] }
+          | Reopen   { result = val[0] }
+          ;
 
-    ArrayList: ArrayList ',' Expression  
-             | ArrayList ',' LinesPlus Expression
-             | Expression
+    Package: 'use' PackList { result = Use::new(val[1],[]) }
+           #| 'use' PackList Args { result = Use::new(val[1],val[2]) }
+           ;
+
+    PackList: 'identifier'              { result = [val[0]]           }
+            | 'identifier' ',' PackList { result = (val[2] << val[0]) }
+            ;
+
+    Instance: 'identifier' '::' 'constant' Args { result = Instance::new(val[0],val[2],val[3]) }
+            ;
+
+    Reopen: 'identifier' Args { result = Reopen::new(val[0],val[1]) }
+          ;
+
+    Args: '{' ArgB '}'           { result = val[1] }
+        | LinesPlus '{' ArgB '}' { result = val[2] }
+        ;
+
+    ArgB: ArgList           { result = val[0] }
+        | LinesPlus ArgList { result = val[1] }
+        ;
+
+    ArgList: /* empty rule */            { result = []                 }
+           | SingleArg                   { result = [val[0]]           }
+           | SingleArg LinesPlus ArgList { result = (val[2] << val[0]) }
+           ;
+
+    SingleArg: 'identifier' ':' Expression { result = SingletonArg::new(val[0],val[2]) }
              ;
 
-    LinesPlus: LinesPlus 'nl'
-             | 'nl'
+    Expression: 'string'                    { result = val[0]                         }
+              | 'size'                      { result = val[0]                         }
+              | 'number'                    { result = val[0]                         }
+              | 'true'                      { result = val[0]                         }
+              | 'false'                     { result = val[0]                         }
+              | 'identifier'                { result = val[0]                         }
+              | Array                       { result = val[0]                         }
+              | '-' Expression =UMINUS      { result = UnaryMinus::new(val[1])        }
+              | '!' Expression              { result = Negate::new(val[1])            }
+              | Expression '+' Expression   { result = Plus::new(val[0], val[2])      }
+              | Expression '-' Expression   { result = Minus::new(val[0], val[2])     }
+              | Expression '*' Expression   { result = Product::new(val[0], val[2])   }
+              | Expression '/' Expression   { result = Division::new(val[0], val[2])  }
+              | Expression '%' Expression   { result = Mod::new(val[0], val[2])       }
+              | Expression 'and' Expression { result = LogicAnd::new(val[0], val[2])  }
+              | Expression 'or' Expression  { result = LogicOr::new(val[0], val[2])   }
+              | Expression '==' Expression  { result = Equal::new(val[0], val[2])     }
+              | Expression '!=' Expression  { result = Unequal::new(val[0], val[2])   }
+              | Expression '<' Expression   { result = Less::new(val[0], val[2])      }
+              | Expression '<=' Expression  { result = LessEq::new(val[0], val[2])    }
+              | Expression '>' Expression   { result = Greater::new(val[0], val[2])   }
+              | Expression '>=' Expression  { result = GreaterEq::new(val[0], val[2]) }
+              | '(' Expression ')'          { result = val[1]                         }
+              ;
+
+    Array: '[' LinesPlus ArrayList LinesPlus ']' { result = Array::new(val[2]) }
+         | '[' ArrayList LinesPlus ']'           { result = Array::new(val[1]) }
+         | '[' LinesPlus ArrayList ']'           { result = Array::new(val[2]) }
+         | '[' ArrayList ']'                     { result = Array::new(val[1]) }
+         ;
+
+    ArrayList: ArrayList ',' Expression           { result = (val[0] << val[2]) }
+             | ArrayList ',' LinesPlus Expression { result = (val[0] << val[3]) }
+             | Expression                         { result = [val[0]]           }
+             ;
+
+    LinesPlus: 'nl'           
+             | 'nl' LinesPlus
+             | ';'            
+             | ';' LinesPlus 
              ;
 
 ---- header ----
 
-require_relative '../lexer/lexer'
-#require_relative 'Interpreter2'
+require_relative "../lexer/lexer"
+require_relative "ast"
 
 class SyntacticError < RuntimeError
 
@@ -173,7 +179,7 @@ class SyntacticError < RuntimeError
     end
 
     def to_s
-        "Syntactic error '#{@token.to_s}' -- line: #{@token.line} -- column: #{@token.column}."   
+        "Syntactic error: #{@token.to_s_error} line: #{@token.line} -- column: #{@token.column}"   
     end
 end
 
@@ -185,6 +191,7 @@ end
    
 def next_token
     token = @lexer.next
+    #puts token.name
     return [false,false] unless token
     return [token.class,token]
 end
