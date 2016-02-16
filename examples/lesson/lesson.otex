@@ -1,5 +1,5 @@
 use t1enc
-use inputenc { lang: latin1 }
+use inputenc .. { lang: latin1 }
 use enumerate
 use hyperref
 
@@ -27,35 +27,33 @@ main {
 ..   }
 .. }
 
-thesection :: Procedure {
-  arity: 0
-  action: Action {
-    write Latex {
-      literal: '\arabic{section}'
-    }
-  }
-}
+.. thesection :: Procedure {
+..   arity: 0
+..   action: Action {
+..     write Latex {
+..       literal: '\arabic{section}'
+..     }
+..   }
+.. }
 
 main {
   section: -1
 }
 
-thesubsection :: Procedure {
-  arity: 0
-  action: Action {
-    write Latex {
-      literal: '\arabic{section}.\arabic{subsection}.'
-    }
-  }
-}
+.. thesubsection :: Procedure {
+..   arity: 0
+..   action: Action {
+..     write Latex {
+..       literal: '\arabic{section}.\arabic{subsection}.'
+..     }
+..   }
+.. }
 
-texto1: Text {
-  text: let {
-    str1: 'Universidad Simón Bolívar'
-    str2: 'Departamento de Computación y Tecnología de la Información'
-    str3: 'CI3725 -- Traductores e Interpretadores'
-    str4: 'Octubre 2013 -- Enero 2014'
-    } in str1 + ln + str2 + ln + str3 + ln + str4
+texto1:: Text {
+  text: 'Universidad Simón Bolívar
+        Departamento de Computación y Tecnología de la Información
+        CI3725 -- Traductores e Interpretadores
+        Octubre 2013 -- Enero 2014'
   size: footnotesize
   ident: 0
 }
@@ -71,14 +69,6 @@ titulo :: Title {
 parafo1 :: Text {
   text: 'Este documento proporciona enlaces a guías y parciales con ejercicios
   relacionados al tema de \emph{Conceptos Básicos}:'
-}
-
-lista1 :: List {
-  items: let {
-        it1: 'Láminas de \href{http://ldc.usb.ve/~rmonascal/cursos/ci3725_aj12/archivos/clase0.pdf}{Conceptos Básicos} de Carlos Pérez y \href{http://ldc.usb.ve/~rmonascal/}{Ricardo Monascal}.'
-        it2: 'Secciones 2.1 y 2.2 del \href{http://www.amazon.com/Languages-Machines-Introduction-Computer-Science/dp/0321322215}{Sudkamp}.'
-        it3: 'Capítulo 1 del \href{http://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886}{Compilers}.'
-    } in [it1, it2, it3]
 }
 
 .. Otra opción

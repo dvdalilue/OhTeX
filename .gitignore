@@ -80,6 +80,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-#Customs
-
-bin/miktex/
+#Custom files
+parser/parser.rb
