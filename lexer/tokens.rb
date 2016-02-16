@@ -45,7 +45,7 @@ $tokens = {
     :percent       => /\A\%/                           ,
     :assign        => /\A\=/                           ,
     :insert        => /\A\<\</                         ,
-    :negate        => /\A\!(?!=)/                      ,
+    :negation      => /\A\!(?!=)/                      ,
     :equal         => /\A\=\=/                         ,
     :not_equal     => /\A\!\=/                         ,
     :less          => /\A\<(?!=)/                      ,
@@ -53,17 +53,16 @@ $tokens = {
     :greater       => /\A\>(?!=)/                      ,
     :greater_eq    => /\A\>\=/                         ,
     :new_line      => /\A\n/                           ,
-    :num           => /\A\d+/                          ,
     :string        => /\A\'[^\']*\'/                   ,
-    :num_size      => /\A\p{Digit}+[^\p{Punct} ]+/     ,   
+    :num_size      => /\A\p{Digit}+[^\p{Punct} \n]+/   ,   
     :identifier    => /\A\p{Lower}[[^\p{Punct} \n]_]*/ ,   
     :constant      => /\A\p{Upper}[[^\p{Punct} \n]_]*/ ,   
+    :number        => /\A\d+/                          ,
     :any           => /\A\S*/
 }
 
 $reserved_words.each do |s|
     temp_hash = {}
-
     temp_hash[s] = /\A#{s.to_s}\b/
     temp_hash.merge!($tokens)
     $tokens = temp_hash

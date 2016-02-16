@@ -1,4 +1,4 @@
-require_relative "tokens"
+require_relative "classes"
 
 # $&  # Depends on $~. The string matched by the last successful match.
 # $`  # Depends on $~. The string to the left of the last successful match.
@@ -9,14 +9,19 @@ require_relative "tokens"
 
 class Lexer
 
-    attr_accessor :input, :line, :column
+    attr_accessor :input,
+                  :line,
+                  :column,
+                  :tokens,
+                  :errors
 
     # Constructor
     def initialize input_file
         @line    = 1
         @column  = 1
-        @input   = input_file
-        @input   = @input.gsub(/\t/, '    ')
+        @input   = input_file.gsub(/\t/, '    ')
+        @tokens  = []
+        @errors  = []
     end
 
     def ignore_blanks
@@ -70,16 +75,26 @@ class Lexer
         ignore_blanks
 
         while ignore_comment; end
-        
-        $tokens.each do |k,v|
-            if v.match @input
-                #puts "token find ---> #{k.to_s}, \"#{$& unless k.eql? :new_line}\", line: #{@line}"
+        tk = nil
+        $tokens_class.each do |sym,cl|
+            if cl.regex.match @input
                 @input = $'
-                update_l_c $&.clone, k
+                return if $&.empty?
+                tk = cl.new $&.clone, @line, @column
+                if TkAny.eql? cl
+                    @errors << tk
+                else
+                    @tokens << tk
+                end
+                update_l_c $&.clone, sym
                 ignore_blanks
                 break
             end
         end
-        return true
+        return tk
+    end
+
+    def run
+        while self.next; end
     end
 end
