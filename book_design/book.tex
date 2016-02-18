@@ -1,0 +1,618 @@
+\documentclass[12pt,letterpaper,titlepage,oneside,openright]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[svgnames]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{lettrine}
+\usepackage{listings}
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{lipsum}
+%\usepackage{booktabs}
+%\usepackage{cleveref}
+%\usepackage{microtype}
+%\usepackage{geometry}
+%\usepackage{nag}
+%\usepackage{siunitx}
+
+\lstset{
+basicstyle=\footnotesize\ttfamily,
+numbers=left,
+numberstyle=\scriptsize,
+numbersep=1pt,
+belowskip=\medskipamount,
+frame = single,
+framexleftmargin=15pt
+}
+
+\renewcommand*\lstlistingname{Código}
+
+\newcommand*\initfamily{\usefont{U}{Zallman}{xl}{n}}
+
+\renewcommand*\rmdefault{ptm} % Times Font
+
+\renewcommand{\labelitemi}{$\bullet$} % List symbol
+
+\newcommand{\latex}{\LaTeX\xspace}
+\newcommand{\tex}{\TeX\xspace}
+
+%\renewcommand{\theenumi}{Opción \alph{enumi}}
+
+%\newcommand{\ohtex}{
+%    \raisebox{0pt}[0pt][0pt]{\makebox[1.53ex][l]{O}\raisebox{0.22ex}{\relscale{0.55}\makebox[0.7ex][l]{H}}}%
+%    \TeX
+%}
+%
+%\newcommand{\OhTeX}{
+%    \raisebox{0pt}[0pt][0pt]{\makebox[1.53ex][l]{O}\raisebox{0.22ex}{\makebox[0.7ex][l]{\large H}}}%
+%    \TeX
+%}
+
+\newcommand{\ohtex}{OhTeX}
+
+% Reduce hyphenation
+\hyphenpenalty 1000
+\exhyphenpenalty 1000
+
+\setlength{\parindent}{3em} % First line paragraph indentation
+\setlength{\parskip}{2em} % Paragraph spacing
+\renewcommand{\baselinestretch}{1.3} % Line spacing
+%1.0    single spacing
+%1.3    one-and-a-half spacing
+%1.6    double spacing
+
+\setcounter{chapter}{0} % Chapter begins on chapter -1
+
+\newcommand{\nonumberchapter}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1}
+}
+
+\newcommand{\myref}[5]{
+    #1. #2. #3. Disponible en Internet: #4, consultado el #5.
+
+% Huerta, Ana. 2003. El gabinete de Historia Natural de Puebla. Disponible en Internet: http://www.elementos.buap.mx/num48/htm/17.htm, consultado el 25 de Abril de 2008.
+}
+
+\newcommand{\ttcode}[1]{(\texttt{#1})}
+
+%\title{\ohtex : Un lenguaje de programación orientado a objetos para la composición tipográfica}
+\title{\initfamily}
+\author{Lilue, David}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\nonumberchapter{Preámbulo}
+
+\section*{Resumen}
+
+\lettrine[lines=2]{D}{}\ urante la década de los $70'$ se creó un lenguaje llamado \textit{troff} qué fue inspirado por
+runoff, el primer programa para el formato de texto qué fue desarrollado a mediados
+de los 60'. \textit{troff} posee la cualidad de de indicar fuente, espaciados,
+párrafos, márgenes, pie de páginas, posicionar caracteres de manera arbitraria en las
+páginas, superponerlas, entre otras cosas. Aunque hoy en día existen lenguajes para
+la composición tipográfica que son comunmente usados, como \LaTeX \ y otros lenguajes de
+markup, este sigue siendo usado ampliamente para la documentación de UNIX. Por otro
+lado en los años 90' se reimplementado como \textit{groff} por los sistemas GNU, por
+cuestiones de software libre. 
+
+Un aspecto importante, es para quién está destinado este lenguaje de composición
+tipográfica, es decir, para una comunidad científica y de investigación, para la
+comunidad literaria, para una comunidad administrativa y/o gerencial o todas? 
+
+Existen muchos lenguajes de Markup, unos que son simples, otros que son más
+complejos, así como \textit{markdown} y \LaTeX, respectivamente. Uno trata de
+simplificar y el otro trata de generar un documento enfocado en la belleza. Tomando
+en cuenta que se desea la posibilidad de generar documentos similares a los de latex,
+pero que sea tan sencillo cómo un lenguaje de markup ligero (LML). Dándole un punto
+de vista más estructural y abstracto, haciendo uso de la orientación a objetos.
+
+La idea con este lenguaje es poder manejar de una manera abstracta y simple, los
+elementos de un documento así como su composición tipográfica en el documento final
+generado. Por lo tanto, será posible usar estructuras de control para generar
+distintos documentos a partir de objetos y estructuras abstractas.
+
+% Por ejemplo, agarrar una plantilla con espacios vacíos iterar sobre una lista de
+% objetos dónde cada objeto llene de manera diferente y sus espacios vacíos. Sería
+% como una meta programación de documentos.
+
+\newpage
+ 
+%\addcontentsline{toc}{chapter}{Dedicatoria}
+\section*{} % Dedicatoria
+\begin{flushright}
+Para todos esos artistas que dejaron su obra, \\ sin su nombre y aun así trascendieron.
+\end{flushright}
+
+\newpage
+
+%\addcontentsline{toc}{chapter}{Agradecimientos}
+\section*{} % Agradecimientos
+\begin{flushleft}
+Agradezco a...?
+\end{flushleft}
+
+\newpage
+
+\tableofcontents
+
+\mainmatter
+
+%\thispagestyle{empty} % Removes the page numbering.
+
+%\listoffigures
+
+%\pagebreak
+ 
+%\listoftables
+ 
+%\newpage
+
+%\pagenumbering{arabic} % Re-start the page numbering with arabic style.
+
+%\chapter{Motivación}
+\chapter{Introducción}
+\section{Antecedentes}
+%\lipsum[1]
+La composición tipográfica es un termino que se maneja desde alrededores del año 1040, refiriéndose
+a la estructura del texto ordenando \textit{types} (una pieza que represente una letra o
+símbolo) acorde a la ortografía de un lenguaje y al final, obtener la visualización de un texto.
+
+Al principio, se tenían piezas movibles que se ordenaban a mano (dichas piezas estaban al revés 
+para que saliesen bien orientadas al imprimir) y se imprimían pagina por pagina. Todo esta 
+metodología para la composición tipográfica se inicio en china con piezas de cerámica, 
+posteriormente se usaron piezas de metal (bronce). Esta tecnología de impresión llego a Europa
+en el siglo 15 y era usada principalmente para cartas.
+
+Para el siglo 19, se había globalizado e industrializado esta forma de impresión, mas que todo por
+imprentas y editoriales, gracias a la maquina linotipia (\textit{Linotype Machine}). Estas mismas duraron hasta las ultimas décadas del siglo 20, dado que fueron sustituidas por una nueva tecnología llamada foto-composición, que hacia uso programas para la composición tipográfica electrónica como \textit{troff} y un \textit{phototypesetter} (\textit{CAT}).  A pesar de su innovación, se convirtió rápidamente en un método obsoleto gracias a avanzados lenguajes de composición tipográfica como:
+
+\begin{itemize}
+\item ditroff (1979)
+\item \TeX \ (1979)
+\item \LaTeX \ (1981-1983)
+\end{itemize}
+
+\subsection{Linea de Tiempo}
+
+\begin{itemize}
+
+\item 1971, Graphic Systems designs and markets the C/A/T phototypesetter.
+\item 1972, Graphic Systems provides a simple computer front end to handle display typesetting from text input using a standard set of fonts.
+\item 1973, Bell Laboratories purchases a GSI C/A/T phototypesetter for their UNIX software development team.
+\item 1973, The troff software was created by Joe F. Ossanna at Bell Labs.
+\item 1974, Graphic Systems partners with Singer Corporation to market the GSI C/A/T phototypesetter. Singer Corporation was allowed to put the Singer C/A/T logo on equipment they sold.
+\item 1978, Singer Corporation gets out of the typesetting business.
+\item 1978, Wang Laboratories purchases Graphic Systems and continued to market the GSI C/A/T typesetter. for UNIX based phototypesetting. The phototypesetter was then known as the Wang Graphic Systems C/A/T. This allowed the phototypesetter to be available through the 1980s.
+\item 1979, ditroff software was created by Brian Kernighan.
+\item 1979, TeX software was created by Donald E. Knuth.
+\item 1981-1983, LaTeX software was created by Leslie Lamport.
+\item 1992, Wang Laboratories declared Chapter 11 bankruptcy.
+\end{itemize}
+
+\subsection{\textit{troff}}
+
+
+\subsection{\TeX}
+hola
+\subsection{\LaTeX}
+hola
+\subsection{ohtex}
+hola
+
+\chapter{Marco Teórico}
+\lipsum[1-2]
+\section{Seccion}
+\lipsum[1-2]
+\chapter{Marco Tecnológico}
+\lipsum[1-2]
+\chapter{Desarrollo}
+\lipsum[1-2]
+\chapter{OhTeX}
+
+\ohtex es un lenguaje de programación de dominio específico, imperativo,
+destinado a la composición tipografica y orientado a objetos. En el diseño del
+lenguaje se tienen elementos comumente usados en los lenguajes de programación,
+así como estructuras de datos, estructuras de control, funciones,
+procediemientos, etc.
+
+\ohtex es un lenguaje de dominio especifico (\textit{DSL}) externo, es decir,
+que tiene su propia sintaxis, embedido en Ruby. Esta desición fue tomada porque
+Ruby es un lenguaje orientado a objetos y así, todo el trabajo que conlleva el
+manejo de objetos en el lenguaje, el alcance dinámico y el modelo de referencia
+son trabajo de Ruby. Además, el mismo crea un ambiente propicio para creación de
+\textit{DSLs}, haciendolo el mejor candidato para la implementacion de \ohtex.
+
+Ahora, considerando la composición tipografica, se tomo en cuenta a \latex como
+herramienta para la generación y estructuración del texto, exportado en
+\textit{PDF}, que sería el producto final, es decir, un documento. Por lo tanto,
+\ohtex es un traductor (compilador) de Ruby a Latex, demostrando que un
+documento puede ser abstraido a un nivel mas alto y mantener una filosofia de
+generar documentos bonitos y al mismo tiempo poseer una estructura compresible.
+
+El proceso de traduccion seria asi:
+
+\begin{center}
+    OhTeX $\longrightarrow$ Ruby $\longrightarrow$ Latex $\longrightarrow$ PDF
+\end{center}
+
+\section{Estructura de un archivo \ohtex}
+
+Estructura de un programa \ohtex:
+
+\begin{center}
+\begin{lstlisting}
+    use <paquete>
+
+    <objeto> :: <clase> {
+        <atributo> : <valor> 
+    }
+
+    <objeto> >> '<nombre_archivo>'
+\end{lstlisting}
+\end{center}
+
+
+Durante toda la ejecución del programa, en el archivo pueden crearse $n$
+objetos, pero eso no le indica al lenguaje que esos $n$ objetos estarán
+presentes en un documento o no, si es que se decide exportar alguno.
+
+\section{Uso de paquetes}
+
+La palabra clave \texttt{use} es usada para indicarle a lenguaje cuales de los
+paquetes de latex se deseean usar en cualquiera de los documentos que se vayan a
+generar. Algunos de los paquetes exigen uno, mas parametros o son opcionales, en
+cualquiera de los casos, la sintaxis para el pase de parametros es por nombre,
+como se muestra a continuacion:
+
+\begin{center}
+\begin{lstlisting}[caption={Paquetes},label=pkgs]
+    use babel { lang : english }
+    use microtype { potrusion : true; expasion : true }
+    use geometry {
+        paper      : letter
+        left       : 1in
+        right      : 1in
+        top        : 1.5in
+        headheight : 1in
+        headsep    : 0.3in
+    }
+\end{lstlisting}
+\end{center}
+
+Por otro lado, se pueden especificar varios paquetes en una misma linea, eso
+solo en el caso de que ninguno de los paquetes necesita parametros, de la
+siguiente manera:
+
+\begin{center}
+\begin{lstlisting}
+    use amsmath amsfonts amsthm
+\end{lstlisting}
+\end{center}
+
+Esto es, porque en ciertas ocaciones existen paquetes que viene en conjunto ó
+tienen un proposito similar, ademas de la flexibilidad en cuanto a no escribir
+repetidamente la palabra reservada \texttt{use}.
+
+La herramienta comienza leyendo de arriba a abajo, interpretando, creando
+objetos, intereactuando con los mismo y al final puede o no generar uno o mas
+documentos. <<\textit{Crear un objeto no implica que el mismo estara en un
+documento}>>.
+
+Tomando en cuenta la estructura basica de un programa en \ohtex, en especifico
+los \textit{dos-puntos} dobles (\texttt{::}), representa la instanciación de
+una clase, es el constructor de objetos y la referencia a esa instancia es dada
+por el nombre (identificador) del lado izquierdo (\textit{lhs}). Por ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    doc1 :: Article {
+        ...
+    }   
+\end{lstlisting}
+\end{center}
+
+Si bien al construir un objeto, el mismo debe inicializarse (en el caso de que
+sea necesario), dependiendo si tiene o no valores por defecto. Y para ello, se
+usan las llaves, donde se encierra una secuencia (puede ser vacia) de
+identificadores que representan algunos (o todos) los atributos del objeto, cada
+nombre es seguido del simbolo \textit{dos-puntos} (\texttt{:}) y luego el valor
+que inicializará el atributo; cada una de estas inicializaciones es separada por
+salto de linea (\verb|\n|) o por punto-y-coma (\texttt{;}). Aqui se muestra una
+inicialización (\textit{singleton}):
+
+\begin{center}
+\begin{lstlisting}
+    font : 10pt
+\end{lstlisting}
+\end{center}
+
+Siguiendo lo anterior, cual sería el significado semántico de la expresión
+anterior? Los candidatos para denotar esta ``asignación" ó ``inicialización"
+fueron:
+
+\newpage
+
+\begin{center}
+\begin{enumerate}[label=Opción \alph*:, leftmargin=7em]
+    \item \hfill \\
+          \texttt{=}
+    \item \hfill \\
+          \texttt{:=}
+    \item \hfill \\
+          \texttt{:}
+    \item \hfill \\
+          \texttt{<-}
+\end{enumerate}
+\end{center}
+
+Y al final, se decidió por \textit{dos-puntos} (\texttt{:}), tomando en cuenta
+las siguientes consideraciones:
+
+\begin{itemize}
+\item El símbolo se va a escribir seguido, por lo tanto debe poseer la menor cantidad de caracteres posible, es decir, uno.
+\item El símbolo debe referir a la asocion de un atributo con un valor, como lo hace CSS (un lenguaje de markup) y JSON (un lenguaje de serializacion de datos).
+\item El símbolo debe poseer una semantica acorde a lo que se desea expresar. Por lo tanto, el símbolo (\texttt{:}) representa una pausa para hacer un llamado de atencion en lo que sigue y que siempre esta relacionado con el texto precedente. 
+\end{itemize}
+
+El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases,
+metodos, funciones y comandos.
+
+A pesar de que el símbolo (\texttt{:}) representa la inicialización de un
+atributo de un objeto al momento de su construcción, el simbolo de asignacion es
+(\texttt{=}). Ya construido el objeto, se puede acceder y \textit{settear} cada
+uno de su atributos. Por ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    doc1.font = 11pt
+\end{lstlisting}
+\end{center}
+
+\section{Lexicografía}
+
+\subsection{Identificadores}
+
+Cada identificador es un nombre que se usa para referir a una varible, metodo,
+comando, o paquete. 
+
+De igual manera a como se permite en Ruby y la mayoria de los lenguajes, los
+identificadores constan de caracteres alphanumericos (\verb|A-Za-z0-9|) y
+underscores (\_), pero sin que comience por numero y que comience siempre por
+minúscula. Tambien está permitido, que los identificadores de los metodos puedan
+terminar en interrogacion (?), exclamacion (!) ó igual (=). Sin restricciones
+en la longitud del identificador. Por ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    foo
+    bar
+    baz
+    this_is_my_4er_id
+\end{lstlisting}
+\end{center}
+
+Por otro lado, existen ciertas palabras reservadas que no podran ser usadas como
+identificar en ningun caso. Las cuales se listan mas adelante.
+
+\subsection{Comentarios}
+
+Los comentarios de linea serán a partir de dos puntos seguidos \ttcode{..} hasta
+el salto de linea (sin incluirlo). En caso de que desee incluir el salto de
+linea en el comentario se deben usar tres puntos seguidos \ttcode{...}. Por
+ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    .. esta linea no hace nada
+
+    a = 5 .. ``a" es una variable local inicializada con 5
+
+    a = 2 + ... esto es mas util con expresiones largas
+        3
+\end{lstlisting}
+\end{center}
+
+Los comentarios de bloque son a partir de dos puntos y una llave que abre
+\ttcode{..\{\}} hasta una llave que cierra seguida de dos puntos \ttcode{\}..}. Por
+ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    ..{
+        Todo lo que se encuentre dentro de este bloque sera
+        ignorado. El uso de comentarios de bloques anidados es
+        considerado un mala practica pero sucedera de igual
+        forma, ..{ asi que es posible hacerlo. }..
+    }..    
+\end{lstlisting}
+\end{center}
+
+\subsection{Palabras reservadas}
+
+La siguientes palabras estan reservadas en \ohtex:
+
+\begin{center}
+\begin{lstlisting}
+    and
+    break
+    case
+    class
+    do
+    else
+    elsif
+    false
+    for
+    fun
+    if
+    loop
+    nil
+    or
+    rescue
+    return
+    self
+    super
+    true
+    try
+    until
+    use
+    when
+    while
+\end{lstlisting}
+\end{center}
+
+\subsection{Expresiones}
+
+Al igual que en Ruby (dado que es un lenguaje embedido), todo es una expresion.
+La secuenciacion es dada por los saltos de linea y el punto-y-coma (``;").
+
+\section{Variables y Literales}
+
+\ohtex, al ser un lenguaje embedido en Ruby, mantiene un simil en ciertos
+aspectos de su sintaxis, asi como su alcance y declaración de variables. De
+alguna manera, es predecible, pero eso ayuda a reducir el tiempo de aprendizaje
+y brinda la posiblidad de generar programas intuitivamente, efocandose
+escencialmente en la objetivo final, generar un documento con una excelente
+composicion tipografica de manera estructural.
+
+\subsection{Variables globales}
+
+Toda variable que comience con dolar \ttcode{\$} tiene alcance global, dicha
+variable puede ser accesada en cualquier momento de la ejecucion desde cualquier
+lugar. Por ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    $foo
+\end{lstlisting}
+\end{center}
+
+\subsection{Variables locales}
+
+Una variable local es aquella que comienza con un letra en minusculas (a-z) o
+underscore (\_). O una llamada a un metodo. Ademas dicha variable sera asequible
+en el alcance donde fue declarada, exclusivamente.
+
+\subsection{Variables de instancia}
+
+%Falta definir sintaxis para la definicion de clases
+
+\subsection{Variables de clase}
+
+%Falta definir sintaxis para la definicion de clases
+
+\subsection{Pseudo variables}
+
+Siendo un lenguaje orientado a objetos, debe existir una variable que refiera al
+objeto actual, y para ello, tenemos \ttcode{self}.
+
+\section{Formato de texto}
+
+En esta sección se describen varios aspectos para darle un formato especifico al
+texto, se podrá ver que existe una similitud con `Markdown` y eso es para
+brindar facilidad cuando se genera un programa.
+
+\subsection{Tamaño de Fuente}
+
+\begin{verbatim}
+Command             10pt    11pt    12pt
+\tiny               5       6       6
+\scriptsize         7       8       8
+\footnotesize       8       9       10
+\small              9       10      10.95
+\normalsize         10      10.95   12
+\large              12      12      14.4
+\Large              14.4    14.4    17.28
+\LARGE              17.28   17.28   20.74
+\huge               20.74   20.74   24.88
+\Huge               24.88   24.88   24.88
+\end{verbatim}
+
+\subsection{Cursiva}
+
+Para cambiar el formato de algún texto en especifico, el mismo debe estar entre
+dos asteriscos \ttcode{*}, sin espacio al principio y sin saltos de linea.
+
+Siguiendo la siguiente expresión regular en Ruby:
+
+\begin{center}
+\verb|/(\*\p{Graph}+\*|\*\\p{Graph}+[\\p{Graph} ]*\*)/|
+\end{center}
+
+\subsection{Negrita}
+
+Similar a la sección anterior, se debe agrupar el texto, pero dentro de cuatro
+asteriscos `*`, dos de cada lado del texto y siguiendo las mismas restricciones.
+
+\begin{center}
+\verb|/(\*\*\p{Graph}+\*\*|\*\*\\p{Graph}+[\\p{Graph} ]*\*\*)/|
+\end{center}
+
+\section{Literales}
+
+\subsection{Numeros}
+
+\subsection{Booleanos}
+
+\subsection{Strings}
+
+\subsection{Arreglos}
+
+\subsection{Tablas de Hash}
+
+\subsection{Rangos}
+
+\subsection{Verbatim}
+
+En ciertas ocasiones se desea hacer uso explicito de una expresión que sea
+literal en Ruby ó \latex y para ello se hace uso de la siguiente sintaxis:
+
+Ruby:
+
+Cualquier código que sea escrito dentro de las llaves podrá usar los objetos de
+archivo definidos en \ohtex u otro verbatim de Ruby.
+
+\begin{verbatim}
+&ruby {
+    ... código ruby ...
+}
+\end{verbatim}
+
+\LaTeX:
+
+En el caso de \latex es mas simple, solamente se debe incorporar el código entre
+comillas simples al documento, haciendo uso del operador \ttcode{\<\<}. Haciendo
+distinción entre el preámbulo y los elementos dentro del documento.
+
+\begin{center}
+\begin{lstlisting}
+    doc1 :: Article {
+        ...
+    }
+
+    .. texto ohtex
+
+    doc1.preamble << '
+        \newcommand{cmd}[1]{Comando numero #1}
+    '
+
+    doc1.document << '
+        \noindent
+        Example paragraph...
+    '
+\end{lstlisting}
+\end{center}
+
+
+\chapter{Conclusiones y Recomendaciones}
+\lipsum[1-2]
+\end{document}
