@@ -1,77 +1,56 @@
 use t1enc
-use inputenc .. { lang: latin1 }
+use inputenc { lang: utf-8 }
 use enumerate
 use hyperref
 
-main :: Document {
-  font: 11pt
-  type: article
+main :: Article {
+  paper : a4
+  font  : 11pt
+  draft : true
+}
+
+main.paper = letter
+
+main.font = 5 + true
+
+main {
+  ... textwidth: 42eM
+  ... oddsizemargin: oddsidemargin - 5eM
+  ... textheight: 145ex
+  ... topmargin: -16ex
+  ... parskip: parskip + baselineskip
 }
 
 main {
-  textwidth: 42eM
-  oddsizemargin: oddsidemargin - 5eM
-  textheight: 145ex
-  topmargin: -16ex
-  parskip: parskip + baselineskip
+  ... section: -1
 }
 
-.. hreff :: Procedure {
-..   arity: 1
-..   action: Action {
-..     h: href {
-..       url: $1
-..       name: $1
-..     }
-..     write h
-..   }
-.. }
-
-.. thesection :: Procedure {
-..   arity: 0
-..   action: Action {
-..     write Latex {
-..       literal: '\arabic{section}'
-..     }
-..   }
-.. }
-
-main {
-  section: -1
-}
-
-.. thesubsection :: Procedure {
-..   arity: 0
-..   action: Action {
-..     write Latex {
-..       literal: '\arabic{section}.\arabic{subsection}.'
-..     }
-..   }
-.. }
-
-texto1:: Text {
-  text: 'Universidad Simón Bolívar
-        Departamento de Computación y Tecnología de la Información
-        CI3725 -- Traductores e Interpretadores
+texto1 :: Text {
+  text: 'Universidad Simón Bolívar \\ 
+        Departamento de Computación y Tecnología de la Información \\
+        CI3725 -- Traductores e Interpretadores \\
         Octubre 2013 -- Enero 2014'
-  size: footnotesize
-  ident: 0
+  .. size: footnote
+  .. ident: 0
 }
 
-titulo :: Title {
-    align: center
-    size: large
+
+titulo :: Text {
+    .. align: center
+    .. size: Large
     text:'Guía de Estudio - Clase 00
 
     Conceptos Básicos'
 }
+
+main << texto1 << titulo
 
 parafo1 :: Text {
   text: 'Este documento proporciona enlaces a guías y parciales con ejercicios
   relacionados al tema de \emph{Conceptos Básicos}:'
 }
 
-.. Otra opción
+.. Comentario de linea
 
 lista1 :: List {
   items: [
