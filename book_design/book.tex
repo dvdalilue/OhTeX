@@ -20,40 +20,37 @@
 %\usepackage{nag}
 %\usepackage{siunitx}
 
+\newcommand{\OhTeX}{%
+    \makebox[0.76em][c]{O}%
+    \makebox[0.25em][c]{%
+        \raisebox{0.14em}[0em][0em]{%
+            \fontsize{0.5em}{0cm}%
+                \selectfont H%
+        }%
+    }%
+    \makebox[1.35em][c]{\TeX}%
+}
+
+% Change title of every code listing
+\renewcommand*\lstlistingname{Código}
+% Code listing options
 \lstset{
 basicstyle=\footnotesize\ttfamily,
-numbers=left,
-numberstyle=\scriptsize,
-numbersep=1pt,
+%numbers=left,
+%numberstyle=\scriptsize,
+%numbersep=1pt,
 belowskip=\medskipamount,
 frame = single,
 framexleftmargin=15pt
 }
 
-\renewcommand*\lstlistingname{Código}
-
-\newcommand*\initfamily{\usefont{U}{Zallman}{xl}{n}}
-
 \renewcommand*\rmdefault{ptm} % Times Font
-
 \renewcommand{\labelitemi}{$\bullet$} % List symbol
 
+% Add a space a the end of the original logo
 \newcommand{\latex}{\LaTeX\xspace}
 \newcommand{\tex}{\TeX\xspace}
-
-%\renewcommand{\theenumi}{Opción \alph{enumi}}
-
-%\newcommand{\ohtex}{
-%    \raisebox{0pt}[0pt][0pt]{\makebox[1.53ex][l]{O}\raisebox{0.22ex}{\relscale{0.55}\makebox[0.7ex][l]{H}}}%
-%    \TeX
-%}
-%
-%\newcommand{\OhTeX}{
-%    \raisebox{0pt}[0pt][0pt]{\makebox[1.53ex][l]{O}\raisebox{0.22ex}{\makebox[0.7ex][l]{\large H}}}%
-%    \TeX
-%}
-
-\newcommand{\ohtex}{OhTeX}
+\newcommand{\ohtex}{\OhTeX\xspace}
 
 % Reduce hyphenation
 \hyphenpenalty 1000
@@ -81,8 +78,7 @@ framexleftmargin=15pt
 
 \newcommand{\ttcode}[1]{(\texttt{#1})}
 
-%\title{\ohtex : Un lenguaje de programación orientado a objetos para la composición tipográfica}
-\title{\initfamily}
+\title{\ohtex \ : Un lenguaje de programación orientado a objetos destinado a la composición tipográfica}
 \author{Lilue, David}
 
 \begin{document}
@@ -200,24 +196,26 @@ imprentas y editoriales, gracias a la maquina linotipia (\textit{Linotype Machin
 \end{itemize}
 
 \subsection{\textit{troff}}
-
-
+\lipsum[1-2]
 \subsection{\TeX}
-hola
+\lipsum[1-2]
 \subsection{\LaTeX}
-hola
-\subsection{ohtex}
-hola
+\lipsum[1-2]
+\subsection[OhTeX]{\ohtex}
+\lipsum[1-2]
 
 \chapter{Marco Teórico}
 \lipsum[1-2]
-\section{Seccion}
-\lipsum[1-2]
+\section{Composición Tipográfica}
+\section{Programación orientada a objetos (\textit{OOP})}
+
 \chapter{Marco Tecnológico}
 \lipsum[1-2]
+
 \chapter{Desarrollo}
 \lipsum[1-2]
-\chapter{OhTeX}
+
+\chapter[OhTeX]{\ohtex}
 
 \ohtex es un lenguaje de programación de dominio específico, imperativo,
 destinado a la composición tipografica y orientado a objetos. En el diseño del
@@ -242,10 +240,10 @@ generar documentos bonitos y al mismo tiempo poseer una estructura compresible.
 El proceso de traduccion seria asi:
 
 \begin{center}
-    OhTeX $\longrightarrow$ Ruby $\longrightarrow$ Latex $\longrightarrow$ PDF
+    \ohtex $\longrightarrow$ Ruby $\longrightarrow$ \latex $\longrightarrow$ PDF
 \end{center}
 
-\section{Estructura de un archivo \ohtex}
+\section[Estructura de un archivo OhTeX]{Estructura de un archivo \ohtex}
 
 Estructura de un programa \ohtex:
 
