@@ -13,6 +13,7 @@
 \usepackage{relsize}
 \usepackage{xspace}
 \usepackage{lipsum}
+\usepackage{tabularx}
 %\usepackage{booktabs}
 %\usepackage{cleveref}
 %\usepackage{microtype}
@@ -41,7 +42,8 @@ basicstyle=\footnotesize\ttfamily,
 %numbersep=1pt,
 belowskip=\medskipamount,
 frame = single,
-framexleftmargin=15pt
+framexleftmargin=15pt,
+literate={á}{{\'a}}1 {í}{{\'i}}1 {é}{{\'e}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1,
 }
 
 \renewcommand*\rmdefault{ptm} % Times Font
@@ -51,6 +53,8 @@ framexleftmargin=15pt
 \newcommand{\latex}{\LaTeX\xspace}
 \newcommand{\tex}{\TeX\xspace}
 \newcommand{\ohtex}{\OhTeX\xspace}
+\newcommand{\ruby}{\textit{Ruby}\xspace}
+\newcommand{\lyx}{\textit{LyX}\xspace}
 
 % Reduce hyphenation
 \hyphenpenalty 1000
@@ -96,9 +100,9 @@ runoff, el primer programa para el formato de texto qué fue desarrollado a medi
 de los 60'. \textit{troff} posee la cualidad de de indicar fuente, espaciados,
 párrafos, márgenes, pie de páginas, posicionar caracteres de manera arbitraria en las
 páginas, superponerlas, entre otras cosas. Aunque hoy en día existen lenguajes para
-la composición tipográfica que son comunmente usados, como \LaTeX \ y otros lenguajes de
+la composición tipográfica que son comúnmente usados, como \LaTeX \ y otros lenguajes de
 markup, este sigue siendo usado ampliamente para la documentación de UNIX. Por otro
-lado en los años 90' se reimplementado como \textit{groff} por los sistemas GNU, por
+lado en los años 90' se re-implementado como \textit{groff} por los sistemas GNU, por
 cuestiones de software libre. 
 
 Un aspecto importante, es para quién está destinado este lenguaje de composición
@@ -206,41 +210,171 @@ imprentas y editoriales, gracias a la maquina linotipia (\textit{Linotype Machin
 
 \chapter{Marco Teórico}
 \lipsum[1-2]
-\section{Composición Tipográfica}
+\section{Composición Tipográfica (\textit{Typesetting})}
 \section{Programación orientada a objetos (\textit{OOP})}
+\section{Lenguajes de \textit{Markup}}
+\section{Serialización de datos}
+\section{Leanguajes de dominio específico (\textit{DSLs})}
 
 \chapter{Marco Tecnológico}
 \lipsum[1-2]
 
 \chapter{Desarrollo}
-\lipsum[1-2]
+En principio se ideo la posibilidad de que el lenguaje fuese no mas que una
+librería de un lenguaje orientado a objetos que tradujese a \latex, pero esto
+limitaría las características y posibilidades al momento de generar documentos.
+Es evidente que el lenguaje limitara el poder de \latex, pero se quiere evitar
+en mayor porcentaje dicha perdida y tener una interfaz lo suficientemente
+flexible para abarcar las cualidades necesarias para la generación de documentos.
+
+También se pensó en implementar un herramienta que tradujese a \latex
+directamente, evitando intermediarios y se descarto esta posibilidad. Aunque es
+totalmente factible, y un des-ligamiento de otro lenguaje (ademas de \latex),
+representaría una mejora considerablemente en el rendimiento, pero sería un
+trabajo extenso para la demostración de un concepto, cuando la idea es comprobar
+que es posible reducir la dificultad de aprendizaje, sin perder flexibilidad de
+manejar documentos, ademas de los elementos tipográficos, como objetos
+referenciables, elevando el nivel de abstracción; y no simplemente como
+elementos ordenados secuencialmente enmarcados.
+
+Existen herramientas que tienen distintos enfoques al momento de la composición
+tipográfica, y siguen distintas filosofías al momento de procesar texto. Dos de
+ellas son \textit{WYSIWYG} (``\textit{what you see is what you get}'') y
+\textit{WYSIWYM} (``\textit{what you see is what you mean}''). \lyx y 
+\tex/\latex usan estas filosofías respectivamente. En este caso no están
+desligados uno del otro, dado que \lyx ofrece una interfaz donde muestra lo que
+sería el documento generado, pero se sigue escribiendo \latex, siendo
+simplemente una fachada para interactuar directamente con el contenido sin
+llegar a la semántica para generar dicho elemento tipográfico.
+
+En este caso, no tiene sentido que nuestro lenguaje haga lo mismo que
+\lyx. Por eso sigue la filosofía \textit{WYSIWYM}, pero incrementando la
+facilidad de comprender el significado semántico de lo que se escribe.
+Abstrayendo los elementos de un documento a objetos y encapsulando el texto con
+su formato.
+
+Ahora, la primera decisión tomada en cuanto a la sintaxis fue que en el diseño,
+el lenguaje no debe hacer uso de marcas (\textit{tags}) para enmarcar un
+comportamiento, ambiente o formato de texto. Este puede ir intrínseco en cada
+objeto del documento, con ayuda de una estructuración adecuada, símbolos y
+jerarquía.
+
+Gran parte del lenguaje es inspirado en \ruby, y esto se debe a la filosofia que
+posee el mismo como lenguaje orientado a objetos. Se necesitaba que nuestro
+lenguaje tuviese un sistema de objetos que fuese puro, es decir, que todo es un
+objeto y enfocarlo a lo que sería la estructuración de un documento.
+
+Por otra parte, se quería reducir la dificultad de aprendizaje, al momento de
+entender (leer) y generar (escribir) un documento. Para ello, se tomo en
+consideración un concepto en computación para el empaquetamiento de información,
+llamado serialización. Implementado por un lenguaje ampliamente usado, que es
+JSON. Ademas de eso, los objetos en el lenguaje deben contener información sobre
+el estilo ó formato (\textit{style}) del mismo, y por este motivo se decidió
+tomar en consideración a CSS.
+
+Juntando estos dos conceptos para encapsular en un objeto, la información,
+estructura o texto, junto a su formato (estilo) y al final, la estructura del
+documento sea una secuencia de objetos.
+
+\section[OhTeX como un lenguaje embebido]{\ohtex como un lenguaje embebido}
+
+Una de la sediciones mas relevantes de este lenguaje es que sea usado a través
+de otro lenguaje, que en este caso es \ruby. Aunque, es posible implementarlo en
+otro lenguaje, esta decisión es fundamentada en el hecho de que el modelo de las
+variables, alcance y las asociaciones son las mismas que \ruby. Pero estas
+características serán usadas para un propósito especifico y así, se reduce el
+nivel de trabajo, en cuanto a la implementación del lenguaje.
+
+A pesar de que el lenguaje posea su propia sintaxis, cada expresión guardaría un
+símil prácticamente directo a una expresión en \ruby. Por lo tanto, \ohtex sería
+un lenguaje de dominio especifico embebido (externo) en \ruby.
+
+\section{Herramienta de composición tipográfica}
+
+Existen muchos lenguajes para la composición tipográfica, con distintos
+propósitos, características, flexibilidades, expresividad, áreas de uso, etc.
+Este lenguaje tiene un propósito académico, es decir, generar documentos
+académicos y de investigación, por ello se necesita usar una herramienta que sea
+diseñada para ese fin. Por lo tanto, \latex es la opción mas adecuada, y ademas,
+se estaría elevando el nivel de abstracción de un lenguaje poderoso pero difícil
+de entender. Evidentemente, esto genera una perdida de flexibilidad en cuanto a
+las posibilidades de generar un elemento tipográfico pero se abarcarían gran
+parte de los mas usadas y relevantes para la creación de un documento completo.
+
+También, esta decisión es tomada porque al momento del diseño de \latex, su
+creador no se enfocó en reducir la dificultad de aprendizaje, solo en la libertad
+de manejar elementos tipográficos a discreción y generar documentos hermosos;
+pero todo ese poder no debe implicar una gran complejidad en lo que sería
+entender el lenguaje.
+
+\section{Entrada y Salida}
+
+En cuanto a la incorporación de instrucciones para el manejo de entrada y salida
+(\textit{I/O}), no existirán en el lenguaje. La unica salida posible del
+lenguaje será para generar un documento, haciendo uso de un operador que se
+especificara en el proximo capítulo. Y esto es porque, no limita ni brinda poder
+para el proposito final del lenguaje.
+
+\section{Clases e Instancias}
+
+Tomando en cuenta a \latex y \ruby donde es posible definir un clase de documento
+(\textit{documentclass}) y una clase (\textit{class}) respectivamente, es este
+lenguaje también se pueden definir clases que tienen una estructura similar a
+las de \ruby pero tienen un significado semántico similar a las clases en \latex.
+Toda clase que se defina sin especificar un padre, tendrá como padre a la clase
+abstracta \textit{Document} y los únicos padres posibles son clases derivadas de
+esta misma. Posteriormente se mostrara la sintaxis adecuada.
+
+Y esta constara de variables, contadores, formatos de documento, comandos, al
+igual que sería un \textit{documentclass} en \latex.
+
+Ahora, con respecto a la instanciación de una clase, en la mayoría de los
+lenguajes orientados a objetos podemos notar que exista una palabra reservada o
+método \textit{new} para la construcción de instancias, en otros casos la
+llamada a un método con el mismo nombre de la clase es suficiente. Pero en
+nuestro caso, se utiliza el símbolo doble dos-puntos (\texttt{::}) para
+indicar la clase que se esta instanciando, junto al identificador que referencia
+a dicha instancia y a los argumentos que serán pasados al constructor. Dichos
+argumentos serán pasados por nombre, siguiendo el concepto de serialización de
+datos.
+
+\section{Delimitadores y Secuenciación}
+
+En este aspecto, existían tres opciones, la delimitación de algún alcance, ya
+sea una definición de clase, un constructor, una función o estructura de control,
+podría ser a través de indentación, la palabra reservada ``\textit{end}'' ó llaves
+(\ttcode{\{\}}). Se escogió esta ultima, porque sería asociación directa con CSS,
+el formato y estilo del texto. Por otro lado, la secuenciación de instrucciones,
+expresiones y objetos sera por medio del salto de linea; adicional a eso, se puede
+usar el punto-y-coma para el mismo fin. Permitiendo así, dar la posibilidad de
+escribir expresiones en una sola linea (\textit{inline}) o en bloque.
 
 \chapter[OhTeX]{\ohtex}
 
 \ohtex es un lenguaje de programación de dominio específico, imperativo,
-destinado a la composición tipografica y orientado a objetos. En el diseño del
-lenguaje se tienen elementos comumente usados en los lenguajes de programación,
+destinado a la composición tipográfica y orientado a objetos. En el diseño del
+lenguaje se tienen elementos comúnmente usados en los lenguajes de programación,
 así como estructuras de datos, estructuras de control, funciones,
-procediemientos, etc.
+procedimientos, etc.
 
 \ohtex es un lenguaje de dominio especifico (\textit{DSL}) externo, es decir,
-que tiene su propia sintaxis, embedido en Ruby. Esta desición fue tomada porque
-Ruby es un lenguaje orientado a objetos y así, todo el trabajo que conlleva el
+que tiene su propia sintaxis, embebido en \ruby. Esta decisión fue tomada porque
+\ruby es un lenguaje orientado a objetos y así, todo el trabajo que conlleva el
 manejo de objetos en el lenguaje, el alcance dinámico y el modelo de referencia
-son trabajo de Ruby. Además, el mismo crea un ambiente propicio para creación de
-\textit{DSLs}, haciendolo el mejor candidato para la implementacion de \ohtex.
+son trabajo de \ruby. Además, el mismo crea un ambiente propicio para creación de
+\textit{DSLs}, haciéndolo el mejor candidato para la implementación de \ohtex.
 
-Ahora, considerando la composición tipografica, se tomo en cuenta a \latex como
+Ahora, considerando la composición tipográfica, se tomo en cuenta a \latex como
 herramienta para la generación y estructuración del texto, exportado en
 \textit{PDF}, que sería el producto final, es decir, un documento. Por lo tanto,
-\ohtex es un traductor (compilador) de Ruby a Latex, demostrando que un
-documento puede ser abstraido a un nivel mas alto y mantener una filosofia de
+\ohtex es un traductor (compilador) de \ruby a \latex, demostrando que un
+documento puede ser abstraído a un nivel mas alto y mantener una filosofía de
 generar documentos bonitos y al mismo tiempo poseer una estructura compresible.
 
-El proceso de traduccion seria asi:
+El proceso de traducción seria así:
 
 \begin{center}
-    \ohtex $\longrightarrow$ Ruby $\longrightarrow$ \latex $\longrightarrow$ PDF
+    \ohtex $\longrightarrow$ \ruby $\longrightarrow$ \latex $\longrightarrow$ PDF
 \end{center}
 
 \section[Estructura de un archivo OhTeX]{Estructura de un archivo \ohtex}
@@ -267,10 +401,10 @@ presentes en un documento o no, si es que se decide exportar alguno.
 \section{Uso de paquetes}
 
 La palabra clave \texttt{use} es usada para indicarle a lenguaje cuales de los
-paquetes de latex se deseean usar en cualquiera de los documentos que se vayan a
-generar. Algunos de los paquetes exigen uno, mas parametros o son opcionales, en
-cualquiera de los casos, la sintaxis para el pase de parametros es por nombre,
-como se muestra a continuacion:
+paquetes de \latex se desean usar en cualquiera de los documentos que se vayan a
+generar. Algunos de los paquetes exigen uno, mas parámetros o son opcionales, en
+cualquiera de los casos, la sintaxis para el pase de parámetros es por nombre,
+como se muestra a continuación:
 
 \begin{center}
 \begin{lstlisting}[caption={Paquetes},label=pkgs]
@@ -297,16 +431,31 @@ siguiente manera:
 \end{lstlisting}
 \end{center}
 
-Esto es, porque en ciertas ocaciones existen paquetes que viene en conjunto ó
-tienen un proposito similar, ademas de la flexibilidad en cuanto a no escribir
+Esto es, porque en ciertas ocasiones existen paquetes que viene en conjunto ó
+tienen un propósito similar, ademas de la flexibilidad en cuanto a no escribir
 repetidamente la palabra reservada \texttt{use}.
 
 La herramienta comienza leyendo de arriba a abajo, interpretando, creando
-objetos, intereactuando con los mismo y al final puede o no generar uno o mas
-documentos. <<\textit{Crear un objeto no implica que el mismo estara en un
+objetos, interactuando con los mismo y al final puede o no generar uno o mas
+documentos. <<\textit{Crear un objeto no implica que el mismo estará en un
 documento}>>.
 
-Tomando en cuenta la estructura basica de un programa en \ohtex, en especifico
+\section{Clases e Instancias}
+
+\begin{center}
+\begin{lstlisting}[mathescape]
+    class $\langle$nombre_de_la_clase$\rangle$ < $\langle$clase_padre$\rangle$ {
+        ...
+    }
+
+    class $\langle$nombre_de_la_clase$\rangle$ {
+        ...
+    }
+\end{lstlisting}
+\end{center}
+
+
+Tomando en cuenta la estructura básica de un programa en \ohtex, en especifico
 los \textit{dos-puntos} dobles (\texttt{::}), representa la instanciación de
 una clase, es el constructor de objetos y la referencia a esa instancia es dada
 por el nombre (identificador) del lado izquierdo (\textit{lhs}). Por ejemplo:
@@ -321,11 +470,11 @@ por el nombre (identificador) del lado izquierdo (\textit{lhs}). Por ejemplo:
 
 Si bien al construir un objeto, el mismo debe inicializarse (en el caso de que
 sea necesario), dependiendo si tiene o no valores por defecto. Y para ello, se
-usan las llaves, donde se encierra una secuencia (puede ser vacia) de
+usan las llaves, donde se encierra una secuencia (puede ser vacía) de
 identificadores que representan algunos (o todos) los atributos del objeto, cada
-nombre es seguido del simbolo \textit{dos-puntos} (\texttt{:}) y luego el valor
+nombre es seguido del símbolo \textit{dos-puntos} (\texttt{:}) y luego el valor
 que inicializará el atributo; cada una de estas inicializaciones es separada por
-salto de linea (\verb|\n|) o por punto-y-coma (\texttt{;}). Aqui se muestra una
+salto de linea (\verb|\n|) o por punto-y-coma (\texttt{;}). Aquí se muestra una
 inicialización (\textit{singleton}):
 
 \begin{center}
@@ -357,16 +506,22 @@ Y al final, se decidió por \textit{dos-puntos} (\texttt{:}), tomando en cuenta
 las siguientes consideraciones:
 
 \begin{itemize}
-\item El símbolo se va a escribir seguido, por lo tanto debe poseer la menor cantidad de caracteres posible, es decir, uno.
-\item El símbolo debe referir a la asocion de un atributo con un valor, como lo hace CSS (un lenguaje de markup) y JSON (un lenguaje de serializacion de datos).
-\item El símbolo debe poseer una semantica acorde a lo que se desea expresar. Por lo tanto, el símbolo (\texttt{:}) representa una pausa para hacer un llamado de atencion en lo que sigue y que siempre esta relacionado con el texto precedente. 
+\item El símbolo se va a escribir seguido, por lo tanto debe poseer la menor
+      cantidad de caracteres posible, es decir, uno.
+\item El símbolo debe referir a la asociación de un atributo con un valor, como lo
+      hace CSS (un lenguaje de markup) y JSON (un lenguaje de serialización de
+      datos).
+\item El símbolo debe poseer una semántica acorde a lo que se desea expresar.
+      Por lo tanto, el símbolo (\texttt{:}) representa una pausa para hacer un
+      llamado de atención en lo que sigue y que siempre esta relacionado con el
+      texto precedente. 
 \end{itemize}
 
 El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases,
 metodos, funciones y comandos.
 
 A pesar de que el símbolo (\texttt{:}) representa la inicialización de un
-atributo de un objeto al momento de su construcción, el simbolo de asignacion es
+atributo de un objeto al momento de su construcción, el símbolo de asignación es
 (\texttt{=}). Ya construido el objeto, se puede acceder y \textit{settear} cada
 uno de su atributos. Por ejemplo:
 
@@ -380,14 +535,14 @@ uno de su atributos. Por ejemplo:
 
 \subsection{Identificadores}
 
-Cada identificador es un nombre que se usa para referir a una varible, metodo,
+Cada identificador es un nombre que se usa para referir a una variable, método,
 comando, o paquete. 
 
-De igual manera a como se permite en Ruby y la mayoria de los lenguajes, los
-identificadores constan de caracteres alphanumericos (\verb|A-Za-z0-9|) y
+De igual manera a como se permite en \ruby y la mayoría de los lenguajes, los
+identificadores constan de caracteres alfanuméricos (\verb|a-zA-Z0-9|) y
 underscores (\_), pero sin que comience por numero y que comience siempre por
-minúscula. Tambien está permitido, que los identificadores de los metodos puedan
-terminar en interrogacion (?), exclamacion (!) ó igual (=). Sin restricciones
+minúscula. Tambien está permitido, que los identificadores de los métodos puedan
+terminar en interrogación (?), exclamación (!) ó igual (=). Sin restricciones
 en la longitud del identificador. Por ejemplo:
 
 \begin{center}
@@ -399,8 +554,8 @@ en la longitud del identificador. Por ejemplo:
 \end{lstlisting}
 \end{center}
 
-Por otro lado, existen ciertas palabras reservadas que no podran ser usadas como
-identificar en ningun caso. Las cuales se listan mas adelante.
+Por otro lado, existen ciertas palabras reservadas que no podrán ser usadas como
+identificar en ningún caso. Las cuales se listan mas adelante.
 
 \subsection{Comentarios}
 
@@ -437,55 +592,37 @@ ejemplo:
 
 \subsection{Palabras reservadas}
 
-La siguientes palabras estan reservadas en \ohtex:
+La siguientes palabras están reservadas en \ohtex:
 
 \begin{center}
-\begin{lstlisting}
-    and
-    break
-    case
-    class
-    do
-    else
-    elsif
-    false
-    for
-    fun
-    if
-    loop
-    nil
-    or
-    rescue
-    return
-    self
-    super
-    true
-    try
-    until
-    use
-    when
-    while
-\end{lstlisting}
+\ttfamily
+\begin{tabular}{ l l l l l }
+and & break & case & class & do \\
+else & elsif & false & for & fun \\
+if & loop & nil & or & rescue \\
+return & self & super & true & try \\
+until & use & when & while & \\
+\end{tabular}
 \end{center}
 
 \subsection{Expresiones}
 
-Al igual que en Ruby (dado que es un lenguaje embedido), todo es una expresion.
+Al igual que en \ruby (dado que es un lenguaje embebido), todo es una expresión.
 La secuenciacion es dada por los saltos de linea y el punto-y-coma (``;").
 
 \section{Variables y Literales}
 
-\ohtex, al ser un lenguaje embedido en Ruby, mantiene un simil en ciertos
-aspectos de su sintaxis, asi como su alcance y declaración de variables. De
+\ohtex, al ser un lenguaje embebido en \ruby, mantiene un símil en ciertos
+aspectos de su sintaxis, así como su alcance y declaración de variables. De
 alguna manera, es predecible, pero eso ayuda a reducir el tiempo de aprendizaje
-y brinda la posiblidad de generar programas intuitivamente, efocandose
-escencialmente en la objetivo final, generar un documento con una excelente
-composicion tipografica de manera estructural.
+y brinda la posibilidad de generar programas intuitivamente, enfocándose
+esencialmente en la objetivo final, generar un documento con una excelente
+composición tipográfica de manera estructural.
 
 \subsection{Variables globales}
 
 Toda variable que comience con dolar \ttcode{\$} tiene alcance global, dicha
-variable puede ser accesada en cualquier momento de la ejecucion desde cualquier
+variable puede ser accesada en cualquier momento de la ejecución desde cualquier
 lugar. Por ejemplo:
 
 \begin{center}
@@ -496,8 +633,8 @@ lugar. Por ejemplo:
 
 \subsection{Variables locales}
 
-Una variable local es aquella que comienza con un letra en minusculas (a-z) o
-underscore (\_). O una llamada a un metodo. Ademas dicha variable sera asequible
+Una variable local es aquella que comienza con un letra en minúsculas (a-z) o
+underscore (\_). O una llamada a un método. Ademas dicha variable sera asequible
 en el alcance donde fue declarada, exclusivamente.
 
 \subsection{Variables de instancia}
@@ -540,10 +677,12 @@ Command             10pt    11pt    12pt
 Para cambiar el formato de algún texto en especifico, el mismo debe estar entre
 dos asteriscos \ttcode{*}, sin espacio al principio y sin saltos de linea.
 
-Siguiendo la siguiente expresión regular en Ruby:
+Siguiendo la siguiente expresión regular en \ruby:
 
 \begin{center}
-\verb|/(\*\p{Graph}+\*|\*\\p{Graph}+[\\p{Graph} ]*\*)/|
+\begin{verbatim}
+    /(\*\p{Graph}+\*|\*\p{Graph}+[\p{Graph} ]*\*)/
+\end{verbatim}
 \end{center}
 
 \subsection{Negrita}
@@ -552,7 +691,9 @@ Similar a la sección anterior, se debe agrupar el texto, pero dentro de cuatro
 asteriscos `*`, dos de cada lado del texto y siguiendo las mismas restricciones.
 
 \begin{center}
-\verb|/(\*\*\p{Graph}+\*\*|\*\*\\p{Graph}+[\\p{Graph} ]*\*\*)/|
+\begin{verbatim}
+    /(\*\*\p{Graph}+\*\*|\*\*\p{Graph}+[\p{Graph} ]*\*\*)/
+\end{verbatim}
 \end{center}
 
 \section{Literales}
@@ -572,18 +713,21 @@ asteriscos `*`, dos de cada lado del texto y siguiendo las mismas restricciones.
 \subsection{Verbatim}
 
 En ciertas ocasiones se desea hacer uso explicito de una expresión que sea
-literal en Ruby ó \latex y para ello se hace uso de la siguiente sintaxis:
-
-Ruby:
+literal en \ruby ó \latex y para ello se hace uso de la siguiente sintaxis:
+ \ruby:
 
 Cualquier código que sea escrito dentro de las llaves podrá usar los objetos de
-archivo definidos en \ohtex u otro verbatim de Ruby.
+archivo definidos en \ohtex u otro verbatim de \ruby.
 
-\begin{verbatim}
+\ruby:
+
+\begin{center}
+\begin{lstlisting}
 &ruby {
-    ... código ruby ...
+    ... código ruby
 }
-\end{verbatim}
+\end{lstlisting}
+\end{center}
 
 \LaTeX:
 
