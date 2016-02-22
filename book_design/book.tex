@@ -138,7 +138,9 @@ Para todos esos artistas que dejaron su obra, \\ sin su nombre y aun así trasce
 %\addcontentsline{toc}{chapter}{Agradecimientos}
 \section*{} % Agradecimientos
 \begin{flushleft}
-Agradezco a...?
+Agradezco a un perro de papel \\
+que algunos dicen que esta perdido, \\
+mas no quiere ser encontrado.
 \end{flushleft}
 
 \newpage
@@ -320,13 +322,12 @@ para el proposito final del lenguaje.
 Tomando en cuenta a \latex y \ruby donde es posible definir un clase de documento
 (\textit{documentclass}) y una clase (\textit{class}) respectivamente, es este
 lenguaje también se pueden definir clases que tienen una estructura similar a
-las de \ruby pero tienen un significado semántico similar a las clases en \latex.
-Toda clase que se defina sin especificar un padre, tendrá como padre a la clase
-abstracta \textit{Document} y los únicos padres posibles son clases derivadas de
-esta misma. Posteriormente se mostrara la sintaxis adecuada.
+las de \ruby pero tienen un significado semántico similar a las clases en \latex. En la mayoría de los casos, se usaran las clases para definir un nuevo sub-clase de la clase
+abstracta \textit{Document}, donde se definirá un formato especifico de un documento en particular, que no pueda usar las clases predefinidas. En cualquier otro caso, todo clase que se defina sin un padre, sera sub-clase de la clase mayor \textit{Object}, siguiendo la filosofía de \ruby. Posteriormente se mostrara la sintaxis adecuada.
 
-Y esta constara de variables, contadores, formatos de documento, comandos, al
-igual que sería un \textit{documentclass} en \latex.
+Todo clase puede definir atributos, que serán siempre públicos; al igual que todas las clases predefinidas en el lenguaje y ademas, la definición de funciones y comandos usando la sintaxis adecuada.
+
+\subsection{Instancias}
 
 Ahora, con respecto a la instanciación de una clase, en la mayoría de los
 lenguajes orientados a objetos podemos notar que exista una palabra reservada o
@@ -338,16 +339,71 @@ a dicha instancia y a los argumentos que serán pasados al constructor. Dichos
 argumentos serán pasados por nombre, siguiendo el concepto de serialización de
 datos.
 
+\section{Inicialización y Asignación}
+
+Al momento de construir una instancia de clase, los parametros para inicializarla son pasados de una manera particular, solo para la construcción. Y esto es para aumentar la expresividad al momento de crear un objeto, tanto para quien lo escribe como quien lo lea. Por ello, se decidió que fuese una inicialización por nombre, seguida de su valor.
+
+Aunque, el simbolo que representara esta ``asignación" ó ``inicialización" tuvo las siguientes opciones:
+
+\begin{center}
+\begin{enumerate}[label=Opción \alph*:, leftmargin=7em]
+    \item (\texttt{=})
+    \item (\texttt{:=})
+    \item (\texttt{:})
+    \item (\texttt{<-})
+\end{enumerate}
+\end{center}
+
+Y se tenían que tomar en cuenta las siguientes consideraciones, para que al momento de leer la expresión tuviese un significado completo y concreto:
+
+\begin{itemize}
+\item El símbolo se va a escribir seguido, por lo tanto debe poseer la menor
+      cantidad de caracteres posible, es decir, uno.
+\item El símbolo debe referir a la asociación de un atributo con un valor
+\item El símbolo debe poseer una semántica acorde a lo que se desea expresar.
+\end{itemize}
+
+En primer lugar descartamos al simbolo (\texttt{:=}), dado que es tedioso de escribir y representa una una sustitución textual, lo cual no es acorde a la semantica.
+
+Tambien el simbolo (\texttt{<-}) fue descartado, mas que todo porque su significado no es lo que busca decir la expresion. Este nos dice que sacara ``algo'' de la expresion derecha y lo colocara en la expresion izquierda.
+
+Ahora los unicos simbolos que quedan son, (\texttt{=}) y (\texttt{:}). Y en la decisión final se opto por (\texttt{:}), tomando en cuenta las siguientes razones:
+
+\begin{itemize}
+\item Desde un punto de vista lingüístico, representa una pausa para hacer un llamado de atención en lo que sigue y que siempre esta relacionado con el texto precedente.
+\item Cuando tenemos una expresión, <<\texttt{font : 10pt}>>. El lado izquierdo nos habla del lado derecho y eso es lo que quiere expresar.
+\item Tambien, es usados como lo hace CSS (un lenguaje de markup) y JSON (un lenguaje de serialización de datos)
+\end{itemize}
+
+En cuanto al simbolo ``igual'' (\texttt{=}), a pesar de que el símbolo (\texttt{:}) representa la inicialización de un
+atributo de un objeto al momento de su construcción, el símbolo de asignación es
+(\texttt{=}). Ya construido el objeto, se puede acceder y \textit{settear} cada
+uno de su atributos. Por ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    doc1.font = 11pt
+\end{lstlisting}
+\end{center}
+
 \section{Delimitadores y Secuenciación}
 
 En este aspecto, existían tres opciones, la delimitación de algún alcance, ya
 sea una definición de clase, un constructor, una función o estructura de control,
 podría ser a través de indentación, la palabra reservada ``\textit{end}'' ó llaves
-(\ttcode{\{\}}). Se escogió esta ultima, porque sería asociación directa con CSS,
+\ttcode{\{\}}. Se escogió esta ultima, porque sería asociación directa con CSS,
 el formato y estilo del texto. Por otro lado, la secuenciación de instrucciones,
 expresiones y objetos sera por medio del salto de linea; adicional a eso, se puede
 usar el punto-y-coma para el mismo fin. Permitiendo así, dar la posibilidad de
 escribir expresiones en una sola linea (\textit{inline}) o en bloque.
+
+\section{Tipos de Datos}
+
+El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases, metodos y comandos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capitulo. OhTeX
+%
 
 \chapter[OhTeX]{\ohtex}
 
@@ -361,7 +417,7 @@ procedimientos, etc.
 que tiene su propia sintaxis, embebido en \ruby. Esta decisión fue tomada porque
 \ruby es un lenguaje orientado a objetos y así, todo el trabajo que conlleva el
 manejo de objetos en el lenguaje, el alcance dinámico y el modelo de referencia
-son trabajo de \ruby. Además, el mismo crea un ambiente propicio para creación de
+son realizados por \ruby. Además, el mismo crea un ambiente propicio para creación de
 \textit{DSLs}, haciéndolo el mejor candidato para la implementación de \ohtex.
 
 Ahora, considerando la composición tipográfica, se tomo en cuenta a \latex como
@@ -369,7 +425,7 @@ herramienta para la generación y estructuración del texto, exportado en
 \textit{PDF}, que sería el producto final, es decir, un documento. Por lo tanto,
 \ohtex es un traductor (compilador) de \ruby a \latex, demostrando que un
 documento puede ser abstraído a un nivel mas alto y mantener una filosofía de
-generar documentos bonitos y al mismo tiempo poseer una estructura compresible.
+generar documentos bonitos, de propósito académico y al mismo tiempo poseer una sintaxis compresible.
 
 El proceso de traducción seria así:
 
@@ -379,31 +435,50 @@ El proceso de traducción seria así:
 
 \section[Estructura de un archivo OhTeX]{Estructura de un archivo \ohtex}
 
+Un archivo de \ohtex puede tener definiciones, instancias, estructuras de control, generar documentos, etc; o ninguna de ellas. No es necesario definir un método \textit{main} para que sea un programa válido.
+
 Estructura de un programa \ohtex:
 
 \begin{center}
 \begin{lstlisting}
     use <paquete>
 
-    <objeto> :: <clase> {
+    <documento> :: <clase_documento> {
         <atributo> : <valor> 
     }
 
-    <objeto> >> '<nombre_archivo>'
+    <instancia1> :: <clase> {
+        ...
+    }
+
+    <instancia2> :: <clase>
+
+    if <condicion> {
+        ...
+    } else {
+        ...
+    }
+
+    <documento> << <instancia1>
+
+    <documento> >> '<nombre_archivo>'
 \end{lstlisting}
 \end{center}
-
 
 Durante toda la ejecución del programa, en el archivo pueden crearse $n$
 objetos, pero eso no le indica al lenguaje que esos $n$ objetos estarán
 presentes en un documento o no, si es que se decide exportar alguno.
 
-\section{Uso de paquetes}
+Por lo tanto, un programa en \ohtex puede contener $n$ objetos sin generar una salida pero ya se habría un chequeado lexicógrafico, sintáctico y contextual del mismo. 
+
+\section{Paquetes e Inclusiones}
+
+\subsection{Paquetes}
 
 La palabra clave \texttt{use} es usada para indicarle a lenguaje cuales de los
 paquetes de \latex se desean usar en cualquiera de los documentos que se vayan a
-generar. Algunos de los paquetes exigen uno, mas parámetros o son opcionales, en
-cualquiera de los casos, la sintaxis para el pase de parámetros es por nombre,
+generar. Ciertos paquetes poseen una azúcar sintactica en ohtex y otros no, en este ultimo caso igualmente se puede usar el paquete pero debe usarse con un \textit{verbatim} de \latex, que posteriormente se especificara como se hace. Algunos de los paquetes exigen cero (opcionales) o mas parámetros; en
+cualquiera de los casos, la sintaxis para el pase de parámetros es por nombre-valor, de manera secuencial, sin orden; 
 como se muestra a continuación:
 
 \begin{center}
@@ -421,8 +496,8 @@ como se muestra a continuación:
 \end{lstlisting}
 \end{center}
 
-Por otro lado, se pueden especificar varios paquetes en una misma linea, eso
-solo en el caso de que ninguno de los paquetes necesita parametros, de la
+Por otro lado, se pueden especificar varios paquetes en una misma linea separados por espacios en blanco, eso
+solo en el caso de que ninguno de los paquetes necesita parámetros, de la
 siguiente manera:
 
 \begin{center}
@@ -435,12 +510,22 @@ Esto es, porque en ciertas ocasiones existen paquetes que viene en conjunto ó
 tienen un propósito similar, ademas de la flexibilidad en cuanto a no escribir
 repetidamente la palabra reservada \texttt{use}.
 
+\subsection{Inclusiones}
+
+En cuanto a la inclusiones, nos referimos a usar un archivo \ohtex que posea ciertos objetos de mi interés en desde otro archivo. Eso sería en el caso de que haya decidido encapsular un conjunto de funciones, comandos, clases, instancias; similares, con un mismo fin o arbitrarios, y que pueda usar en distintos archivos sin la necesidad de escribirlos nuevamente.
+
+Para ello, se usa la palabra reservada \texttt{include}, seguido de un \textit{string}, con comillas simples, del nombre del archivo. Y así, todo objeto definido en dicho archivo estará en el alcance actual, cabe destacar que toda inclusión debe ser realizada al principio del cada archivo, sinó sera considerado un error.
+
+\subsection{Ejecución}
+
 La herramienta comienza leyendo de arriba a abajo, interpretando, creando
 objetos, interactuando con los mismo y al final puede o no generar uno o mas
 documentos. <<\textit{Crear un objeto no implica que el mismo estará en un
 documento}>>.
 
 \section{Clases e Instancias}
+
+Para definir una clase nueva, se debe comenzar con la palabra reservada \texttt{class}, seguida del nombre de mi nueva clase (el cual debe comenzar con mayúscula); en el caso de que especifiquemos una clase padre, se usa el simbolo menor-que (\texttt{<}) seguido de la clase padre y entre llaves estarán definidos los atributos, funciones y comandos.
 
 \begin{center}
 \begin{lstlisting}[mathescape]
@@ -454,6 +539,7 @@ documento}>>.
 \end{lstlisting}
 \end{center}
 
+\subsection{Instancias}
 
 Tomando en cuenta la estructura básica de un programa en \ohtex, en especifico
 los \textit{dos-puntos} dobles (\texttt{::}), representa la instanciación de
@@ -483,53 +569,43 @@ inicialización (\textit{singleton}):
 \end{lstlisting}
 \end{center}
 
-Siguiendo lo anterior, cual sería el significado semántico de la expresión
-anterior? Los candidatos para denotar esta ``asignación" ó ``inicialización"
-fueron:
+\section{Atributos}
+
+Todo atributo que se defina en una clase sera publico y existe la posibilidad de que sean privados o protegidos. Referenciar a un atributo desde un comando se hará similar a \ruby, poniendo de prefijo un arroba \ttcode{@} o se puede omitir si no es opacado por un parámetro con el mismo nombre, pero es recomendable usar el arroba para saber de que estamos hablando de una variable de instancia.
+
+Para definir los atributos de mi instancia se usa la palabra reservada \texttt{attr}, seguido uno o mas identificadores separados por coma, por ejemplo:
+
+\begin{center}
+\begin{lstlisting}
+    class A {
+        attr a, b
+
+        cmd foo {
+            return @a + @b
+        }
+    }
+\end{lstlisting}
+\end{center}
+
+\section{Comandos}
+
+En \ohtex, existe el concepto de híbrido entre los metodos y funciones con los comandos de \latex; donde hay un identificador, parametros o aridad, un alcance y posiblemente un valor de retorno o no. Se hace uso de la palabra reservada \texttt{cmd} para indicar una nueva declaración o sobre-escritura de un comando. Por ejemplo:
 
 \newpage
 
 \begin{center}
-\begin{enumerate}[label=Opción \alph*:, leftmargin=7em]
-    \item \hfill \\
-          \texttt{=}
-    \item \hfill \\
-          \texttt{:=}
-    \item \hfill \\
-          \texttt{:}
-    \item \hfill \\
-          \texttt{<-}
-\end{enumerate}
-\end{center}
-
-Y al final, se decidió por \textit{dos-puntos} (\texttt{:}), tomando en cuenta
-las siguientes consideraciones:
-
-\begin{itemize}
-\item El símbolo se va a escribir seguido, por lo tanto debe poseer la menor
-      cantidad de caracteres posible, es decir, uno.
-\item El símbolo debe referir a la asociación de un atributo con un valor, como lo
-      hace CSS (un lenguaje de markup) y JSON (un lenguaje de serialización de
-      datos).
-\item El símbolo debe poseer una semántica acorde a lo que se desea expresar.
-      Por lo tanto, el símbolo (\texttt{:}) representa una pausa para hacer un
-      llamado de atención en lo que sigue y que siempre esta relacionado con el
-      texto precedente. 
-\end{itemize}
-
-El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases,
-metodos, funciones y comandos.
-
-A pesar de que el símbolo (\texttt{:}) representa la inicialización de un
-atributo de un objeto al momento de su construcción, el símbolo de asignación es
-(\texttt{=}). Ya construido el objeto, se puede acceder y \textit{settear} cada
-uno de su atributos. Por ejemplo:
-
-\begin{center}
 \begin{lstlisting}
-    doc1.font = 11pt
+    cmd foo(a, b) { .. los parentesis son opcionales
+        return a + b
+    }
+
+    cmd foo 2 { .. la definición anterior es sobre-escrita
+        return #1 + #2
+    }
 \end{lstlisting}
 \end{center}
+
+Los comandos pueden representar algo complejo como un metodo o algo tan simple como un macro, al final pueden ser representados con un mismo objeto
 
 \section{Lexicografía}
 
@@ -639,16 +715,28 @@ en el alcance donde fue declarada, exclusivamente.
 
 \subsection{Variables de instancia}
 
-%Falta definir sintaxis para la definicion de clases
+Las variables de instancia son definidas usando la palabra reservada \texttt{attr} y son referidas por medio un arroba \texttt{@}.
+
+\begin{center}
+\begin{lstlisting}
+    @bar
+\end{lstlisting}
+\end{center}
 
 \subsection{Variables de clase}
 
-%Falta definir sintaxis para la definicion de clases
+Las variables de clase son definidas igualmente como se hace en \ruby, usando doble arroba \texttt{@@}. Y pueden ser accedidas desde cualquier instancia.
+
+\begin{center}
+\begin{lstlisting}
+    @@baz
+\end{lstlisting}
+\end{center}
 
 \subsection{Pseudo variables}
 
 Siendo un lenguaje orientado a objetos, debe existir una variable que refiera al
-objeto actual, y para ello, tenemos \ttcode{self}.
+objeto actual, y para ello, tenemos \ttcode{self}. Otra pseudo variable es \ttcode{nil}, que representa a nulo o nada.
 
 \section{Formato de texto}
 
@@ -656,7 +744,9 @@ En esta sección se describen varios aspectos para darle un formato especifico a
 texto, se podrá ver que existe una similitud con `Markdown` y eso es para
 brindar facilidad cuando se genera un programa.
 
-\subsection{Tamaño de Fuente}
+\subsection{Tamaño de fuente}
+
+En \latex se permiten tres tamaño de fuente para el documento, pero puede formatearse una sección o texto en particular con los siguientes comandos:
 
 \begin{verbatim}
 Command             10pt    11pt    12pt
@@ -671,6 +761,10 @@ Command             10pt    11pt    12pt
 \huge               20.74   20.74   24.88
 \Huge               24.88   24.88   24.88
 \end{verbatim}
+
+
+
+\section{Familia de fuente}
 
 \subsection{Cursiva}
 
