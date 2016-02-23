@@ -12,8 +12,7 @@
 \usepackage{listings}
 \usepackage{relsize}
 \usepackage{xspace}
-\usepackage{lipsum}
-\usepackage{tabularx}
+%\usepackage{tabularx}
 %\usepackage{booktabs}
 %\usepackage{cleveref}
 %\usepackage{microtype}
@@ -41,7 +40,7 @@ basicstyle=\footnotesize\ttfamily,
 %numberstyle=\scriptsize,
 %numbersep=1pt,
 belowskip=\medskipamount,
-frame = single,
+frame = trBL,%single,
 framexleftmargin=15pt,
 literate={á}{{\'a}}1 {í}{{\'i}}1 {é}{{\'e}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1,
 }
@@ -164,7 +163,6 @@ mas no quiere ser encontrado.
 %\chapter{Motivación}
 \chapter{Introducción}
 \section{Antecedentes}
-%\lipsum[1]
 La composición tipográfica es un termino que se maneja desde alrededores del año 1040, refiriéndose
 a la estructura del texto ordenando \textit{types} (una pieza que represente una letra o
 símbolo) acorde a la ortografía de un lenguaje y al final, obtener la visualización de un texto.
@@ -202,16 +200,11 @@ imprentas y editoriales, gracias a la maquina linotipia (\textit{Linotype Machin
 \end{itemize}
 
 \subsection{\textit{troff}}
-\lipsum[1-2]
 \subsection{\TeX}
-\lipsum[1-2]
 \subsection{\LaTeX}
-\lipsum[1-2]
 \subsection[OhTeX]{\ohtex}
-\lipsum[1-2]
 
 \chapter{Marco Teórico}
-\lipsum[1-2]
 \section{Composición Tipográfica (\textit{Typesetting})}
 \section{Programación orientada a objetos (\textit{OOP})}
 \section{Lenguajes de \textit{Markup}}
@@ -219,7 +212,6 @@ imprentas y editoriales, gracias a la maquina linotipia (\textit{Linotype Machin
 \section{Leanguajes de dominio específico (\textit{DSLs})}
 
 \chapter{Marco Tecnológico}
-\lipsum[1-2]
 
 \chapter{Desarrollo}
 En principio se ideo la posibilidad de que el lenguaje fuese no mas que una
@@ -377,14 +369,7 @@ Ahora los unicos simbolos que quedan son, (\texttt{=}) y (\texttt{:}). Y en la d
 
 En cuanto al simbolo ``igual'' (\texttt{=}), a pesar de que el símbolo (\texttt{:}) representa la inicialización de un
 atributo de un objeto al momento de su construcción, el símbolo de asignación es
-(\texttt{=}). Ya construido el objeto, se puede acceder y \textit{settear} cada
-uno de su atributos. Por ejemplo:
-
-\begin{center}
-\begin{lstlisting}
-    doc1.font = 11pt
-\end{lstlisting}
-\end{center}
+(\texttt{=}).
 
 \section{Delimitadores y Secuenciación}
 
@@ -397,9 +382,9 @@ expresiones y objetos sera por medio del salto de linea; adicional a eso, se pue
 usar el punto-y-coma para el mismo fin. Permitiendo así, dar la posibilidad de
 escribir expresiones en una sola linea (\textit{inline}) o en bloque.
 
-\section{Tipos de Datos}
+%\section{Tipos de Datos}
 
-El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases, metodos y comandos.
+%El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases, metodos y comandos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Capitulo. OhTeX
@@ -440,6 +425,7 @@ Un archivo de \ohtex puede tener definiciones, instancias, estructuras de contro
 Estructura de un programa \ohtex:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     use <paquete>
 
@@ -463,6 +449,7 @@ Estructura de un programa \ohtex:
 
     <documento> >> '<nombre_archivo>'
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 Durante toda la ejecución del programa, en el archivo pueden crearse $n$
@@ -482,6 +469,7 @@ cualquiera de los casos, la sintaxis para el pase de parámetros es por nombre-v
 como se muestra a continuación:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Paquetes},label=pkgs]
     use babel { lang : english }
     use microtype { potrusion : true; expasion : true }
@@ -494,6 +482,7 @@ como se muestra a continuación:
         headsep    : 0.3in
     }
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 Por otro lado, se pueden especificar varios paquetes en una misma linea separados por espacios en blanco, eso
@@ -501,9 +490,11 @@ solo en el caso de que ninguno de los paquetes necesita parámetros, de la
 siguiente manera:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     use amsmath amsfonts amsthm
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 Esto es, porque en ciertas ocasiones existen paquetes que viene en conjunto ó
@@ -523,90 +514,6 @@ objetos, interactuando con los mismo y al final puede o no generar uno o mas
 documentos. <<\textit{Crear un objeto no implica que el mismo estará en un
 documento}>>.
 
-\section{Clases e Instancias}
-
-Para definir una clase nueva, se debe comenzar con la palabra reservada \texttt{class}, seguida del nombre de mi nueva clase (el cual debe comenzar con mayúscula); en el caso de que especifiquemos una clase padre, se usa el simbolo menor-que (\texttt{<}) seguido de la clase padre y entre llaves estarán definidos los atributos, funciones y comandos.
-
-\begin{center}
-\begin{lstlisting}[mathescape]
-    class $\langle$nombre_de_la_clase$\rangle$ < $\langle$clase_padre$\rangle$ {
-        ...
-    }
-
-    class $\langle$nombre_de_la_clase$\rangle$ {
-        ...
-    }
-\end{lstlisting}
-\end{center}
-
-\subsection{Instancias}
-
-Tomando en cuenta la estructura básica de un programa en \ohtex, en especifico
-los \textit{dos-puntos} dobles (\texttt{::}), representa la instanciación de
-una clase, es el constructor de objetos y la referencia a esa instancia es dada
-por el nombre (identificador) del lado izquierdo (\textit{lhs}). Por ejemplo:
-
-\begin{center}
-\begin{lstlisting}
-    doc1 :: Article {
-        ...
-    }   
-\end{lstlisting}
-\end{center}
-
-Si bien al construir un objeto, el mismo debe inicializarse (en el caso de que
-sea necesario), dependiendo si tiene o no valores por defecto. Y para ello, se
-usan las llaves, donde se encierra una secuencia (puede ser vacía) de
-identificadores que representan algunos (o todos) los atributos del objeto, cada
-nombre es seguido del símbolo \textit{dos-puntos} (\texttt{:}) y luego el valor
-que inicializará el atributo; cada una de estas inicializaciones es separada por
-salto de linea (\verb|\n|) o por punto-y-coma (\texttt{;}). Aquí se muestra una
-inicialización (\textit{singleton}):
-
-\begin{center}
-\begin{lstlisting}
-    font : 10pt
-\end{lstlisting}
-\end{center}
-
-\section{Atributos}
-
-Todo atributo que se defina en una clase sera publico y existe la posibilidad de que sean privados o protegidos. Referenciar a un atributo desde un comando se hará similar a \ruby, poniendo de prefijo un arroba \ttcode{@} o se puede omitir si no es opacado por un parámetro con el mismo nombre, pero es recomendable usar el arroba para saber de que estamos hablando de una variable de instancia.
-
-Para definir los atributos de mi instancia se usa la palabra reservada \texttt{attr}, seguido uno o mas identificadores separados por coma, por ejemplo:
-
-\begin{center}
-\begin{lstlisting}
-    class A {
-        attr a, b
-
-        cmd foo {
-            return @a + @b
-        }
-    }
-\end{lstlisting}
-\end{center}
-
-\section{Comandos}
-
-En \ohtex, existe el concepto de híbrido entre los metodos y funciones con los comandos de \latex; donde hay un identificador, parametros o aridad, un alcance y posiblemente un valor de retorno o no. Se hace uso de la palabra reservada \texttt{cmd} para indicar una nueva declaración o sobre-escritura de un comando. Por ejemplo:
-
-\newpage
-
-\begin{center}
-\begin{lstlisting}
-    cmd foo(a, b) { .. los parentesis son opcionales
-        return a + b
-    }
-
-    cmd foo 2 { .. la definición anterior es sobre-escrita
-        return #1 + #2
-    }
-\end{lstlisting}
-\end{center}
-
-Los comandos pueden representar algo complejo como un metodo o algo tan simple como un macro, al final pueden ser representados con un mismo objeto
-
 \section{Lexicografía}
 
 \subsection{Identificadores}
@@ -622,12 +529,14 @@ terminar en interrogación (?), exclamación (!) ó igual (=). Sin restricciones
 en la longitud del identificador. Por ejemplo:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     foo
     bar
     baz
     this_is_my_4er_id
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 Por otro lado, existen ciertas palabras reservadas que no podrán ser usadas como
@@ -641,6 +550,7 @@ linea en el comentario se deben usar tres puntos seguidos \ttcode{...}. Por
 ejemplo:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     .. esta linea no hace nada
 
@@ -649,6 +559,7 @@ ejemplo:
     a = 2 + ... esto es mas util con expresiones largas
         3
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 Los comentarios de bloque son a partir de dos puntos y una llave que abre
@@ -656,14 +567,18 @@ Los comentarios de bloque son a partir de dos puntos y una llave que abre
 ejemplo:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     ..{
         Todo lo que se encuentre dentro de este bloque sera
-        ignorado. El uso de comentarios de bloques anidados es
-        considerado un mala practica pero sucedera de igual
-        forma, ..{ asi que es posible hacerlo. }..
+        ignorado. El uso de comentarios de bloques anidados
+        esta permitido para facilidad del programador,
+        ..{
+            asi que es posible hacerlo.
+        }..
     }..    
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 \subsection{Palabras reservadas}
@@ -702,9 +617,11 @@ variable puede ser accesada en cualquier momento de la ejecución desde cualquie
 lugar. Por ejemplo:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     $foo
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 \subsection{Variables locales}
@@ -718,9 +635,11 @@ en el alcance donde fue declarada, exclusivamente.
 Las variables de instancia son definidas usando la palabra reservada \texttt{attr} y son referidas por medio un arroba \texttt{@}.
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     @bar
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 \subsection{Variables de clase}
@@ -728,15 +647,23 @@ Las variables de instancia son definidas usando la palabra reservada \texttt{att
 Las variables de clase son definidas igualmente como se hace en \ruby, usando doble arroba \texttt{@@}. Y pueden ser accedidas desde cualquier instancia.
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
     @@baz
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 \subsection{Pseudo variables}
 
-Siendo un lenguaje orientado a objetos, debe existir una variable que refiera al
-objeto actual, y para ello, tenemos \ttcode{self}. Otra pseudo variable es \ttcode{nil}, que representa a nulo o nada.
+Las pseudo variables disponibles en \ohtex son:
+
+\begin{itemize}
+    \item \texttt{self}. Siendo un lenguaje orientado a objetos, debe existir una variable que refiera al objeto actual.
+    \item \texttt{nil}. Representa a nulo o a nada.
+    \item \texttt{true}. Representa a la verdad
+    \item \texttt{false}. Representa a la falsedad.
+\end{itemize}
 
 \section{Formato de texto}
 
@@ -746,25 +673,84 @@ brindar facilidad cuando se genera un programa.
 
 \subsection{Tamaño de fuente}
 
-En \latex se permiten tres tamaño de fuente para el documento, pero puede formatearse una sección o texto en particular con los siguientes comandos:
+En \latex se permiten tres tamaño de fuente (por puntos [pt]) para el documento, pero puede formatearse una sección o texto en particular con los siguientes comandos:
 
-\begin{verbatim}
-Command             10pt    11pt    12pt
-\tiny               5       6       6
-\scriptsize         7       8       8
-\footnotesize       8       9       10
-\small              9       10      10.95
-\normalsize         10      10.95   12
-\large              12      12      14.4
-\Large              14.4    14.4    17.28
-\LARGE              17.28   17.28   20.74
-\huge               20.74   20.74   24.88
-\Huge               24.88   24.88   24.88
-\end{verbatim}
+\begin{center}
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l  l  l  l  }
+    Comando   &          10pt &    11pt    & 12pt \\
+    \hline
+    \verb$\tiny$          &     5     &  6     &  6 \\
+    \hline
+    \verb$\scriptsize$    &     7     &  8     &  8 \\
+    \hline
+    \verb$\footnotesize$  &     8     &  9     &  10 \\
+    \hline
+    \verb$\small$         &     9     &  10    &  10.95 \\
+    \hline
+    \verb$\normalsize$    &     10    &  10.95 &  12 \\
+    \hline
+    \verb$\large$         &     12    &  12    &  14.4 \\
+    \hline
+    \verb$\Large$         &     14.4  &  14.4  &  17.28 \\
+    \hline
+    \verb$\LARGE$         &     17.28 &  17.28 &  20.74 \\
+    \hline
+    \verb$\huge$          &     20.74 &  20.74 &  24.88 \\
+    \hline
+    \verb$\Huge$          &     24.88 &  24.88 &  24.88 \\
+    \hline
+\end{tabular*}
+\end{center}
 
-
+Estos comandos son aceptados dentro de un string, usando la misma sintaxis de \latex, como si se estuviese escribiendo directamente. Esto es porque se considera que es son útiles y expresivos. Y cada punto sigue el standard norte americano de 1\textit{pt} es equivalente a 0.35136\textit{mm}.
 
 \section{Familia de fuente}
+
+En cuanto a la familia de la fuente, existen tres y cada una con ciertas fuentes que pueden usarse. Aquí se muestra una tabla con las opciones que vienen por defecto en \latex, por ende en \ohtex:
+
+\begin{center}
+\begin{tabular}{ c l }
+    \hline
+    \multicolumn{2}{c}{Fuentes \textit{Serif}} \\
+    \hline
+    cmr & Computer Modern Roman (default) \\
+    lmr & Latin Modern Roman \\
+    pbk & Bookman \\
+    bch & Charter \\
+    pnc & New Century Schoolbook \\
+    ppl & Palatino \\
+    ptm & Times \\
+    \hline
+    \multicolumn{2}{c}{Fuentes \textit{Sans Serif}} \\
+    \hline
+    cmss & Computer Modern Sans Serif (default) \\
+    lmss & Latin Modern Sans Serif \\
+    pag  & Avant Garde \\
+    phv  & Helvetica \\
+    \hline
+    \multicolumn{2}{c}{Fuentes \textit{Typewriter}} \\
+    \hline
+    cmtt & Computer Modern Typewriter (default) \\
+    lmtt & Latin Modern \\
+    pcr  & Courier \\
+    \hline
+\end{tabular}
+\end{center}
+
+En el caso de \ohtex, para especificar otra fuente, distintas a la que viene por defecto en cada familia, se usa la siguiente sintaxis:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    doc :: Article {
+        font-family   : rm .. puede ser 'sf' o 'tt'
+        font-typeface : ptm
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Si la fuente que se escogió no pertenece a la familia, se lanzara un mensaje de error. En caso de que no se especifique la familia pero si la fuente, la misma será inferida y si solo se especifica la familia, se usara la fuente por defecto.
 
 \subsection{Cursiva}
 
@@ -790,25 +776,136 @@ asteriscos `*`, dos de cada lado del texto y siguiendo las mismas restricciones.
 \end{verbatim}
 \end{center}
 
+\section{Estructuración del documento}
+
 \section{Literales}
+
+Los literales son una notación para representar un valor en bajo nivel, y en este lenguaje, como en la mayoría, es existen literales para numeros, booleanos, string y estructuras como arreglos, tablas de hash (diccionarios) y rangos.
 
 \subsection{Numeros}
 
-\subsection{Booleanos}
+Los numeros en \ohtex son representados en arábico, y pueden interpretarse como enteros o flotantes. Se considera que la precisión de los números puede mantenerse sencilla, dado que no es relevante, como lo sería en un lenguaje destinado al calculo numérico o metodos numéricos que requieren manejar la precisión de punto flotante.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    i = 9   .. Entero
+    f = 4.2 .. Flotante
+\end{lstlisting}
+\end{minipage}
+\end{center}
 
 \subsection{Strings}
 
+Un \textit{string} comienza y termina con una comilla simple \ttcode{'}, y puede estar sujeto a la interpolación de una expresion. Como el siguiente ejemplo:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    s = 'Hola Mundo'
+    i = 'Tengo ${3 + 6} manzanas'
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+El uso de comillas dobles no es permitido, y todo caracter que se escrito dentro de un \textit{string} se considerará de forma literal, es decir, que no existe notación con \textit{backslash}, excepto para `\verb$\'$' y `\verb$\\$'.
+
 \subsection{Arreglos}
+
+Los arreglos en \ohtex son ``heterogeneos'', dado que todo es un objeto, en todo momento los arreglos son de objetos. Para la definición de un nuevo arreglo se puede usar la notación de doble dos-puntos o con elementos separados por coma simple entre corchetes.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    array1 :: Array
+
+    array2 = [3,6,9]
+
+    .. acceso por indice
+    array2[0] .. 3
+    .. acceso por indice negativo
+    array2[-1] .. 9
+    .. sub arreglo usando rangos
+    array2[0..1] .. [3,6] 
+\end{lstlisting}
+\end{minipage}
+\end{center}
 
 \subsection{Tablas de Hash}
 
+Conocidos tambien como diccionarios, son estructuras que almacenan pares de objetos, una llave y su valor. Y los valores son accedidos por su llave, que debe ser única.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    hash1 :: Hash
+
+    hash2 = {
+        'foo' : 9
+        'bar' : 27
+        'baz' : 42
+    }
+
+    hash3 = { 'foo' : 9; 'bar' : 27; 'baz' : 42 }
+
+    .. acceso por llave
+    hash2['bar'] .. 27
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
 \subsection{Rangos}
+
+Son la representación de un subconjunto de valores posibles de los enteros (solo se pueden usar para esta clase), incluyendo los extremos.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    1..9
+    -5..5
+
+    9..0 .. sintacticamente es valido, pero genera un rango
+         .. vacio
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsection{Unidades de tamaño y formato de texto}
+
+Cuando hablamos del formato de un texto, existen medidas a lo largo de todo el documento, tamaño de letra, espacio entre lineas o parrafos y esto se logra con unidades de medida.
+
+\begin{tabular}{ r | l}
+pt & un punto \\
+\hline
+mm & un milimetro  \\
+\hline
+cm & un centimetro  \\
+\hline
+in & una pulgada \\
+\hline
+ex & depende de la fuente actual \\
+\hline
+em & depende de la fuente actual \\
+\hline
+\end{tabular}
+
+Y es posible usar estas unidades en atributos que lo permitan, y deben ser precedidas por un numero (entero o flotante).
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    doc.font = 11pt
+    
+    text.resize 1.5em
+\end{lstlisting}
+\end{minipage}
+\end{center}
 
 \subsection{Verbatim}
 
-En ciertas ocasiones se desea hacer uso explicito de una expresión que sea
-literal en \ruby ó \latex y para ello se hace uso de la siguiente sintaxis:
- \ruby:
+En ciertas ocasiones se desea hacer uso explicito de una expresión que sea literal en \ruby ó \latex, pero cabe destacar que el uso código literal en \ruby esta sujeto a que se decidió implementar el lenguaje en el mismo y su objetivo es flexibilizar el manejo de objeto y estructuras en el momento de que \ohtex no pueda, porque en cierto momento podría no estar implementado y se usaria como un respaldo. En el la implementación final no existiría.
+
+En cuanto a una expresión literal de \latex, será posible introducirla en un documento, en cualquier momento de la ejecución, porque \ohtex abarca aspectos y funcionalidades comunes, pero ciertamente existen elementos tipograficos especificos que hasta el momento son soportados. Por esto, mientras no exista una sintaxis en el lenguaje para ello, es posible incorporarlo a mano en el documento.
 
 Cualquier código que sea escrito dentro de las llaves podrá usar los objetos de
 archivo definidos en \ohtex u otro verbatim de \ruby.
@@ -816,39 +913,308 @@ archivo definidos en \ohtex u otro verbatim de \ruby.
 \ruby:
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 &ruby {
     ... código ruby
 }
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
 \LaTeX:
 
 En el caso de \latex es mas simple, solamente se debe incorporar el código entre
-comillas simples al documento, haciendo uso del operador \ttcode{\<\<}. Haciendo
+comillas simples al documento, haciendo uso del operador \textit{insert} (\verb$<<$). Haciendo
 distinción entre el preámbulo y los elementos dentro del documento.
 
 \begin{center}
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
+    ...
+
     doc1 :: Article {
         ...
     }
 
-    .. texto ohtex
+    .. código ohtex
 
     doc1.preamble << '
-        \newcommand{cmd}[1]{Comando numero #1}
+        \newcommand{cmd}[1]{Un Macro - #1}
     '
 
     doc1.document << '
         \noindent
-        Example paragraph...
+        párrafo...
     '
+    ...
 \end{lstlisting}
+\end{minipage}
 \end{center}
 
+Podria usarse el operador (\verb$<<$) para introducir codigo directamente al documento sin especificarlo y si no se quisiera especificar explicitamente que se agregara algo al preámbulo, se puede usar el operador (\verb$<<<$) que solo opera con clases derivada de \texttt{Document}. Claramente lo errores que puedan ser generados por esta incorporación de codigo a mano, quedan por parte del programador.
+
+\section{Operadores}
+
+\subsection{Asignación}
+
+Ya se un identificar u objeto, el símbolo de asignación es el igual (\texttt{=}) por ejemplo:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    var = 'Hola Mundo'
+    int = 27
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Es posible realizar una auto-asignación, con todo objeto que tenga los comandos, (\texttt{+}), (\texttt{-}), (\texttt{*}), (\texttt{**}) o (\texttt{/}). Dependiendo de la operación que se desea realizar.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    foo = 9
+    foo += 18
+    foo -= 6
+    foo *= 2
+    foo **= 3
+    foo /= 1764  
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Cabe destacar que los operadores aritmeticos (\texttt{+}), (\texttt{-}), (\texttt{*}), (\texttt{**}) o (\texttt{/}) no son operadores en \ohtex, son comandos.
+
+\subsection{Lógicos}
+
+Al igual que los operadores aritmeticos, los operadores logicos (\texttt{<}), (\texttt{>}), (\texttt{<=}), (\texttt{>=}), (\texttt{==}), (\texttt{!=}) y (\texttt{!}) son comandos, dependiendo de cada objeto.
+
+Pero en \ohtex, existen los operadores \texttt{and} y \texttt{or}, que corresponden a la conjunción y disyunción respectivamente.
+
+\section{Estructuras de Control}
+
+\subsection{Condicionales}
+
+\subsubsection{Codicional \textit{if}}
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    i = 9
+
+    if i < 10 {
+        i *= i
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsubsection{Codicional \textit{if-elsif-else}}
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    if <condicion> {
+        ...
+    } elsif <condicion> {
+        ...
+    } else {
+        ...
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsubsection{Codicional \textit{case-when}}
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    i = 27
+    case i {
+        when 25    : i = 'Igual a 25'
+        when 1..20 :
+            i = 'Dentro de rango'
+            i += ' (1..20)'
+        when 0     : i = 'Igual a 0'
+        else       : .. no pasa nada
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsection{Bucles}
+
+\subsubsection{\textit{while}}
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    while <condicion> {
+        ...
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsubsection{\textit{for}}
+
+La declaración de un \texttt{for}, se usa para iterar sobre estructuras de una manera mas comoda, sin preocuparse por aumentar un contador.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    for <variable_local> in <rango/arreglo/hash> {
+        ...
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+En el caso especial de una tabla de hash, se usan dos varibles, una que itera sobre las llaves y otro que itera sobre los valores, respectivos uno con el otro. Si se quisiera iterar solamente sobre las llaves o los valores, debe decirse explícitamente.
+
+Si en algún momento se quiere detener algun tipo de bucle, se debe usar la palabra reservada \texttt{break}.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    for llave in my_hash.keys {
+        ...
+    }
+
+    for valor in my_hash.values {
+        ...
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+%\subsection{Manejo de excepciones}
+
+\section{Comandos}
+
+En \ohtex, existe el concepto de híbrido entre los metodos y funciones con los comandos de \latex; donde hay un identificador, parametros o aridad, un alcance y posiblemente un valor de retorno o no. Se hace uso de la palabra reservada \texttt{cmd} para indicar una nueva declaración o sobre-escritura de un comando. Por ejemplo:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    cmd foo(a, b) { .. los parentesis son opcionales
+        return a + b
+    }
+
+    cmd foo 2 { .. la definición anterior es sobre-escrita
+        return #1 + #2
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Los comandos pueden representar algo complejo como un metodo o algo tan simple como un macro, al final pueden ser representados de igual manera pero tienen una finalidad distinta.
+
+\section{Clases}
+
+\subsection{Definición de clase}
+
+Para definir una clase nueva, se debe comenzar con la palabra reservada \texttt{class}, seguida del nombre de mi nueva clase (el cual debe comenzar con mayúscula).
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[mathescape]
+    class $\langle$nombre_de_la_clase$\rangle$ {
+        ...
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsection{Atributos}
+
+Todo atributo que se defina en una clase sera publico (variables de instancia) y no existe la posibilidad de que sean privados o protegidos. Referenciar a un atributo desde un comando se hará similar a \ruby, poniendo de prefijo un arroba \ttcode{@} o se puede omitir si no es opacado por un parámetro con el mismo nombre, pero es recomendable usar el arroba para saber de que estamos hablando de una variable de instancia.
+
+Para definir los atributos de mi instancia se usa la palabra reservada \texttt{attr}, seguido uno o mas identificadores separados por coma, por ejemplo:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    class A {
+        attr a, b
+
+        cmd foo {
+            return @a + @b
+        }
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsubsection{Variable de clase}
+
+La variables de clase, siempre serán privadas, a menos que se definan un \textit{getter} y/o \textit{setter}. Estas pueden ser definidas en cualquier momento de la definición de clase (con tan solo escribirla).
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    class B {
+        @@var_class = 27
+
+        cmd foo {
+            ...
+        }
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsection{Instanciación}
+
+Tomando en cuenta la estructura básica de un programa en \ohtex, en especifico
+los \textit{dos-puntos} dobles (\texttt{::}), representa la instanciación de
+una clase, es el constructor de objetos y la referencia a esa instancia es dada
+por el nombre (identificador) del lado izquierdo (\textit{lhs}). Por ejemplo:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    doc1 :: Article {
+        ...
+    }   
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Si bien al construir un objeto, el mismo debe inicializarse (en el caso de que
+sea necesario), dependiendo si tiene o no valores por defecto. Y para ello, se
+usan las llaves, donde se encierra una secuencia (puede ser vacía) de
+identificadores que representan algunos (o todos) los atributos del objeto, cada
+nombre es seguido del símbolo \textit{dos-puntos} (\texttt{:}) y luego el valor
+que inicializará el atributo; cada una de estas inicializaciones es separada por
+salto de linea (\verb|\n|) o por punto-y-coma (\texttt{;}). Aquí se muestra una
+inicialización (\textit{singleton}):
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    font : 10pt
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+%\subsection{Declaración de visibilidad}
+
+\subsection{Herencia}
+
+En el caso de que se desee especificar una clase padre, se usa el simbolo menor-que (\texttt{<}) seguido de la clase padre y entre llaves estarán definidos los atributos y comandos.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[mathescape]
+    class $\langle$nombre_de_la_clase$\rangle$ < $\langle$clase_padre$\rangle$ {
+        ...
+    }
+\end{lstlisting}
+\end{minipage}
+\end{center}
 
 \chapter{Conclusiones y Recomendaciones}
-\lipsum[1-2]
 \end{document}
