@@ -81,14 +81,56 @@ literate={á}{{\'a}}1 {í}{{\'i}}1 {é}{{\'e}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{
 
 \newcommand{\ttcode}[1]{(\texttt{#1})}
 
-\title{\ohtex \ : Un lenguaje de programación orientado a objetos destinado a la composición tipográfica}
-\author{Lilue, David}
+%\title{\ohtex \ : Un lenguaje de programación orientado a objetos destinado a la composición tipográfica}
+%\author{Lilue, David}
 
 \begin{document}
 
 \frontmatter
 
-\maketitle
+\begin{titlepage}
+    \begin{center}
+        \noindent
+        \includegraphics[width=0.15\textwidth]{book_design/logo}\\
+        {\large UNIVERSIDAD SIMÓN BOLIVAR}\\
+        DECANATO DE ESTUDIOS PROFESIONALES\\
+        COORDINACIÓN DE INGENIERIA DE LA COMPUTACIÓN
+        
+        %\vspace{4cm}
+        \vspace{3em}
+        %\ohtex \\
+        \textbf{Un lenguaje de programación orientado a objetos destinado a la composición tipográfica}
+        
+        %\LARGE
+        %Thesis Subtitle
+        
+        %\vspace{1.5cm}
+        \vspace{2em}
+        Por:\\
+        David Alejandro Lilue Borrero\\
+        
+        \vspace{3em}
+        %\vspace{1.5cm}
+        Realizado con la asesoría de:\\
+        Ricardo Monascal\\
+
+        %\vfill
+        \vspace{4em}
+        %\vspace{1.5cm}
+        PROYECTO DE GRADO\\
+        Presentado ante la Ilustre Universidad Simón Bolivar\\
+        como requisito parcial para optar al título de\\
+        Ingeniero de la Computación\\
+        
+        %\vspace{0.8cm}
+        \vfill
+        
+        \today
+        
+    \end{center}
+\end{titlepage}
+
+%\maketitle
 
 \nonumberchapter{Preámbulo}
 
@@ -162,56 +204,223 @@ mas no quiere ser encontrado.
 
 %\chapter{Motivación}
 \chapter{Introducción}
-\section{Antecedentes}
-La composición tipográfica es un termino que se maneja desde alrededores del año 1040, refiriéndose
-a la estructura del texto ordenando \textit{types} (una pieza que represente una letra o
-símbolo) acorde a la ortografía de un lenguaje y al final, obtener la visualización de un texto.
 
-Al principio, se tenían piezas movibles que se ordenaban a mano (dichas piezas estaban al revés 
-para que saliesen bien orientadas al imprimir) y se imprimían pagina por pagina. Todo esta 
-metodología para la composición tipográfica se inicio en china con piezas de cerámica, 
-posteriormente se usaron piezas de metal (bronce). Esta tecnología de impresión llego a Europa
-en el siglo 15 y era usada principalmente para cartas.
+En este trabajo se expone el proceso evolutivo de la composición tipográfica, así como sus componentes. Hoy en día, el lenguaje mas usado para la generación de documentos de índole académica y de investigación, es \latex; hasta el momento tiene 30 años siendo el mejor y posiblemente le queden varios. La intención de este trabajo no es crear un nuevo sistema de composición tipográfica, porque \tex/\latex lo hace muy bien; el propósito es demostrar un concepto, que es posible elevar el nivel de abstracción sin perder la parte esencial y flexible de \tex/\latex. Haciendo uso de un sistema de objetos, que abstraiga los elementos de un documento a tipos de datos abstractos con atributos que le den formato al texto, ademas de ilustrar una estructuración mas perceptible y fácil de manejar, sin la necesidad de marcas (\textit{tags}); las cuales requieren tiempo para escribir y dificultan el aprendizaje del lenguaje. En cambio, es posible marcar contenido por medio de clases y atributos.
 
-Para el siglo 19, se había globalizado e industrializado esta forma de impresión, mas que todo por
-imprentas y editoriales, gracias a la maquina linotipia (\textit{Linotype Machine}). Estas mismas duraron hasta las ultimas décadas del siglo 20, dado que fueron sustituidas por una nueva tecnología llamada foto-composición, que hacia uso programas para la composición tipográfica electrónica como \textit{troff} y un \textit{phototypesetter} (\textit{CAT}).  A pesar de su innovación, se convirtió rápidamente en un método obsoleto gracias a avanzados lenguajes de composición tipográfica como:
+%\section*{Antecedentes}
 
-\begin{itemize}
-\item ditroff (1979)
-\item \TeX \ (1979)
-\item \LaTeX \ (1981-1983)
-\end{itemize}
+%\subsection*{Linea de Tiempo}
 
-\subsection{Linea de Tiempo}
+%\begin{itemize}
 
-\begin{itemize}
+%\item 1971, Graphic Systems designs and markets the C/A/T phototypesetter.
+%\item 1972, Graphic Systems provides a simple computer front end to handle display typesetting from text input using a standard set of fonts.
+%\item 1973, Bell Laboratories purchases a GSI C/A/T phototypesetter for their UNIX software development team.
+%\item 1973, The troff software was created by Joe F. Ossanna at Bell Labs.
+%\item 1974, Graphic Systems partners with Singer Corporation to market the GSI C/A/T phototypesetter. Singer Corporation was allowed to put the Singer C/A/T logo on equipment they sold.
+%\item 1978, Singer Corporation gets out of the typesetting business.
+%\item 1978, Wang Laboratories purchases Graphic Systems and continued to market the GSI C/A/T typesetter. for UNIX based phototypesetting. The phototypesetter was then known as the Wang Graphic Systems C/A/T. This allowed the phototypesetter to be available through the 1980s.
+%\item 1979, ditroff software was created by Brian Kernighan.
+%\item 1979, TeX software was created by Donald E. Knuth.
+%\item 1981-1983, LaTeX software was created by Leslie Lamport.
+%\item 1992, Wang Laboratories declared Chapter 11 bankruptcy.
+%\end{itemize}
 
-\item 1971, Graphic Systems designs and markets the C/A/T phototypesetter.
-\item 1972, Graphic Systems provides a simple computer front end to handle display typesetting from text input using a standard set of fonts.
-\item 1973, Bell Laboratories purchases a GSI C/A/T phototypesetter for their UNIX software development team.
-\item 1973, The troff software was created by Joe F. Ossanna at Bell Labs.
-\item 1974, Graphic Systems partners with Singer Corporation to market the GSI C/A/T phototypesetter. Singer Corporation was allowed to put the Singer C/A/T logo on equipment they sold.
-\item 1978, Singer Corporation gets out of the typesetting business.
-\item 1978, Wang Laboratories purchases Graphic Systems and continued to market the GSI C/A/T typesetter. for UNIX based phototypesetting. The phototypesetter was then known as the Wang Graphic Systems C/A/T. This allowed the phototypesetter to be available through the 1980s.
-\item 1979, ditroff software was created by Brian Kernighan.
-\item 1979, TeX software was created by Donald E. Knuth.
-\item 1981-1983, LaTeX software was created by Leslie Lamport.
-\item 1992, Wang Laboratories declared Chapter 11 bankruptcy.
-\end{itemize}
-
-\subsection{\textit{troff}}
-\subsection{\TeX}
-\subsection{\LaTeX}
-\subsection[OhTeX]{\ohtex}
+%\subsection*{\textit{troff}}
+%\subsection*{\TeX}
+%\subsection*{\LaTeX}
+%\subsection[OhTeX]{\ohtex}
 
 \chapter{Marco Teórico}
 \section{Composición Tipográfica (\textit{Typesetting})}
+
+La composición tipográfica se define como la organización de caracteres de imprenta (\textit{types}) o su equivalente en digital. Se componen letras, símbolos y glifos acorde a la ortografía de un lenguaje, junto a la gramática y al final, obtener la visualización de un texto.
+
+Este término se maneja desde alrededores del año 1040, empleando piezas movibles hechas de cerámica en China, luego en 1377, se usan \textit{types} metálicos que fueron inventados en Korea, durante la dinastía \textit{Koryo} y usados mas que todo para la impresión de documentos budistas, \textit{Jikji} (el libro mas viejo impreso con \textit{types} metálicos) pero ya se había desarrollado esa tecnología en 1234. Posteriormente, llegó a occidente alrededor del 1440 y era usada principalmente para cartas.
+
+Durante el proceso, cada \textit{type} era una pieza metálica (o de cerámica) con un carácter en relieve sobre uno de los lados, estos se colocaba a mano (uno a uno) para crear palabras, luego oraciones, párrafos, páginas y al final, se imprimía una página colocando tinta encima del conjunto de \textit{types} y presionando el papel sobre el mismo. Obviamente todos los caracteres debían estar invertidos para que en el papel se imprimiese bien orientado.
+
+En el año 1884, \textit{Ottmar Mergenthaler}; quien fundo \textit{The Mergenthaler Linotype Company}, desarrollo una maquina llamada, maquina linotipia (\textit{Linotype Machine}) destinada para la imprenta, facilitando la alineación de \textit{types} de una manera rápida y sencilla. Para alrededores del 1914, ya tenia un competidor, \textit{The Intertype Company} que uso el mismo concepto, usando otros materiales en su maquina (acero y aluminio).
+
+Para el siglo 19, se había globalizado e industrializado esta forma de impresión, mas que todo por imprentas y editoriales. Pero esto fue hasta los 1970s y 1980s, dado que fueron sustituidas por una nueva tecnología llamada foto-composición tipográfica (\textit{Phototypesetting}), que computarizaron este concepto. Su mayor impacto, fue que estas maquinas podían ser usadas en oficinas, mientras que la otras no.
+
+El proceso era mas simple, se imprimían caracteres en un negativo o un papel sensible a la luz para su posterior impresión. También se incorporó el uso de programas mas complejos para la composición tipográfica electrónica como \textit{troff}, que generaban la entrada de un foto-componedor tipográfico \textit{phototypesetter} (\textit{Graphic System CAT}).
+
+A pesar de su innovación, se convirtió rápidamente en un método obsoleto gracias a que se hizo posible generar una salida de los se iba componiendo en un tubo de rayos catódicos, imprimiendo en una imagen digital. Y posteriormente, en 1985 se podía hacer uso de programas destinados a la publicación de escritorio (\textit{Desktop Publishing [DTP]}) y combinándolo con \textit{PostScript}.
+
+En paralelo, en el año 1978 aparece \tex, un lenguaje para la composición tipográfica para que cualquiera, con un razonable mínimo de esfuerzo, pueda generar un documento o libros y que iba a funcionar en cualquier computador. Este desplazo ampliamente a \textit{troff}, que había mejorado al incorporar otras salidas que no fuesen un \textit{phototypesetter}, como impresoras y \textit{PostScript} pero las capacidades de mismo fueron superadas. Más tarde, en el año 1985, aparece un macro paquete, \latex para reducir la dificultad que presentaba aprender \tex.
+
+Cabe destacar que herramientas de \textit{Desktop Publishing} es diferente a lo que serian \tex/\latex y \textit{troff} dado que no brindan una interfaz gráfica con una filosofía \textit{WYSIWYG}.
+
 \section{Programación orientada a objetos (\textit{OOP})}
-\section{Lenguajes de \textit{Markup}}
+
+La orientación a objetos es un paradigma basado en objetos, estructuras de datos que contienen atributos y bloques de código, conocidos como métodos. Una característica distintiva dentro de este paradigma es que un método de un objeto puede acceder y/o modificar atributos de si mismo, es decir, referencirse a si mismo usando la notación de \textit{self} o \textit{this}.
+
+La idea de este concepto es elevar el nivel de abstracción, al momento de representar problemas de la vida real en algoritmos y estructuras de datos. Permitiendo al programador enfocarse en el problema, mas que su representación. Muchos lenguajes incorporan ciertas características de este paradigma a su diseño y otros un sistema de objetos puro, donde todo el lenguaje es un objeto y todo objeto es una instancia de una clase.
+
+En este paradigma hay dos conceptos esenciales, las clases; que es la definición de un conjunto de datos y comportamientos, y las objetos; que son las instancias de las clases. Los mismos pueden tener métodos, atributos, campos o miembros. Y existen una distinción en cuanto a la información contenida por los objetos:
+
+\begin{itemize}
+    \item Variables de clase. Pertenece a la clase, es decir, que solo existe una y podría ser accedido desde una instancia.
+    \item Variables de instancia. Pertenece individualmente a cada objeto (instancia) de una clase con un valor particular para cada uno.
+    \item Métodos de clase. Pertenece a la clase y solo puede acceder a las variables de clase y parámetros que sean pasados al método.
+    \item Métodos de instancia. Pertenece individualmente a cada objeto (instancia) de una clase. Y solo tiene acceso a las variables de la instancia desde donde es llamado, así como a los parámetros que se le pasan.
+\end{itemize}
+
+Un concepto intrínseco en la programación orientada a objetos y de gran importancia en cuanto a la abstracción, que es el encapsulamiento. Que nos habla de ocultar información, esto útil porque evita que código externo se preocupe del funcionamiento de un objeto y al momento de refactorizar código.
+
+Objetos pueden contener otros objetos de distinta clases dentro de sus atributos y crear una relación entre instancias. Por otro lado, la relación mas fuerte entre objeto, es la herencia; en la mayoría de las veces, cuando un lenguaje tiene clases, tiene herencia. Si se vieran a las clases como conjuntos, una sub-clase sería un sub-conjunto.
+
+La herencia de clases en los lenguajes orientados a objetos puede ser simple o múltiple, y esa decisión queda a discreción de su creador. Uno de los problemas de los mayores problemas de la herencia múltiple, es que padres de una clase pueden ser sub-clases de un mismo padre y esto generaría colisiones en mi nueva clase, esto se le conoce como el problema del diamante y los lenguajes atacan ese problema de distintas formas. En el caso de la herencia simple, no ocurre este problema, pero ``perderían'' poder y usan otras estrategias para compensarlo; haciendo uso de mixins, interfaces, clases abstractas, etc.
+
+Los lenguajes que incorporan este concepto a su diseño, lenguajes como Java y C++ usan conceptos de clases, herencia, atributos, métodos, instancias, interfaces, etc; siguen siendo imperativos y otros como Scala, son declarativos. Así, que no van en función de como se programa.
+
+\section{Lenguajes de Marcado (\textit{Markup})}
+
+Estos lenguajes ofrecen un sistema que permite explicar y realizar anotaciones en un documento, sin que se mezcle con el contenido. Para ello, la mayoría de los lenguajes usan marcas (o \textit{tags}). Uno de los mas conocido es \textit{HTML}, que es mundialmente usado y es un ejemplo que sigue los estándares generalizados de los lenguajes de marcado (\textit{SGML}), en su mayor parte.
+
+Dentro de estos lenguajes existen distintas formas de marcar el texto y categorías:
+
+\paragraph{Marcado por presentación}
+
+Es usado por sistemas para el procesamiento de texto, siguiendo el paradigma \textit{WYSIWYG}, donde todo el proceso de marcado esta oculto para quien el usuario, es decir, se hace directamente en la maquina.
+
+\paragraph{Marcado procedural}
+
+El marcado esta integrado con el texto, mientras provee instrucciones para el procesamiento del texto en el lenguaje. Todo es visible y manipulable por el usuario. Este tipo de marcado ofrece procedimientos, métodos o macros que permiten manipular el texto.
+
+\paragraph{Marcado descriptivo}
+
+En este caso, los lenguajes ofrecen la posibilidad de indicar como debería ser procesado el texto, en vez de hacerlo. Para separar la estructura del texto, y sea independiente de su interpretación al momento de procesarlo.
+
+Claramente, la mayoría de los lenguajes de marcado no se encasillan en alguna categoría específicamente. Por ejemplo, \tex siendo un lenguaje de marcado procedural, se le dio un enfoque mas descriptivo con \latex.
+
+El primer lenguaje que uso este concepto, de separar la presentación del texto de su contenido, fue \textit{Scribe}. Ahora, en el caso del marcado descriptivo, la presentación queda por parte de otro lenguaje, programa, etc. \textit{HTML}, se usa comúnmente junto a \textit{CSS}, que es una ``hoja de estilo'' y describe la presentación de un documento.
+
+\subsection{Lenguajes Ligeros de Marcado}
+
+En los últimos años han surgido lenguajes de marcado, mas sencillos, fácil de entender y escribir en cualquier ambiente.  Algunos no usan \textit{tags} explícitamente, y se enfocan en el contenido; que el mismo pueda ser leído con facilidad sin pasar por un procesador de texto y darle una presentación humana.
+
+Uno de los mas usados, es \textit{Markdown} y es fácilmente de escribir en cualquier editor de texto. Pero la única desventaja de este tipo de lenguajes, es que no brindan muchas posibilidades para generar documentos, se enfocan principalmente en el contenido.
+
 \section{Serialización de datos}
-\section{Leanguajes de dominio específico (\textit{DSLs})}
+
+La serialización es el proceso de traducir estructuras y objetos en un formato especifico para que pueda ser transmitido por algún medio y que pueda ser reconstruido independientemente del ambiente o entorno (deserialización).
+
+Es comúnmente usado para transferir datos por redes, entre distintas herramientas, guardar información, etc. Es una manera de guardar información en un formato estándar y que puede ser interpretado dependiendo de quien lea los datos.
+
+En el caso de tipos abstractos de datos, que posean información privada o protegida, es decir, encapsulamiento; la serialización podría violar ese concepto al momento de serializar toda la información.
+
+Existen tres lenguajes bastante usados para la transmisión de datos y su serialización:
+
+\begin{itemize}
+    \item \textit{XML}. Es un lenguaje de marcado, para transmitir información entre lenguajes y que seguía siendo humanamente leible.
+    \item \textit{JSON}. Es una versión mas simple, que almacena la información en objetos, usando una notación de pares; atributo-valor. 
+    \item \textit{YAML}. Posee mas cualidades que \textit{JSON}, por lo que lo hace mas poderoso y esta diseñado para que sea mas amigable al momento de leer la información.
+\end{itemize}
+
+\section{Lenguajes de dominio específico (\textit{DSLs})}
+
+Una definición simple de los que son este tipo de lenguajes, es que están diseñados para abarcar un problema específico. Existen muchos lenguajes que son usados comúnmente sin saber que son de dominio especifico, como \textit{awk}, \textit{make}, \textit{HTML}, inclusive \textit{troff}. En contraste a los lenguajes de propósito general (\textit{GPL}), que son aplicables en cualquier área. En el diseño de un lenguaje de dominio especifico, se debe tomar una decisión en cuanto a si será interno o externo.
+
+\paragraph{\textit{DLS} Interno}
+
+Este tipo de lenguajes forman parte de un lenguaje anfitrión para apoyar sus funcionalidades, diseñan una modelo de uso; pudiendo llamarse lenguajes embebidos o ser simplemente una librería del un \textit{GPL}.
+
+\paragraph{\textit{DLS} Externo.}
+
+Estos lenguajes tienen su propia sintaxis, poseen un parser completo. Pero mantienen la idea de enfocarse en un problema especifico.
+
+Por otro lado, al momento de diseñar un \textit{DLS} existen patrones:
+
+\begin{itemize}
+    \item Una herramienta independiente. (\textit{make}, \textit{grep}).
+    \item Un sistema de macros en el lenguaje anfitrión. (\latex.)
+    \item Un lenguaje embebido o librería. (\textit{OpenGL})
+    \item Un lenguajes para una funcionalidad de un \textit{GPL}, que pueden ser operaciones en el mismo. (Expresiones regulares)
+\end{itemize}
+
+Este tipo de lenguajes incorporan mayor nivel de abstracción y expresividad en cuanto al problema que abarca. Por otro lado, el costo de aprender un nuevo lenguaje en relación a sus capacidades podría llegar a ser una desventaja y si hay una implementación en un nivel alto, podría costar en el desempeño pero la eficiencia va en relación a los requerimientos del lenguaje.
 
 \chapter{Marco Tecnológico}
+
+\section{\tex/\latex}
+
+\tex es un sistema destinado a la composición tipográfica, diseñado por \textit{Donald Knuth}. Y ha sido categorizado como la mejor herramienta tipográfica (digital) hasta el momento, la misma es usada comúnmente en el ámbito académico para la generación de libros, artículos y publicaciones; mas que todo el área de matemáticas, ciencias de la computación, ingeniería, física y estadística. Siempre cuando se requiera crear un documento de investigación.
+
+En el momento que salió este lenguaje, en el 1978, fue la principal competencia de \textit{troff}, el primer sistema de composición tipográfica y dado que incorporaba aspectos que para el momento, se hacían con muchos error o no se hacían, desplazo al mismo rápidamente. Ademas de generar una composición de calidad, usa algoritmos para el espaciado de ecuaciones, justificación de texto y separación de palabras \textit{hyphenation}; que en su momento fueron innovadores y de gran interés, y lo siguen siendo.
+
+\tex trabaja en conjunto con otro lenguaje, llamado \textit{Metafont}. El cual genera los glifos que usa el mismo.
+
+El sistema funciona con una serie de instrucciones \textit{commands}, precedidos por una barra invertida (\textit{backslash}) y agrupaciones entre llaves. La base del lenguaje comprende de alrededor de 300 instrucciones, llamadas \textit{primitives}, que no son usadas por usuarios, dado que son instrucciones de bajo nivel. Por lo tanto, se crearon un conjunto de instrucciones basadas en estas para subir el nivel del lenguaje.
+
+A pesar de ello, \tex es considerado difícil de aprender, contradiciendo el hecho de decir que es un sistema para que cualquiera genere documentos; por ello se han creado macro paquetes como \latex y Con\TeX t. Ademas de ello, se han implementado interfaces gráficas que se apoyan en \tex y hacen el lenguaje mas amigable para el usuario en general.
+
+la salida del lenguaje es un archivo \textit{DVI}, \textit{PS} o \textit{PDF}, dependiendo de que hará con el documento generado.
+
+\subparagraph{\latex}por su lado, es un lenguaje de marcado e incorpora a lenguaje anfitrión, \tex, una serie de instrucciones, ambientes y formatos predefinidos para aliviar la carga de entender \tex. Usando la misma filosofía de un lenguaje de marcado descriptivo, separa el contenido de la presentación, enfocándose mas en la estructura de un documento. E igualmente puede generar varias salidas.
+
+La estructura basica de un archivo \latex, seria asi:
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+    \documentclass[options]{clase_del_documento}
+    % Comandos del preambulo, si se necesitan 
+
+    \begin{document}
+    % Texto del documento e instrucciones
+
+    \begin{ambiente1}
+    % Instrucciones y texto del ambiente 1
+    \end{ambiente1}
+
+    % Mas texto del documento e instrucciones
+
+    \begin{ambiente2}
+    % Instrucciones y texto del ambiente 2
+    \end{ambiente2}
+
+    \end{document}
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\section{\ruby}
+
+\ruby es un lenguaje orientado a objetos ``puro'', dinámico, reflexivo y de propósito general. Surgió en el año 1995 en Japón, diseñado por \textit{Yukihiro Matsumoto}. Influenciado por Perl, Eiffel, Ada, Lisp y principalmente Smalltalk, por su sistema de objetos, donde todo elemento dentro del lenguaje es un objeto, inclusive las clases y elementos que otros lenguajes ven como literales (enteros, booleanos, caracteres, etc).
+
+Es un lenguaje que brinda una sintaxis (similar a Perl), flexible y concisa, por lo tanto el código es limpio, enfocándose en lo que se quiere expresar y brinda la facilidad de crear lenguajes de dominio especifico. También, tiene la filosofía de que todo es una expresión y todo es ejecutado de manera imperativa. Por otro lado, tiene capacidad de introspección y reflexividad de objetos, facilitando el uso de meta-programación. Usa el modelo de referencia para las variables, y tiene recolección de basura. Ademas de que incorpora características funcionales, gracias a su flexibilidad.
+
+\section{Racc}
+
+Racc es un generador de \textit{parsers} LALR(1), escrito en \ruby y genera un programa \ruby. Esta herramienta toma como entrada una gramatica libre de contexto, en notacion \textit{Backus-Naur} y crea un \textit{parser} LALR\footnote{Los \textit{parsers} LALR, se refieren a LALR(1)}, el cual reconoce el lenguaje definido en la gramatica. Este tipo de \textit{parser} fueron inventados por \textit{Frank DeRemer}, partiendo de los \textit{parsers swift-reduce} LR(k) (\textit{left-right}) definidos por \textit{Donald Knuth}, que eran considerablemente mas extensos en cuanto al tamaño, en su época, para su implementación. Por lo que, fue una alternativa eficiente en cuanto a memoria. El primero y mas popular es \textit{Yacc}, y hoy en día muchos de los \textit{parsers} estan inspirados en el, como Racc.
+
+\section{Git}
+
+Herramienta para el control de versiones de un proyecto, usado en el desarrollo de software. Ofrece la posibilidad de crear una bitácora no lineal durante el desarrollo de un proyecto, usada para la colaboración de grupos grandes al mismo tiempo, a través de un sistema de unión (\textit{merge}) y derivación (\textit{branch}) del proyecto en un servidor privado o publico (como GitHub o Bitbucket); ó localmente.
+
+\section{PDF}
+
+Es un acrónimo en ingles, que significa, ``formato de documento portable'' (\textit{Portable Document Format}). El cual almacena toda la inofrmación de un documento, incluyendo el texto, fuente, imagenes y cualquier elemento que se necesite mostrar. Este formato, usa en parte al lenguaje \textit{PostScript} para generar el diseño del documento, ademas de presentar simplicidad y mejoras del mismo.
+
+\section{TeX Live}
+
+TeX Live es un software para adquirir el sistema tipografico \tex, junto a los archivos bnarios para su uso en ambientes Unix, como GNU/Linux. Incluye gran parte de los programas relacionados con \tex, macro paquetes y soporte. Ademas, posee un manejador de paquetes, que mantiene actualizado todos los componentes de \tex. Ofrece la posibilidad distintos esquemas de instalación, o escoger que paquetes se desean instalar.
+
+La idea de usar este herramienta, es apoyar y facilitar el proceso de traducción incorporando una software existente.
+
+\section{MiKTeX}
+
+Esta herramienta es muy similar a Tex Live, pero esta desarrollada para funcionar solo en ambiente Windows. Pero una de las funcionalidades mas relevantes y que no esta presente en TeX Live, es la instalación automática de paquetes no instalados (cuando no se encuentre por \tex).
+
+\section{Shell Script}
+
+Es un programa diseñado para ejecutarse en un \textit{Shell} de Unix. Sus capacidades mas usadas son la manipulación de archivos, ejecución de programas e imprimir texto en la linea de comandos. Es llamado un lenguaje de programación de \textit{scripting}, en el caso de que se cree un archivo con un conjunto de instrucciones, va ejecutando cada una mientras lee el archivo desde arriba a abajo.
+
+\subsection{Batch File}
+
+En Windows existe algo similar, los archivos \textit{Batch}, que consiste en un conjunto de instrucciones, guardadas en un archivo y son ejecutadas por la linea de comandos. 
 
 \chapter{Desarrollo}
 En principio se ideo la posibilidad de que el lenguaje fuese no mas que una
@@ -253,7 +462,7 @@ comportamiento, ambiente o formato de texto. Este puede ir intrínseco en cada
 objeto del documento, con ayuda de una estructuración adecuada, símbolos y
 jerarquía.
 
-Gran parte del lenguaje es inspirado en \ruby, y esto se debe a la filosofia que
+Gran parte del lenguaje es inspirado en \ruby, y esto se debe a la filosofía que
 posee el mismo como lenguaje orientado a objetos. Se necesitaba que nuestro
 lenguaje tuviese un sistema de objetos que fuese puro, es decir, que todo es un
 objeto y enfocarlo a lo que sería la estructuración de un documento.
@@ -304,10 +513,10 @@ entender el lenguaje.
 \section{Entrada y Salida}
 
 En cuanto a la incorporación de instrucciones para el manejo de entrada y salida
-(\textit{I/O}), no existirán en el lenguaje. La unica salida posible del
+(\textit{I/O}), no existirán en el lenguaje. La única salida posible del
 lenguaje será para generar un documento, haciendo uso de un operador que se
-especificara en el proximo capítulo. Y esto es porque, no limita ni brinda poder
-para el proposito final del lenguaje.
+especificara en el próximo capítulo. Y esto es porque, no limita ni brinda poder
+para el propósito final del lenguaje.
 
 \section{Clases e Instancias}
 
@@ -317,7 +526,7 @@ lenguaje también se pueden definir clases que tienen una estructura similar a
 las de \ruby pero tienen un significado semántico similar a las clases en \latex. En la mayoría de los casos, se usaran las clases para definir un nuevo sub-clase de la clase
 abstracta \textit{Document}, donde se definirá un formato especifico de un documento en particular, que no pueda usar las clases predefinidas. En cualquier otro caso, todo clase que se defina sin un padre, sera sub-clase de la clase mayor \textit{Object}, siguiendo la filosofía de \ruby. Posteriormente se mostrara la sintaxis adecuada.
 
-Todo clase puede definir atributos, que serán siempre públicos; al igual que todas las clases predefinidas en el lenguaje y ademas, la definición de funciones y comandos usando la sintaxis adecuada.
+Todo clase puede definir atributos, que serán siempre públicos; al igual que todas las clases predefinidas en el lenguaje y ademas, la definición de instrucciones usando la sintaxis adecuada.
 
 \subsection{Instancias}
 
@@ -333,9 +542,9 @@ datos.
 
 \section{Inicialización y Asignación}
 
-Al momento de construir una instancia de clase, los parametros para inicializarla son pasados de una manera particular, solo para la construcción. Y esto es para aumentar la expresividad al momento de crear un objeto, tanto para quien lo escribe como quien lo lea. Por ello, se decidió que fuese una inicialización por nombre, seguida de su valor.
+Al momento de construir una instancia de clase, los parámetros para inicializarla son pasados de una manera particular, solo para la construcción. Y esto es para aumentar la expresividad al momento de crear un objeto, tanto para quien lo escribe como quien lo lea. Por ello, se decidió que fuese una inicialización por nombre, seguida de su valor.
 
-Aunque, el simbolo que representara esta ``asignación" ó ``inicialización" tuvo las siguientes opciones:
+Aunque, el símbolo que representara esta ``asignación" ó ``inicialización" tuvo las siguientes opciones:
 
 \begin{center}
 \begin{enumerate}[label=Opción \alph*:, leftmargin=7em]
@@ -355,16 +564,16 @@ Y se tenían que tomar en cuenta las siguientes consideraciones, para que al mom
 \item El símbolo debe poseer una semántica acorde a lo que se desea expresar.
 \end{itemize}
 
-En primer lugar descartamos al simbolo (\texttt{:=}), dado que es tedioso de escribir y representa una una sustitución textual, lo cual no es acorde a la semantica.
+En primer lugar descartamos al símbolo (\texttt{:=}), dado que es tedioso de escribir y representa una una sustitución textual, lo cual no es acorde a la semántica.
 
-Tambien el simbolo (\texttt{<-}) fue descartado, mas que todo porque su significado no es lo que busca decir la expresion. Este nos dice que sacara ``algo'' de la expresion derecha y lo colocara en la expresion izquierda.
+También el símbolo (\texttt{<-}) fue descartado, mas que todo porque su significado no es lo que busca decir la expresión. Este nos dice que sacara ``algo'' de la expresión derecha y lo colocara en la expresión izquierda.
 
-Ahora los unicos simbolos que quedan son, (\texttt{=}) y (\texttt{:}). Y en la decisión final se opto por (\texttt{:}), tomando en cuenta las siguientes razones:
+Ahora los únicos símbolos que quedan son, (\texttt{=}) y (\texttt{:}). Y en la decisión final se opto por (\texttt{:}), tomando en cuenta las siguientes razones:
 
 \begin{itemize}
 \item Desde un punto de vista lingüístico, representa una pausa para hacer un llamado de atención en lo que sigue y que siempre esta relacionado con el texto precedente.
 \item Cuando tenemos una expresión, <<\texttt{font : 10pt}>>. El lado izquierdo nos habla del lado derecho y eso es lo que quiere expresar.
-\item Tambien, es usados como lo hace CSS (un lenguaje de markup) y JSON (un lenguaje de serialización de datos)
+\item También, es usados como lo hace CSS (un lenguaje de markup) y JSON (un lenguaje de serialización de datos)
 \end{itemize}
 
 En cuanto al simbolo ``igual'' (\texttt{=}), a pesar de que el símbolo (\texttt{:}) representa la inicialización de un
@@ -384,7 +593,7 @@ escribir expresiones en una sola linea (\textit{inline}) o en bloque.
 
 %\section{Tipos de Datos}
 
-%El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases, metodos y comandos.
+%El lenguaje manejará tipos enteros, booleanos, clases, instancias de clases, metodos y instrucciones.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Capitulo. OhTeX
@@ -425,7 +634,7 @@ Un archivo de \ohtex puede tener definiciones, instancias, estructuras de contro
 Estructura de un programa \ohtex:
 
 \begin{center}
-\begin{minipage}{\linewidth}
+%\begin{minipage}{\linewidth}
 \begin{lstlisting}
     use <paquete>
 
@@ -449,14 +658,46 @@ Estructura de un programa \ohtex:
 
     <documento> >> '<nombre_archivo>'
 \end{lstlisting}
-\end{minipage}
+%\end{minipage}
 \end{center}
 
 Durante toda la ejecución del programa, en el archivo pueden crearse $n$
 objetos, pero eso no le indica al lenguaje que esos $n$ objetos estarán
 presentes en un documento o no, si es que se decide exportar alguno.
 
-Por lo tanto, un programa en \ohtex puede contener $n$ objetos sin generar una salida pero ya se habría un chequeado lexicógrafico, sintáctico y contextual del mismo. 
+Por lo tanto, un programa en \ohtex puede contener $n$ objetos sin generar una salida pero ya se habría un chequeado lexicográfico, sintáctico y contextual del mismo.
+
+\section{Ejecución}
+
+La herramienta comienza leyendo de arriba a abajo, interpretando, creando
+objetos, interactuando con los mismo y al final puede o no generar uno o mas
+documentos. <<\textit{Crear un objeto no implica que el mismo estará en un
+documento}>>.
+
+\subsection{Linea de comandos}
+
+La ejecución de la herramienta, se hace a través de la linea de comando y tiene las siguiente opciones:
+
+{\footnotesize
+    
+\begin{tabular}{ l l l p{6cm} }
+ohtex & [OPTION] \ldots \ FILE & & \\
+      & - -tex-command=CMD & & especify the TeX command to compile \\
+      & - -ruby-command=CMD & & especify the Ruby command to use \\
+      & - -output-directory=DIR & & use a existing DIR as the directory to write files in \\
+      \hline
+      & -a, - -all & & generate all the TeX output files on each case (aux, dvi, log, out, ps, toc). \\
+      & - -aux & & generate the aux output file of TeX \\
+      & - -dvi & & generate the dvi output file of TeX \\
+      & - -log & & generate the log output file of TeX \\
+      & - -out & & generate the out output file of TeX \\
+      & - -ps & & generate the ps output file of TeX \\
+      & - -toc & & generate the toc output file of TeX \\
+      \hline
+      & - -help & & prints this help \\
+      & - -version & & output version information and exit \\
+\end{tabular}
+}
 
 \section{Paquetes e Inclusiones}
 
@@ -464,7 +705,7 @@ Por lo tanto, un programa en \ohtex puede contener $n$ objetos sin generar una s
 
 La palabra clave \texttt{use} es usada para indicarle a lenguaje cuales de los
 paquetes de \latex se desean usar en cualquiera de los documentos que se vayan a
-generar. Ciertos paquetes poseen una azúcar sintactica en ohtex y otros no, en este ultimo caso igualmente se puede usar el paquete pero debe usarse con un \textit{verbatim} de \latex, que posteriormente se especificara como se hace. Algunos de los paquetes exigen cero (opcionales) o mas parámetros; en
+generar. Ciertos paquetes poseen una azúcar sintáctica en \ohtex y otros no, en este ultimo caso igualmente se puede usar el paquete pero debe usarse con un \textit{verbatim} de \latex, que posteriormente se especificara como se hace. Algunos de los paquetes exigen cero (opcionales) o mas parámetros; en
 cualquiera de los casos, la sintaxis para el pase de parámetros es por nombre-valor, de manera secuencial, sin orden; 
 como se muestra a continuación:
 
@@ -503,16 +744,9 @@ repetidamente la palabra reservada \texttt{use}.
 
 \subsection{Inclusiones}
 
-En cuanto a la inclusiones, nos referimos a usar un archivo \ohtex que posea ciertos objetos de mi interés en desde otro archivo. Eso sería en el caso de que haya decidido encapsular un conjunto de funciones, comandos, clases, instancias; similares, con un mismo fin o arbitrarios, y que pueda usar en distintos archivos sin la necesidad de escribirlos nuevamente.
+En cuanto a la inclusiones, nos referimos a usar un archivo \ohtex que posea ciertos objetos de mi interés en desde otro archivo. Eso sería en el caso de que se decida agrupar un conjunto de instrucciones, clases, instancias; similares, con un mismo fin o arbitrarios, y que pueda usar en distintos archivos sin la necesidad de escribirlos nuevamente.
 
-Para ello, se usa la palabra reservada \texttt{include}, seguido de un \textit{string}, con comillas simples, del nombre del archivo. Y así, todo objeto definido en dicho archivo estará en el alcance actual, cabe destacar que toda inclusión debe ser realizada al principio del cada archivo, sinó sera considerado un error.
-
-\subsection{Ejecución}
-
-La herramienta comienza leyendo de arriba a abajo, interpretando, creando
-objetos, interactuando con los mismo y al final puede o no generar uno o mas
-documentos. <<\textit{Crear un objeto no implica que el mismo estará en un
-documento}>>.
+Para ello, se usa la palabra reservada \texttt{include}, seguido de un \textit{string}, con comillas simples, del nombre del archivo. Y así, todo objeto definido en dicho archivo estará en el alcance actual, cabe destacar que toda inclusión debe ser realizada al principio del cada archivo, sino sera considerado un error.
 
 \section{Lexicografía}
 
@@ -524,7 +758,7 @@ comando, o paquete.
 De igual manera a como se permite en \ruby y la mayoría de los lenguajes, los
 identificadores constan de caracteres alfanuméricos (\verb|a-zA-Z0-9|) y
 underscores (\_), pero sin que comience por numero y que comience siempre por
-minúscula. Tambien está permitido, que los identificadores de los métodos puedan
+minúscula. También está permitido, que los identificadores de los métodos puedan
 terminar en interrogación (?), exclamación (!) ó igual (=). Sin restricciones
 en la longitud del identificador. Por ejemplo:
 
@@ -588,18 +822,17 @@ La siguientes palabras están reservadas en \ohtex:
 \begin{center}
 \ttfamily
 \begin{tabular}{ l l l l l }
-and & break & case & class & do \\
-else & elsif & false & for & fun \\
-if & loop & nil & or & rescue \\
-return & self & super & true & try \\
-until & use & when & while & \\
+and & break & case & class & else \\
+elsif & false & for & cmd & if \\
+nil & or & return & self & super \\
+true & use & when & while & in \\
 \end{tabular}
 \end{center}
 
 \subsection{Expresiones}
 
 Al igual que en \ruby (dado que es un lenguaje embebido), todo es una expresión.
-La secuenciacion es dada por los saltos de linea y el punto-y-coma (``;").
+La secuenciación es dada por los saltos de linea y el punto-y-coma (``;").
 
 \section{Variables y Literales}
 
@@ -673,7 +906,7 @@ brindar facilidad cuando se genera un programa.
 
 \subsection{Tamaño de fuente}
 
-En \latex se permiten tres tamaño de fuente (por puntos [pt]) para el documento, pero puede formatearse una sección o texto en particular con los siguientes comandos:
+En \latex se permiten tres tamaño de fuente (por puntos [pt]) para el documento, pero puede formatearse una sección o texto en particular con las siguientes instrucciones:
 
 \begin{center}
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l  l  l  l  }
@@ -702,7 +935,7 @@ En \latex se permiten tres tamaño de fuente (por puntos [pt]) para el documento
 \end{tabular*}
 \end{center}
 
-Estos comandos son aceptados dentro de un string, usando la misma sintaxis de \latex, como si se estuviese escribiendo directamente. Esto es porque se considera que es son útiles y expresivos. Y cada punto sigue el standard norte americano de 1\textit{pt} es equivalente a 0.35136\textit{mm}.
+Estas instrucciones son aceptados dentro de un string, usando la misma sintaxis de \latex, como si se estuviese escribiendo directamente. Esto es porque se considera que es son útiles y expresivos. Y cada punto sigue el standard norte americano de 1\textit{pt} es equivalente a 0.35136\textit{mm}.
 
 \section{Familia de fuente}
 
@@ -755,36 +988,34 @@ Si la fuente que se escogió no pertenece a la familia, se lanzara un mensaje de
 \subsection{Cursiva}
 
 Para cambiar el formato de algún texto en especifico, el mismo debe estar entre
-dos asteriscos \ttcode{*}, sin espacio al principio y sin saltos de linea.
+dos asteriscos \ttcode{*}, sin espacio al principio y sin saltos de linea. O simplemente se usa la instrucción de \latex \verb$\emph$
 
-Siguiendo la siguiente expresión regular en \ruby:
-
-\begin{center}
-\begin{verbatim}
-    /(\*\p{Graph}+\*|\*\p{Graph}+[\p{Graph} ]*\*)/
-\end{verbatim}
-\end{center}
+%Siguiendo la siguiente expresión regular en \ruby:
+%
+%\begin{center}
+%\begin{verbatim}
+    %/(\*\p{Graph}+\*|\*\p{Graph}+[\p{Graph} ]*\*)/
+%\end{verbatim}
+%\end{center}
 
 \subsection{Negrita}
 
 Similar a la sección anterior, se debe agrupar el texto, pero dentro de cuatro
-asteriscos `*`, dos de cada lado del texto y siguiendo las mismas restricciones.
+asteriscos `*`, dos de cada lado del texto y siguiendo las mismas restricciones. Pudiendo usar la instrucción \verb$\textbf$
 
-\begin{center}
-\begin{verbatim}
-    /(\*\*\p{Graph}+\*\*|\*\*\p{Graph}+[\p{Graph} ]*\*\*)/
-\end{verbatim}
-\end{center}
-
-\section{Estructuración del documento}
+%\begin{center}
+%\begin{verbatim}
+    %/(\*\*\p{Graph}+\*\*|\*\*\p{Graph}+[\p{Graph} ]*\*\*)/
+%\end{verbatim}
+%\end{center}
 
 \section{Literales}
 
-Los literales son una notación para representar un valor en bajo nivel, y en este lenguaje, como en la mayoría, es existen literales para numeros, booleanos, string y estructuras como arreglos, tablas de hash (diccionarios) y rangos.
+Los literales son una notación para representar un valor en bajo nivel, y en este lenguaje, como en la mayoría, es existen literales para números, booleanos, string y estructuras como arreglos, tablas de hash (diccionarios) y rangos.
 
 \subsection{Numeros}
 
-Los numeros en \ohtex son representados en arábico, y pueden interpretarse como enteros o flotantes. Se considera que la precisión de los números puede mantenerse sencilla, dado que no es relevante, como lo sería en un lenguaje destinado al calculo numérico o metodos numéricos que requieren manejar la precisión de punto flotante.
+Los números en \ohtex son representados en arábico, y pueden interpretarse como enteros o flotantes. Se considera que la precisión de los números puede mantenerse sencilla, dado que no es relevante, como lo sería en un lenguaje destinado al calculo numérico o metodos numéricos que requieren manejar la precisión de punto flotante.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -797,7 +1028,7 @@ Los numeros en \ohtex son representados en arábico, y pueden interpretarse como
 
 \subsection{Strings}
 
-Un \textit{string} comienza y termina con una comilla simple \ttcode{'}, y puede estar sujeto a la interpolación de una expresion. Como el siguiente ejemplo:
+Un \textit{string} comienza y termina con una comilla simple \ttcode{'}, y puede estar sujeto a la interpolación de una expresión. Como el siguiente ejemplo:
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -808,11 +1039,11 @@ Un \textit{string} comienza y termina con una comilla simple \ttcode{'}, y puede
 \end{minipage}
 \end{center}
 
-El uso de comillas dobles no es permitido, y todo caracter que se escrito dentro de un \textit{string} se considerará de forma literal, es decir, que no existe notación con \textit{backslash}, excepto para `\verb$\'$' y `\verb$\\$'.
+El uso de comillas dobles no es permitido, y todo carácter que se escrito dentro de un \textit{string} se considerará de forma literal, es decir, que no existe notación con \textit{backslash}, excepto para `\verb$\'$' y `\verb$\\$'.
 
 \subsection{Arreglos}
 
-Los arreglos en \ohtex son ``heterogeneos'', dado que todo es un objeto, en todo momento los arreglos son de objetos. Para la definición de un nuevo arreglo se puede usar la notación de doble dos-puntos o con elementos separados por coma simple entre corchetes.
+Los arreglos en \ohtex son ``heterogéneos'', dado que todo es un objeto, en todo momento los arreglos son de objetos. Para la definición de un nuevo arreglo se puede usar la notación de doble dos-puntos o con elementos separados por coma simple entre corchetes.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -833,7 +1064,7 @@ Los arreglos en \ohtex son ``heterogeneos'', dado que todo es un objeto, en todo
 
 \subsection{Tablas de Hash}
 
-Conocidos tambien como diccionarios, son estructuras que almacenan pares de objetos, una llave y su valor. Y los valores son accedidos por su llave, que debe ser única.
+Conocidos también como diccionarios, son estructuras que almacenan pares de objetos, una llave y su valor. Y los valores son accedidos por su llave, que debe ser única.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -872,14 +1103,14 @@ Son la representación de un subconjunto de valores posibles de los enteros (sol
 
 \subsection{Unidades de tamaño y formato de texto}
 
-Cuando hablamos del formato de un texto, existen medidas a lo largo de todo el documento, tamaño de letra, espacio entre lineas o parrafos y esto se logra con unidades de medida.
+Cuando hablamos del formato de un texto, existen medidas a lo largo de todo el documento, tamaño de letra, espacio entre lineas o párrafos y esto se logra con unidades de medida.
 
 \begin{tabular}{ r | l}
 pt & un punto \\
 \hline
-mm & un milimetro  \\
+mm & un milímetro  \\
 \hline
-cm & un centimetro  \\
+cm & un centímetro  \\
 \hline
 in & una pulgada \\
 \hline
@@ -903,9 +1134,9 @@ Y es posible usar estas unidades en atributos que lo permitan, y deben ser prece
 
 \subsection{Verbatim}
 
-En ciertas ocasiones se desea hacer uso explicito de una expresión que sea literal en \ruby ó \latex, pero cabe destacar que el uso código literal en \ruby esta sujeto a que se decidió implementar el lenguaje en el mismo y su objetivo es flexibilizar el manejo de objeto y estructuras en el momento de que \ohtex no pueda, porque en cierto momento podría no estar implementado y se usaria como un respaldo. En el la implementación final no existiría.
+En ciertas ocasiones se desea hacer uso explicito de una expresión que sea literal en \ruby ó \latex, pero cabe destacar que el uso código literal en \ruby esta sujeto a que se decidió implementar el lenguaje en el mismo y su objetivo es flexibilizar el manejo de objeto y estructuras en el momento de que \ohtex no pueda, porque en cierto momento podría no estar implementado y se usaría como un respaldo. En el la implementación final no existiría.
 
-En cuanto a una expresión literal de \latex, será posible introducirla en un documento, en cualquier momento de la ejecución, porque \ohtex abarca aspectos y funcionalidades comunes, pero ciertamente existen elementos tipograficos especificos que hasta el momento son soportados. Por esto, mientras no exista una sintaxis en el lenguaje para ello, es posible incorporarlo a mano en el documento.
+En cuanto a una expresión literal de \latex, será posible introducirla en un documento, en cualquier momento de la ejecución, porque \ohtex abarca aspectos y funcionalidades comunes, pero ciertamente existen elementos tipográficos específicos que hasta el momento son soportados. Por esto, mientras no exista una sintaxis en el lenguaje para ello, es posible incorporarlo a mano en el documento.
 
 Cualquier código que sea escrito dentro de las llaves podrá usar los objetos de
 archivo definidos en \ohtex u otro verbatim de \ruby.
@@ -952,7 +1183,7 @@ distinción entre el preámbulo y los elementos dentro del documento.
 \end{minipage}
 \end{center}
 
-Podria usarse el operador (\verb$<<$) para introducir codigo directamente al documento sin especificarlo y si no se quisiera especificar explicitamente que se agregara algo al preámbulo, se puede usar el operador (\verb$<<<$) que solo opera con clases derivada de \texttt{Document}. Claramente lo errores que puedan ser generados por esta incorporación de codigo a mano, quedan por parte del programador.
+Podría usarse el operador (\verb$<<$) para introducir código directamente al documento sin especificarlo y si no se quisiera especificar explícitamente que se agregara algo al preámbulo, se puede usar el operador (\verb$<<<$) que solo opera con clases derivada de \texttt{Document}. Claramente lo errores que puedan ser generados por esta incorporación de código a mano, quedan por parte del programador.
 
 \section{Operadores}
 
@@ -969,7 +1200,7 @@ Ya se un identificar u objeto, el símbolo de asignación es el igual (\texttt{=
 \end{minipage}
 \end{center}
 
-Es posible realizar una auto-asignación, con todo objeto que tenga los comandos, (\texttt{+}), (\texttt{-}), (\texttt{*}), (\texttt{**}) o (\texttt{/}). Dependiendo de la operación que se desea realizar.
+Es posible realizar una auto-asignación, con todo objeto que tenga las instrucciones, (\texttt{+}), (\texttt{-}), (\texttt{*}), (\texttt{**}) o (\texttt{/}). Dependiendo de la operación que se desea realizar.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -984,11 +1215,11 @@ Es posible realizar una auto-asignación, con todo objeto que tenga los comandos
 \end{minipage}
 \end{center}
 
-Cabe destacar que los operadores aritmeticos (\texttt{+}), (\texttt{-}), (\texttt{*}), (\texttt{**}) o (\texttt{/}) no son operadores en \ohtex, son comandos.
+Cabe destacar que los operadores aritméticos (\texttt{+}), (\texttt{-}), (\texttt{*}), (\texttt{**}) o (\texttt{/}) no son operadores en \ohtex, son instrucciones.
 
 \subsection{Lógicos}
 
-Al igual que los operadores aritmeticos, los operadores logicos (\texttt{<}), (\texttt{>}), (\texttt{<=}), (\texttt{>=}), (\texttt{==}), (\texttt{!=}) y (\texttt{!}) son comandos, dependiendo de cada objeto.
+Al igual que los operadores aritméticos, los operadores lógicos (\texttt{<}), (\texttt{>}), (\texttt{<=}), (\texttt{>=}), (\texttt{==}), (\texttt{!=}) y (\texttt{!}) son instrucciones, dependiendo de cada objeto.
 
 Pero en \ohtex, existen los operadores \texttt{and} y \texttt{or}, que corresponden a la conjunción y disyunción respectivamente.
 
@@ -996,7 +1227,7 @@ Pero en \ohtex, existen los operadores \texttt{and} y \texttt{or}, que correspon
 
 \subsection{Condicionales}
 
-\subsubsection{Codicional \textit{if}}
+\subsubsection{Condicional \textit{if}}
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1010,7 +1241,7 @@ Pero en \ohtex, existen los operadores \texttt{and} y \texttt{or}, que correspon
 \end{minipage}
 \end{center}
 
-\subsubsection{Codicional \textit{if-elsif-else}}
+\subsubsection{Condicional \textit{if-elsif-else}}
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1026,7 +1257,7 @@ Pero en \ohtex, existen los operadores \texttt{and} y \texttt{or}, que correspon
 \end{minipage}
 \end{center}
 
-\subsubsection{Codicional \textit{case-when}}
+\subsubsection{Condicional \textit{case-when}}
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1060,7 +1291,7 @@ Pero en \ohtex, existen los operadores \texttt{and} y \texttt{or}, que correspon
 
 \subsubsection{\textit{for}}
 
-La declaración de un \texttt{for}, se usa para iterar sobre estructuras de una manera mas comoda, sin preocuparse por aumentar un contador.
+La declaración de un \texttt{for}, se usa para iterar sobre estructuras de una manera mas cómoda, sin preocuparse por aumentar un contador.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1072,9 +1303,9 @@ La declaración de un \texttt{for}, se usa para iterar sobre estructuras de una 
 \end{minipage}
 \end{center}
 
-En el caso especial de una tabla de hash, se usan dos varibles, una que itera sobre las llaves y otro que itera sobre los valores, respectivos uno con el otro. Si se quisiera iterar solamente sobre las llaves o los valores, debe decirse explícitamente.
+En el caso especial de una tabla de hash, se usan dos variables, una que itera sobre las llaves y otro que itera sobre los valores, respectivos uno con el otro. Si se quisiera iterar solamente sobre las llaves o los valores, debe decirse explícitamente.
 
-Si en algún momento se quiere detener algun tipo de bucle, se debe usar la palabra reservada \texttt{break}.
+Si en algún momento se quiere detener algún tipo de bucle, se debe usar la palabra reservada \texttt{break}.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1092,9 +1323,9 @@ Si en algún momento se quiere detener algun tipo de bucle, se debe usar la pala
 
 %\subsection{Manejo de excepciones}
 
-\section{Comandos}
+\section{Instrucciones}
 
-En \ohtex, existe el concepto de híbrido entre los metodos y funciones con los comandos de \latex; donde hay un identificador, parametros o aridad, un alcance y posiblemente un valor de retorno o no. Se hace uso de la palabra reservada \texttt{cmd} para indicar una nueva declaración o sobre-escritura de un comando. Por ejemplo:
+En \ohtex, existe el concepto de híbrido entre los métodos y funciones con las instrucciones de \latex; donde hay un identificador, parámetros o aridad, un alcance y posiblemente un valor de retorno o no. Se hace uso de la palabra reservada \texttt{cmd} para indicar una nueva declaración o sobre-escritura de un comando. Por ejemplo:
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1110,7 +1341,7 @@ En \ohtex, existe el concepto de híbrido entre los metodos y funciones con los 
 \end{minipage}
 \end{center}
 
-Los comandos pueden representar algo complejo como un metodo o algo tan simple como un macro, al final pueden ser representados de igual manera pero tienen una finalidad distinta.
+Las instrucciones pueden representar algo complejo como un metodo o algo tan simple como un macro, al final pueden ser representados de igual manera pero tienen una finalidad distinta.
 
 \section{Clases}
 
@@ -1204,7 +1435,7 @@ inicialización (\textit{singleton}):
 
 \subsection{Herencia}
 
-En el caso de que se desee especificar una clase padre, se usa el simbolo menor-que (\texttt{<}) seguido de la clase padre y entre llaves estarán definidos los atributos y comandos.
+En el caso de que se desee especificar una clase padre, se usa el simbolo menor-que (\texttt{<}) seguido de la clase padre y entre llaves estarán definidos los atributos y instrucciones.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1216,5 +1447,36 @@ En el caso de que se desee especificar una clase padre, se usa el simbolo menor-
 \end{minipage}
 \end{center}
 
+Cabe destacar que la herencia es simple, todo clase solo puede tener un padre.
+
+\section{Estructuración del documento}
+
+La estructura de un documento \latex, esta dividida en partes, capítulos, secciones, sub-secciones, sub-sub-secciones, párrafos y sub-párrafos. En \ohtex existe una clase para cada una de estas divisiones, haciendo la estructura como un árbol (mas parecida a un índice), en vez de forma secuencial.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[mathescape]
+    ohtex :: Chapter {
+        ...
+    }
+
+    estruccturacion :: Section {
+        ...
+    }
+
+    ohtex << estruccturacion
+
+    ...
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
 \chapter{Conclusiones y Recomendaciones}
+
+Luego de diseñar un lenguaje orientado a objetos destinado a la composición tipográfica, es factible decir que el marcado de un contenido es posible a través de abstracción y jerarquía de elementos tipográficos tratados como objetos no secuenciales; para la posterior generación de un documento presentable, con un diseño de calidad. Es razonable decir, que existe una perdida de flexibilidad, en cuanto a las posibilidades de cambiar el formato del contenido, pero se abarcan una gran parte de esas cualidades para obtener un nivel de flexibilidad considerable. Por otro lado, \tex posee una gran flexibilidad pero es complicado de aprender, así que toda esa amplia posibilidad de formatos no son comprendidas, solo después de un tiempo considerable y en muchas ocasiones, el tiempo no sobra y la disposición no es suficiente; y al final, se desea que sea un sistema accesible a quien lo desee y amigable al usuario.
+
+En este trabajo se uso \ruby como lenguaje de apoyo, para tener un sistema de objetos acorde a los requerimientos y sería recomendable eliminar ese intermediario en el proceso de traducción. En este caso, no representa un problema porque la idea era ilustrar un concepto, mas no crear una herramienta de uso industrial pero podría considerarse en el momento de que se desee implementar de manera eficiente y de uso regular. Y se tomarían en consideración cambios en el diseño, siempre manteniendo consistencia en el lenguaje.
+
+Por otro lado, el uso de \latex como herramienta de composición tipográfica esta basado en su aceptación general, gran flexibilidad y soporte. Pero dado que existe otro alternativo derivada de \tex, que es Con\TeX t, debería plantearse la posibilidad de integrarla con \ohtex, ya sea en sustitución de \latex o como complemento. Aunque trabajar con \tex directamente no sería una decisión ligera de tomar pero podría ser ideal.
+
 \end{document}
