@@ -1,0 +1,109 @@
+\select@language {spanish}
+\contentsline {chapter}{Resumen}{\es@scroman {iv}}{section*.1}
+\contentsline {chapter}{Dedicatoria}{\es@scroman {v}}{section*.2}
+\contentsline {chapter}{Agradecimientos}{\es@scroman {vi}}{section*.3}
+\contentsline {chapter}{\IeC {\'I}ndice General}{\es@scroman {x}}{chapter*.4}
+\contentsline {chapter}{\IeC {\'I}ndice de Figuras}{\es@scroman {xii}}{chapter*.5}
+\contentsline {chapter}{\IeC {\'I}ndice de Tablas}{\es@scroman {xiii}}{chapter*.6}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Marco Te\IeC {\'o}rico}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Composici\IeC {\'o}n Tipogr\IeC {\'a}fica}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Programaci\IeC {\'o}n orientada a objetos}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Lenguajes de Marcado}{7}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Lenguajes Ligeros de Marcado}{8}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Serializaci\IeC {\'o}n de datos}{8}{section.2.4}
+\contentsline {section}{\numberline {2.5}Lenguajes de dominio espec\IeC {\'\i }fico}{9}{section.2.5}
+\contentsline {chapter}{\numberline {3}Marco Tecnol\IeC {\'o}gico}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m {}\xspace /\LaTeX \xspace }{12}{section.3.1}
+\contentsline {subparagraph}{\LaTeX \xspace }{12}{section*.7}
+\contentsline {section}{\numberline {3.2}\textit {Ruby}\xspace }{13}{section.3.2}
+\contentsline {section}{\numberline {3.3}Racc}{14}{section.3.3}
+\contentsline {section}{\numberline {3.4}Git}{14}{section.3.4}
+\contentsline {section}{\numberline {3.5}PDF}{15}{section.3.5}
+\contentsline {section}{\numberline {3.6}TeX Live}{15}{section.3.6}
+\contentsline {section}{\numberline {3.7}MiKTeX}{15}{section.3.7}
+\contentsline {section}{\numberline {3.8}Shell Script}{16}{section.3.8}
+\contentsline {chapter}{\numberline {4}Desarrollo}{17}{chapter.4}
+\contentsline {section}{\numberline {4.1}OhTeX como un lenguaje embebido}{19}{section.4.1}
+\contentsline {section}{\numberline {4.2}Herramientas de composici\IeC {\'o}n tipogr\IeC {\'a}fica}{19}{section.4.2}
+\contentsline {section}{\numberline {4.3}Entrada y Salida}{20}{section.4.3}
+\contentsline {section}{\numberline {4.4}Clases e Instancias}{20}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Instancias}{20}{subsection.4.4.1}
+\contentsline {section}{\numberline {4.5}Inicializaci\IeC {\'o}n y Asignaci\IeC {\'o}n}{21}{section.4.5}
+\contentsline {section}{\numberline {4.6}Delimitadores y Secuenciaci\IeC {\'o}n}{22}{section.4.6}
+\contentsline {section}{\numberline {4.7}Ejecuci\IeC {\'o}n}{23}{section.4.7}
+\contentsline {section}{\numberline {4.8}Implementaci\IeC {\'o}n}{23}{section.4.8}
+\contentsline {subsection}{\numberline {4.8.1}An\IeC {\'a}lisis Lexicogr\IeC {\'a}fico}{24}{subsection.4.8.1}
+\contentsline {subsection}{\numberline {4.8.2}An\IeC {\'a}lisis Sint\IeC {\'a}ctico}{24}{subsection.4.8.2}
+\contentsline {subsection}{\numberline {4.8.3}Librer\IeC {\'\i }as}{25}{subsection.4.8.3}
+\contentsline {chapter}{\numberline {5}OhTeX}{26}{chapter.5}
+\contentsline {section}{\numberline {5.1}Estructura de un archivo OhTeX}{27}{section.5.1}
+\contentsline {section}{\numberline {5.2}Ejecuci\IeC {\'o}n}{28}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}L\IeC {\'\i }nea de comandos}{28}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}Paquetes e Inclusiones}{29}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Paquetes}{29}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Inclusiones}{30}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Lexicograf\IeC {\'\i }a}{30}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Identificadores}{30}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Comentarios}{31}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}Palabras reservadas}{32}{subsection.5.4.3}
+\contentsline {subsection}{\numberline {5.4.4}Expresiones}{32}{subsection.5.4.4}
+\contentsline {section}{\numberline {5.5}Variables y Literales}{32}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Variables globales}{33}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Variables locales}{33}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Variables de instancia}{33}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.5.4}Variables de clase}{34}{subsection.5.5.4}
+\contentsline {subsection}{\numberline {5.5.5}Variables y constantes predefinidas}{34}{subsection.5.5.5}
+\contentsline {section}{\numberline {5.6}Formato de texto}{34}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}Tama\IeC {\~n}o de fuente}{35}{subsection.5.6.1}
+\contentsline {section}{\numberline {5.7}Familia de fuente}{35}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Cursiva}{36}{subsection.5.7.1}
+\contentsline {subsection}{\numberline {5.7.2}Negrita}{37}{subsection.5.7.2}
+\contentsline {section}{\numberline {5.8}Literales}{37}{section.5.8}
+\contentsline {subsection}{\numberline {5.8.1}N\IeC {\'u}meros}{37}{subsection.5.8.1}
+\contentsline {subsection}{\numberline {5.8.2}Strings}{38}{subsection.5.8.2}
+\contentsline {subsection}{\numberline {5.8.3}Arreglos}{38}{subsection.5.8.3}
+\contentsline {subsection}{\numberline {5.8.4}Tablas de Hash}{39}{subsection.5.8.4}
+\contentsline {subsection}{\numberline {5.8.5}Rangos}{40}{subsection.5.8.5}
+\contentsline {subsection}{\numberline {5.8.6}Unidades de tama\IeC {\~n}o y formato de texto}{40}{subsection.5.8.6}
+\contentsline {subsection}{\numberline {5.8.7}Verbatim}{41}{subsection.5.8.7}
+\contentsline {section}{\numberline {5.9}Operadores}{43}{section.5.9}
+\contentsline {subsection}{\numberline {5.9.1}Asignaci\IeC {\'o}n}{43}{subsection.5.9.1}
+\contentsline {subsection}{\numberline {5.9.2}L\IeC {\'o}gicos}{44}{subsection.5.9.2}
+\contentsline {section}{\numberline {5.10}Estructuras de Control}{44}{section.5.10}
+\contentsline {subsection}{\numberline {5.10.1}Condicionales}{44}{subsection.5.10.1}
+\contentsline {subsubsection}{Condicional \textit {if}. Figura 5.21}{45}{section*.8}
+\contentsline {subsubsection}{Condicional \textit {if-elsif-else}. Figura 5.22}{45}{section*.9}
+\contentsline {subsubsection}{Condicional \textit {case-when}. Figura 5.23}{45}{section*.10}
+\contentsline {subsection}{\numberline {5.10.2}Bucles}{46}{subsection.5.10.2}
+\contentsline {subsubsection}{\textit {while}. Figura 5.24}{46}{section*.11}
+\contentsline {subsubsection}{\textit {for}. Figura 5.25}{46}{section*.12}
+\contentsline {section}{\numberline {5.11}Instrucciones}{47}{section.5.11}
+\contentsline {section}{\numberline {5.12}Clases}{48}{section.5.12}
+\contentsline {subsection}{\numberline {5.12.1}Definici\IeC {\'o}n de clase}{48}{subsection.5.12.1}
+\contentsline {subsection}{\numberline {5.12.2}Atributos}{48}{subsection.5.12.2}
+\contentsline {subsubsection}{Variable de clase}{49}{section*.13}
+\contentsline {subsection}{\numberline {5.12.3}Instanciaci\IeC {\'o}n}{49}{subsection.5.12.3}
+\contentsline {subsection}{\numberline {5.12.4}Herencia}{50}{subsection.5.12.4}
+\contentsline {section}{\numberline {5.13}Estructuraci\IeC {\'o}n del documento}{51}{section.5.13}
+\contentsline {chapter}{\numberline {6}Conclusiones y Recomendaciones}{52}{chapter.6}
+\contentsline {chapter}{Glosario de t\IeC {\'e}rminos}{54}{chapter*.14}
+\contentsline {paragraph}{DTP:}{54}{section*.15}
+\contentsline {paragraph}{DSL:}{54}{section*.16}
+\contentsline {paragraph}{GNU/Linux:}{54}{section*.17}
+\contentsline {paragraph}{GPL:}{54}{section*.18}
+\contentsline {paragraph}{\LaTeX \xspace :}{54}{section*.19}
+\contentsline {paragraph}{LML:}{54}{section*.20}
+\contentsline {paragraph}{Markdown:}{54}{section*.21}
+\contentsline {paragraph}{Markup:}{54}{section*.22}
+\contentsline {paragraph}{\makebox [0.76em][c]{O}\makebox [0.25em][c]{\raisebox {0.14em}[0em][0em]{\fontsize {0.5em}{0cm}\selectfont H}}\makebox [1.35em][c]{T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m {}}\xspace :}{55}{section*.23}
+\contentsline {paragraph}{PostScript:}{55}{section*.24}
+\contentsline {paragraph}{\textit {Syntactic sugar:}}{55}{section*.25}
+\contentsline {paragraph}{Tag:}{55}{section*.26}
+\contentsline {paragraph}{T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m {}\xspace :}{55}{section*.27}
+\contentsline {paragraph}{Type:}{55}{section*.28}
+\contentsline {paragraph}{Typesetting:}{55}{section*.29}
+\contentsline {paragraph}{WYSIWYG:}{55}{section*.30}
+\contentsline {paragraph}{WYSIWYM:}{55}{section*.31}
+\contentsline {chapter}{Ap\'{e}ndice \numberline {A}Ejemplo}{56}{Apéndice.alph1.Alph1}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{58}{lstnumber.-1.29}

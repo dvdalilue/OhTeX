@@ -1,20 +1,15 @@
 require_relative "Document"
 
 class Article < Document
-
-    def initialize pks=[], docs=[]
-        super()
-        @packages = pks
-        @document = docs
+    def << e
+        @document << e
     end
 
-    def to_tex
-        tex = "\\documentclass[#{@fontsize}pt]{article}\n"
-        @packages.each { |p| tex << "#{p.to_tex}\n" }
-        tex << "\n#{@preamble}\n"
-        tex << "\\begin\{document\}\n"
-        @document.each { |d| tex << "#{d.to_tex}\n" }
-        tex << "\\end\{document\}\n"
-        tex
+    def addlength l, v
+        if v =~ /\A-?\d+/
+            @preamble << "\n\\addtolength{\\#{l}}{#{v}}\n"
+        else
+            @preamble << "\n\\addtolength{\\#{l}}{\\#{v}}\n"
+        end
     end
 end

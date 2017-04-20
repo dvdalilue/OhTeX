@@ -19,12 +19,8 @@ class TkToken
         super[2..-1]
     end
 
-    def name
+    def to_s
         @text
-    end
-
-    def to_s_error
-        "a #{self.class.name}:'#{name.downcase}' does not go here -->"
     end
 end
 

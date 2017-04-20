@@ -1,0 +1,13 @@
+\frametitle{Estructuración de un documento}
+\bi
+    %\item \LaTeX. Secuencia de elementos tipográficos
+    \item \OhTeX. Árbol de objetos tipográficos
+\ei
+\begin{center}
+\ig[height=0.5\textheight]{images/arbol.png}
+\end{center}
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} La estructuración se asemeja a un tabla de contenido}

@@ -1,12 +1,21 @@
 class List
-    def initialize txt="", arg=[], enum=false
-        @text      = txt
-        @elements  = arg
-        @enumerate = enum
+
+    attr_accessor :text,
+                  :items,
+                  :enumerate
+
+    def initialize items=[]
+        @items = items
+        @text = ''
+        @enumerate = false
     end
 
     def add e
-        @elements << e
+        @items << e
+    end
+
+    def << e
+        add e
     end
 
     def enumerate
@@ -17,12 +26,22 @@ class List
         @enumerate = false
     end
 
+    def items= e
+        e.each do |x|
+            if x.class.eql? Array
+                add List::new(x)
+            else
+                add x
+            end
+        end
+    end
+
     def to_tex ident=""
         tex = @text.clone
         list_type = 'itemize'
         list_type = 'enumerate' if @enumerate
         tex << "\n#{ident}\\begin{#{list_type}}\n"
-        @elements.each { |e| tex << "#{ident + "\t"}\\item #{e.to_tex(ident + "\t")}\n" }
+        @items.each { |e| tex << "#{ident + "\t"}#{"\\item" if !e.class.eql? List} #{e.to_tex(ident + "\t")}\n" }
         tex << "#{ident}\\end{#{list_type}}\n"
         tex
     end

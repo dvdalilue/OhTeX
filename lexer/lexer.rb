@@ -31,6 +31,22 @@ class Lexer
         end
     end
 
+    def ignore_block_comment level, input
+        while level != 0
+            if input =~ $open_regex
+                level += 1
+                input = $'
+            elsif input =~ $close_regex
+                level -= 1
+                input = $'
+            else
+                return nil if input.empty?
+                input.slice!(0)
+            end  
+        end
+        input
+    end
+
     def ignore_comment
         ignored = false
         if @input =~ /\A\.\.\.[\p{Graph} \t]*\n/
@@ -39,6 +55,7 @@ class Lexer
             @input = $'
             ignored = true
         elsif @input =~ /\A\.\.{(.|\n)*}\.\./
+            puts $&
             @input = $'
             cm = $&
             @line += $&.scan(/\n/).length
@@ -73,8 +90,8 @@ class Lexer
         return if @input.empty?
 
         ignore_blanks
+        while ignore_comment; ignore_blanks; end
 
-        while ignore_comment; end
         tk = nil
         $tokens_class.each do |sym,cl|
             if cl.regex.match @input

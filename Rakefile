@@ -5,9 +5,9 @@ task :racc do
 end
 
 task :book do
-    sh "pdflatex -output-directory=tmp book_design/book.tex"
+    sh "cd book_design/; pdflatex -interaction=batchmode -output-directory=tmp book.tex; bibtex book; pdflatex -interaction=batchmode -output-directory=tmp book.tex; cd .."
 end
 
 task :clean do
-    sh "rm -f *.aux *.log *.out *.toc *.pdf tmp/*.aux tmp/*.out tmp/*.log tmp/*.aux tmp/*.toc"
+    sh "rm -f *.aux *.log *.out *.toc *.pdf tmp/*.aux tmp/*.out tmp/*.log tmp/*.toc"
 end

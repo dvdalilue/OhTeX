@@ -1,0 +1,24 @@
+use inputenc { encode: utf8 }
+
+foo :: Article {
+    font: 10pt
+    paper: letter
+}
+
+titulo :: Text {
+    align: center
+    size: LARGE
+    text: '\vspace{4em}\OhTeX\vspace{4em}'
+}
+
+texto :: Text {
+    text: '\OhTeX{} es un lenguaje de programación orientado a
+    objetos para la composición tipográfica, haciendo uso de
+    \LaTeX{} como base para ello. Ofrece la facilidad de manejar
+    elementos tipográficos de una manera abstracta y expresiva,
+    facilitando la comprensión y aprendizaje del mismo.'
+}
+
+foo << titulo << texto
+
+foo >> 'foo'

@@ -1,0 +1,13 @@
+.. Class definition
+
+class A {
+    attr a, b
+
+    fun foo {
+        return a + b
+    }
+
+    cmd bar(s) {
+        '\texttt{%s}'
+    }
+}

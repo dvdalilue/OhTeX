@@ -1,0 +1,51 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{xspace}
+
+\setlength{\parskip}{1em}
+
+\newcommand{\OhTeX}{%
+    \makebox[0.76em][c]{O}%
+    \makebox[0.25em][c]{%
+        \raisebox{0.14em}[0em][0em]{%
+            \fontsize{0.5em}{0cm}%
+                \selectfont H%
+        }%
+    }%
+    \makebox[1.35em][c]{\TeX}%
+}
+
+% Add a space a the end of the original logo
+\newcommand{\troff}{\textit{troff}\xspace}
+\newcommand{\latex}{\LaTeX\xspace}
+\newcommand{\tex}{\TeX\xspace}
+\newcommand{\ohtex}{\OhTeX\xspace}
+\newcommand{\ruby}{\textit{Ruby}\xspace}
+\newcommand{\lyx}{\textit{LyX}\xspace}
+
+\begin{document}
+
+La composición tipográfica se ha convertido en una necesidad al momento de
+realizar una publicación técnica y científica. Hoy en día existen herramientas que
+facilitan la elaboración de documentos de gran complejidad. Durante la década de los
+$70'$ se creó el lenguaje \troff, inspirado por \textit{runoff}, el primer programa
+para el formato de texto, desarrollado a mediados de los $60'$. \troff posee la
+cualidad de darle formato al texto, así como el manejo arbitrario de elementos
+tipográficos. Por otro lado, el lenguaje para la composición tipográfica comúnmente
+usado, en el ámbito académico, es \latex, pero existen otros lenguajes de
+\textit{markup} destinados a otros objetivos.
+
+Un aspecto importante a considerar cuando se elabora un lenguaje de composición
+tipográfica es, a quién está destinado el mismo; debe tomarse en cuenta si está
+dirigido a una comunidad científica, la comunidad literaria o una comunidad orientada
+a la administración y la gerencia. También es posible que se desee una herramienta de
+propósito general, que se ajuste a las necesidades de cualquier comunidad. Lenguajes
+de \textit{markup}, como \textit{markdown} y \LaTeX, son usados en distintas áreas
+para un mismo objetivo, generar un documento; uno trata de simplificar y el otro
+trata de generar un documento enfocado en la belleza, respectivamente. En este trabajo se desea la posibilidad de generar documentos similares a los generados por \latex pero que sea sencillo sin una perdida considerable de flexibilidad, dándole un punto de vista más estructural y abstracto, haciendo uso de la orientación a objetos.
+
+\end{document}

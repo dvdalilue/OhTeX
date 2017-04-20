@@ -1,9 +1,9 @@
 class Parser
 
-    token  'and' 'break' 'case' 'class' 'do' 'else' 'elsif' 'false' 'for' 'fun'
-           'if' 'loop' 'nil' 'nl' 'or' 'rescue' 'return' 'self' 'super'
-           'true' 'try' 'until' 'use' 'when' 'while' 'string' 'identifier'
-           'constant' 'size' 'number' '{' '}' '[' ']' '(' ')' '.' '::' ':' ';'
+    token  'and' 'break' 'case' 'class' 'else' 'elsif' 'false' 'for' 'cmd'
+           'if' 'nil' 'nl' 'or' 'return' 'self' 'super' 'true' '<<<' '>>'
+           'use' 'when' 'while' 'string' 'identifier' 'constant' 'paper' 'font' 'align'
+           'size' 'number' 'method' '{' '}' '[' ']' '(' ')' '.' '::' ':' ';'
            ',' '+' '-' '*' '/' '%' '=' '!' '==' '!=' '<' '<=' '>' '>=' '<<'
            UMINUS
 
@@ -24,24 +24,19 @@ class Parser
         'break'      'TkBreak'
         'case'       'TkCase'
         'class'      'TkClass'
-        'do'         'TkDo'
         'else'       'TkElse'
         'elsif'      'TkElsif'
         'false'      'TkFalse'
         'for'        'TkFor'
-        'fun'        'TkFun'
+        'cmd'        'TkCmd'
         'if'         'TkIf'
-        'loop'       'TkLoop'
         'nil'        'TkNil'
         'nl'         'TkNewLine'
         'or'         'TkOr'
-        'rescue'     'TkRescue'
         'return'     'TkReturn'
         'self'       'TkSelf'
         'super'      'TkSuper'
         'true'       'TkTrue'
-        'try'        'TkTry'
-        'until'      'TkUntil'
         'use'        'TkUse'
         'when'       'TkWhen'
         'while'      'TkWhile'
@@ -70,11 +65,17 @@ class Parser
         '>'          'TkGreater'
         '>='         'TkGreaterEq'
         '<<'         'TkInsert'
+        '>>'         'TkExport'
+        '<<<'        'TkPreInsert'
         'string'     'TkString'
         'identifier' 'TkIdentifier'
         'constant'   'TkConstant'
         'size'       'TkNumSize'
         'number'     'TkNumber'
+        'method'     'TkMethodCall'
+        'paper'      'TkPaperSize'
+        'font'       'TkFontSize'
+        'align'      'TkAlignment'
 end
 
 start Program
@@ -91,23 +92,51 @@ rule
               ;
 
     Object: Package  { result = val[0] }
+          | PackArgs { result = val[0] }
           | Instance { result = val[0] }
           | Reopen   { result = val[0] }
+          | Method   { result = val[0] }
+          | Insert   { result = val[0] }
+          | PInsert  { result = val[0] }
+          | Export   { result = val[0] }
           ;
 
-    Package: 'use' PackList { result = Use::new(val[1],[]) }
-           #| 'use' PackList Args { result = Use::new(val[1],val[2]) }
+    Package: 'use' PackList { pack = Use::new(val[1],[]); $global_packages << pack; result = pack }
            ;
 
-    PackList: 'identifier'              { result = [val[0]]           }
-            | 'identifier' ',' PackList { result = (val[2] << val[0]) }
+    PackList: 'identifier'          { result = [val[0].text]           }
+            | 'identifier' PackList { result = (val[1] << val[0].text) }
             ;
 
-    Instance: 'identifier' '::' 'constant' Args { result = Instance::new(val[0],val[2],val[3]) }
+    PackArgs: 'use' 'identifier' '{' ArgB '}' { pack = Use::new([val[1].text],val[3]); $global_packages << pack; result = pack }
+
+    Instance: 'identifier' '::' 'constant' Args { result = Instance::new(val[0].text,val[2].text,val[3]) }
             ;
 
-    Reopen: 'identifier' Args { result = Reopen::new(val[0],val[1]) }
+    Reopen: 'identifier' Args { result = Reopen::new(val[0].text,val[1]) }
           ;
+
+    Method: 'method' '=' Expression     { result = MethodCall::new(val[0].text,val[2])  }
+          | 'method' '(' MethodArgs ')' { result = CommandCall::new(val[0].text,val[2]) }
+          ;
+
+    MethodArgs: Expression                { result = [val[0]]}
+              | Expression ',' MethodArgs { result = val[2] << val[0]}
+
+    Insert: 'identifier' '<<' Insertrhs { result = Insert::new(val[0].text,val[2].text) }
+          | Insert '<<' Insertrhs       { result = Insert::new(val[0],val[2].text) }
+          ;
+
+    PInsert: 'identifier' '<<<' 'string' { result = PInsert::new(val[0].text,val[2].text) }
+           #| Insert '<<<' Insertrhs     { result = Insert::new(val[0],val[2].text) }
+           ;
+
+    Export: 'identifier' '>>' 'string' { result = Export::new(val[0].text,val[2].text) }
+
+    Insertrhs: 'identifier'
+             | 'string'
+             | Instance
+             ;
 
     Args: '{' ArgB '}'           { result = val[1] }
         | LinesPlus '{' ArgB '}' { result = val[2] }
@@ -122,19 +151,22 @@ rule
            | SingleArg LinesPlus ArgList { result = (val[2] << val[0]) }
            ;
 
-    SingleArg: 'identifier' ':' Expression { result = SingletonArg::new(val[0],val[2]) }
+    SingleArg: 'identifier' ':' Expression { result = SingletonArg::new(val[0].text,val[2]) }
              ;
 
-    Expression: 'string'                    { result = val[0]                         }
-              | 'size'                      { result = val[0]                         }
-              | 'number'                    { result = val[0]                         }
-              | 'true'                      { result = val[0]                         }
-              | 'false'                     { result = val[0]                         }
-              | 'identifier'                { result = val[0]                         }
-              | Array                       { result = val[0]                         }
+    Expression: 'string'                    { result = QuotedString::new(val[0].text) }
+              | 'size'                      { result = Size::new(val[0].text)         }
+              | 'number'                    { result = val[0].text.to_i               }
+              | 'true'                      { result = true                           }
+              | 'paper'                     { result = Paper::new(val[0])             }
+              | 'font'                      { result = Font::new(val[0].text)         }
+              | 'align'                     { result = Align::new(val[0].text)        }
+              | 'false'                     { result = false                          }
+              | 'identifier'                { result = Identifier::new(val[0].text)   }
+              | Array                       { result = Array::new(val[0])             }
               | '-' Expression =UMINUS      { result = UnaryMinus::new(val[1])        }
               | '!' Expression              { result = Negate::new(val[1])            }
-              | Expression '+' Expression   { result = Plus::new(val[0], val[2])      }
+              | Expression '+' Expression   { result = Plus::new(val[0], val[2]);     }
               | Expression '-' Expression   { result = Minus::new(val[0], val[2])     }
               | Expression '*' Expression   { result = Product::new(val[0], val[2])   }
               | Expression '/' Expression   { result = Division::new(val[0], val[2])  }
@@ -150,10 +182,10 @@ rule
               | '(' Expression ')'          { result = val[1]                         }
               ;
 
-    Array: '[' LinesPlus ArrayList LinesPlus ']' { result = Array::new(val[2]) }
-         | '[' ArrayList LinesPlus ']'           { result = Array::new(val[1]) }
-         | '[' LinesPlus ArrayList ']'           { result = Array::new(val[2]) }
-         | '[' ArrayList ']'                     { result = Array::new(val[1]) }
+    Array: '[' LinesPlus ArrayList LinesPlus ']' { result = val[2] }
+         | '[' ArrayList LinesPlus ']'           { result = val[1] }
+         | '[' LinesPlus ArrayList ']'           { result = val[2] }
+         | '[' ArrayList ']'                     { result = val[1] }
          ;
 
     ArrayList: ArrayList ',' Expression           { result = (val[0] << val[2]) }
@@ -170,18 +202,19 @@ rule
 ---- header ----
 
 require_relative "../lexer/lexer"
-require_relative "ast"
+require_relative "translator"
 
 class SyntacticError < RuntimeError
-
     def initialize(tok)
         @token = tok
     end
 
     def to_s
-        "Syntactic error: #{@token.to_s_error} line: #{@token.line} -- column: #{@token.column}"   
+        "Syntactic error: #{@token} line: #{@token.line} -- column: #{@token.column}"   
     end
 end
+
+$global_packages = []
 
 ---- inner ----
 
@@ -191,7 +224,7 @@ end
    
 def next_token
     token = @lexer.next
-    #puts token.name
+    #p token.name
     return [false,false] unless token
     return [token.class,token]
 end

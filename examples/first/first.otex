@@ -1,0 +1,28 @@
+use inputenc { encode: utf8 }
+
+first :: Article {
+    font: 10pt
+    paper: letter
+    parskip: 3em
+}
+
+titulo :: Text {
+    align: center
+    size: LARGE
+    text: '\vspace{4em}\OhTeX\vspace{4em}'
+}
+
+texto :: Text {
+    text: '\OhTeX{} es un lenguaje de programación orientado a objetos para la
+    composición tipográfica, haciendo uso del sistema de preparación de documentos
+    \LaTeX{}. Ofrece la facilidad de manejar elementos tipográficos de una manera mas
+    abstracta y expresiva, facilitando la comprensión y aprendizaje del mismo. El
+    ojetivo no es sustituir a \LaTeX{} o \TeX{}, sino demostrar que estas
+    herramientas podrian ser sencillas de usar y seguir siendo flexibles.'
+}
+
+lista :: List { items: ['Modular','Sencillo','Abstracto'] }
+
+first << titulo << texto << lista
+
+first >> 'first.tex'

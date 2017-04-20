@@ -1,208 +1,110 @@
+$ast = [
+    [:Program, [:@objects], []],
+    [:Use, [:@names, :@argv], []],
+    [:Instance, [:@id, :@cl, :@argv], []],
+    [:Reopen, [:@id, :@argv], []],
+    [:MethodCall, [:@lhs, :@rhs], []],
+    [:CommandCall, [:@id, :@args], []],
+    [:Insert, [:@lhs, :@rhs], []],
+    [:PInsert, [:@lhs, :@rhs], []],
+    [:Export, [:@lhs, :@rhs], []],
+    [:QuotedString, [:@qs], []],
+    [:Size, [:@digit, :@unit], []],
+    [:Paper, [:@paper], []],
+    [:Font, [:@size], []],
+    [:Align, [:@direction], []],
+    [:Identifier, [:@id], []],
+    [:SingletonArg, [:@id, :@exp], []],
+    [:Expression, [], [
+        [:ExpressionB, [:@operand1, :@operand2], [
+            [:Division,[],[]],
+            [:Equal,[],[]],
+            [:Greater,[],[]],
+            [:GreaterEq,[],[]],
+            [:Less,[],[]],
+            [:LessEq,[],[]],
+            [:LogicAnd,[],[]],
+            [:LogicOr,[],[]],
+            [:Minus,[],[]],
+            [:Mod,[],[]],
+            [:Plus,[],[]],
+            [:Product,[],[]],
+            [:Unequal,[],[]]
+        ]],
+        [:ExpressionU, [:@operand], [
+            [:Negate,[],[]],
+            [:UnaryMinus,[],[]]
+        ]]
+    ]]
+]
+
+def create_class superclass, name, attributes
+    new_class = Class::new superclass do
+        class << self
+            attr_reader :attr
+        end
+
+        if superclass.eql? Object; @attr = attributes
+        else @attr = attributes + superclass.attr; end
+
+        @attr.each do |a|
+            define_method("#{a[1..-1]}=".to_sym) { |v| instance_variable_set a, v }
+            define_method(a[1..-1].to_sym) { instance_variable_get a }
+        end
+
+        def self.class
+            Object::const_get(name)
+        end
+
+        def initialize(*attr)
+            if self.class.attr.length != attr.length
+                raise ArgumentError::new(
+                    "wrong number of arguments " + "#{self.class.name} " +
+                    "(#{attr.length} for #{self.class.attr.length})"
+                )
+            end
+            [self.class.attr, attr].transpose.map { |a,v| instance_variable_set a, v }
+        end
+    end
+    Object::const_set(name, new_class)
+end
+
+def create_ast superclass, tree
+  tree.each do |cls|
+    nc = create_class superclass, cls[0], cls[1]
+    create_ast nc, cls[2]
+  end
+end
+
 class AST
+    class << self
+        attr_reader :attr
+    end
 
-end
+    @attr = []
 
-class Program < AST
-    attr_accessor :objects
-
-    def initialize os
-        @objects = os
+    def to_rb
+        to_s
     end
 end
 
-class Packages < AST
-    attr_accessor :ps
+create_ast AST, $ast
 
-    def initialize ps
-        @ps = ps
+class Use
+
+    @@counter = 0
+
+    def self.counter
+        @@counter
+        @@counter += 1
     end
 end
 
-class Use < AST
-    attr_accessor :name,
-                  :argv
+class Size
+    def initialize s
+        s =~ /\A-?\d+/
 
-    def initialize name, as
-        @name = name
-        @argv = as
-    end
-end
-
-class Instance < AST
-    attr_accessor :id,
-                  :class,
-                  :argv
-
-    def initialize id, cl, args
-        @id    = id
-        @class = cl
-        @argv  = args
-    end
-end
-
-class Reopen < AST
-    attr_accessor :id,
-                  :argv
-
-    def initialize id, args
-        @id    = id
-        @argv  = args
-    end
-end
-
-class SingletonArg < AST
-    attr_accessor :id,
-                  :exp
-
-    def initialize id, exp
-        @id  = id
-        @exp = exp
-    end
-end
-
-class Division < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2= op1
-        @operand2 = op2
-    end
-end
-
-class Equal < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Greater < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class GreaterEq < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Less < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class LessEq < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class LogicAnd < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class LogicOr < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Minus < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Mod < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Plus < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Product < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Unequal < AST
-    attr_accessor :operand1,
-                  :operand2
-
-    def initialize op1, op2
-        @operand1 = op1
-        @operand2 = op2
-    end
-end
-
-class Negate < AST
-    attr_accessor :operand
-
-    def initialize op
-        @operand = op
-    end
-end
-
-class UnaryMinus < AST
-    attr_accessor :operand
-
-    def initialize op
-        @operand = op
+        @digit = $&.to_i
+        @unit  = $'
     end
 end

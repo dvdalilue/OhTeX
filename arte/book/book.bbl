@@ -1,0 +1,124 @@
+\begin{thebibliography}{10}
+
+\bibitem{weblatexhp}
+Frank Mittelbach.
+\newblock {\LaTeX} - a document preparation system.
+\newblock \url{https://www.latex-project.org/}.
+
+\bibitem{webtexhp}
+Robin Laakso.
+\newblock {\TeX} users group.
+\newblock \url{https://tug.org/}.
+
+\bibitem{webcurlhp}
+SCSK Corporation.
+\newblock Curl language.
+\newblock \url{http://www.curl.com/products/prod/language/}.
+
+\bibitem{webrubyhp}
+Ruby community.
+\newblock Ruby programming language.
+\newblock \url{https://www.ruby-lang.org/}.
+
+\bibitem{eckersley2008glossary}
+Richard Eckersley, Richard Angstadt, Charles~M Ellertson, and Richard Hendel.
+\newblock {\em Glossary of typesetting terms}.
+\newblock University of Chicago Press, 2008.
+
+\bibitem{needham1995shorter}
+Joseph Needham and Colin~A Ronan.
+\newblock {\em The shorter science and civilisation in China}, volume~5.
+\newblock Cambridge University Press, 1995.
+
+\bibitem{sohn1959early}
+Pow-key Sohn.
+\newblock Early korean printing.
+\newblock {\em Journal of the American Oriental Society}, 79(2):96--103, 1959.
+
+\bibitem{eisenstein2005printing}
+Elizabeth~L Eisenstein.
+\newblock {\em The printing revolution in early modern Europe}.
+\newblock Cambridge University Press, 2005.
+
+\bibitem{weblinotype}
+Monotype GmbH.
+\newblock Linotype history.
+\newblock \url{http://www.linotype.com/49/history.html}.
+
+\bibitem{webtroffhp}
+Ralph Corderoy.
+\newblock troff - the text processor for typesetters.
+\newblock \url{http://troff.org/}.
+
+\bibitem{thompson1980exp}
+Ken Thompson, Joe Condon, and Brian Kernighan.
+\newblock Experience with the mergethaler linotron 202 phototypesetter, or, how
+  we spent our summer vacation.
+\newblock 1980.
+
+\bibitem{zadeh1977encyclopedia}
+LA~Zadeh, In~J Belzer, A~Holzman, and A~Kenit.
+\newblock Encyclopedia of computer science and technology.
+\newblock {\em Mareel Dekker, New York}, 8, 1977.
+
+\bibitem{bruce2002foundations}
+Kim~B Bruce.
+\newblock {\em Foundations of object-oriented languages: types and semantics}.
+\newblock The MIT Press, 2002.
+
+\bibitem{scott2000programming}
+Michael~Lee Scott.
+\newblock {\em Programming language pragmatics}.
+\newblock Morgan Kaufmann, 2000.
+
+\bibitem{cargill1993case}
+Thomas~A. Cargill.
+\newblock The case against multiple inheritance in c++.
+\newblock In {\em The evolution of C++}, pages 101--109. MIT Press, 1993.
+
+\bibitem{coombs1987markup}
+James~H Coombs, Allen~H Renear, and Steven~J DeRose.
+\newblock Markup systems and the future of scholarly text processing.
+\newblock {\em Communications of the ACM}, 30(11):933--947, 1987.
+
+\bibitem{webmarkdownhp}
+John Gruber.
+\newblock Markdown project.
+\newblock \url{https://daringfireball.net/projects/markdown/}.
+
+\bibitem{dlswork}
+Martin Fowler.
+\newblock Language workbenches: The killer-app for domain specific languages?
+\newblock \url{http://martinfowler.com/articles/languageWorkbench.html}, 2005.
+\newblock Revisado: 2016-02-18.
+
+\bibitem{mernik2005and}
+Marjan Mernik, Jan Heering, and Anthony~M Sloane.
+\newblock When and how to develop domain-specific languages.
+\newblock {\em ACM computing surveys (CSUR)}, 37(4):316--344, 2005.
+
+\bibitem{knuth1984texbook}
+Donald~E Knuth.
+\newblock The {\TeX book}, volume {A} of computers and typesetting, 1984.
+
+\bibitem{weblatex}
+Comunidad Wikibooks.
+\newblock {\LaTeX} wikibook.
+\newblock \url{https://en.wikibooks.org/wiki/LaTeX}.
+
+\bibitem{knuth1999digital}
+Donald~E Knuth.
+\newblock Digital typography, volume 78 of {CSLI} lecture notes.
+\newblock {\em CLSI Publ}, 1999.
+
+\bibitem{webcontexthp}
+Patrick Gundlach.
+\newblock {Con\TeX t} wiki.
+\newblock \url{http://wiki.contextgarden.net/Main_Page}.
+
+\bibitem{knuth1965translation}
+Donald~E Knuth.
+\newblock On the translation of languages from left to right.
+\newblock {\em Information and control}, 8(6):607--639, 1965.
+
+\end{thebibliography}

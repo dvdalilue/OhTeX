@@ -1,0 +1,753 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[normalem]{ulem}
+\usepackage{listings}
+\usepackage{xspace}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ig}{\includegraphics}
+\newcommand{\subt}[1]{{\footnotesize \color{subtitle} $\gg$ {#1}}}
+
+\renewcommand{\lstlistingname}{Código}
+
+\usetheme{Copenhagen}
+
+\definecolor{mycolor1}{RGB}{88, 116, 152} %blue
+\definecolor{mycolor2}{RGB}{88, 112, 88 } %green
+\definecolor{mycolor4}{RGB}{232, 104, 80} %red
+
+\definecolor{foreground}{RGB}{26, 26, 26}
+\definecolor{background}{RGB}{242,242,242}
+%\definecolor{background}{RGB}{24,24,24}
+\definecolor{title}{RGB}{255, 216, 0} %yellow
+\definecolor{gray}{RGB}{100,100,100}
+\definecolor{subtitle}{RGB}{159, 159, 198}
+\definecolor{hilight}{RGB}{179, 25, 25}
+\definecolor{vhilight}{RGB}{0, 179, 89}
+
+\setbeamercolor*{structure}{fg=mycolor1,bg=white}
+\setbeamercolor*{palette primary}{use=structure,fg=title,bg=structure.fg}
+\setbeamercolor*{palette quaternary}{fg=background,bg=foreground}
+
+\setbeamercolor*{item projected}{fg=red,bg=mycolor1!50}
+\setbeamercolor*{block title example}{fg=white,bg=mycolor1}
+
+
+\setbeamercolor{titlelike}{fg=title}
+\setbeamercolor{subtitle}{fg=subtitle}
+\setbeamercolor{institute}{fg=gray}
+\setbeamercolor{normal text}{fg=foreground,bg=background}
+
+\setbeamercolor{item}{fg=foreground} % color of bullets
+\setbeamercolor{subitem}{fg=gray}
+\setbeamercolor{itemize/enumerate subbody}{fg=gray}
+\setbeamertemplate{itemize subitem}{{\textendash}}
+\setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
+\setbeamerfont{itemize/enumerate subitem}{size=\footnotesize}
+
+\beamertemplatenavigationsymbolsempty % remove footer nav bar
+%\setcounter{framenumber}{0}
+
+\makeatother
+\setbeamertemplate{footline}
+{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.70\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle%\hspace*{3em}
+        %\insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,center]{frame in head/foot}%
+        \usebeamerfont{title in head/foot}\insertframenumber{} / \inserttotalframenumber%\hspace*{1ex}
+    \end{beamercolorbox}}%
+    \vskip0pt%
+}
+\makeatletter
+
+\title{LENGUAJE DE PROGRAMACIÓN ORIENTADO A OBJETOS PARA LA COMPOSICIÓN TIPOGRÁFICA}
+\author{David Lilue}
+\institute{Universidad Simón Bolivar}
+\date{2016}
+
+\newcommand{\OhTeX}{%
+    \makebox[0.76em][c]{O}%
+    \makebox[0.25em][c]{%
+        \raisebox{0.14em}[0em][0em]{%
+            \fontsize{0.5em}{0cm}%
+                \selectfont H%
+        }%
+    }%
+    \makebox[1.35em][c]{\TeX}%
+}
+\newcommand{\ohtex}{\OhTeX\xspace}
+
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+belowskip=\medskipamount,
+frame = shadowbox,
+literate={á}{{\'a}}1 {í}{{\'i}}1 {é}{{\'e}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1,
+}
+
+\begin{document}
+ 
+\frame{\titlepage}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+
+\begin{lstlisting}
+    use inputenc { encode: utf8 }
+
+    foo :: Article {
+        font: 10pt
+        paper: letter
+    }
+
+    titulo :: Text {
+        align: center
+        size: LARGE
+        text: '\vspace{4em}\OhTeX\vspace{4em}'
+    }
+
+    texto :: Text {
+        text: '\OhTeX{} es un lenguaje de programación orientado a
+        objetos para la composición tipográfica, haciendo uso de
+        \LaTeX{} como base para ello. Ofrece la facilidad de manejar
+        elementos tipográficos de una manera abstracta y expresiva,
+        facilitando la comprensión y aprendizaje del mismo.'
+    }
+
+    foo << titulo << texto
+
+    foo >> 'foo'
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{\OhTeX}
+\begin{center}
+\ig[height=0.9\textheight]{images/foo.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+
+\begin{lstlisting}
+    use inputenc { encode: utf8 }
+
+    foo :: Article {
+        font: 10pt
+        paper: letter
+    }
+
+    titulo :: Text {
+        align: center
+        size: LARGE
+        text: '\vspace{4em}\OhTeX\vspace{4em}'
+    }
+
+    texto :: Text {
+        text: '\OhTeX{} es un lenguaje de programación orientado a
+        objetos para la composición tipográfica, haciendo uso de
+        \LaTeX{} como base para ello. Ofrece la facilidad de manejar
+        elementos tipográficos de una manera abstracta y expresiva,
+        facilitando la comprensión y aprendizaje del mismo.'
+    }
+
+    foo << titulo << texto
+
+    foo >> 'foo'
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+\subt{Paquetes}
+\begin{lstlisting}
+    use inputenc { encode: utf8 }
+\end{lstlisting}
+\pause
+\bi
+    \item {\color<3->{gray} Uso de paquetes}
+    \pause
+    \item {\color<4->{gray} Opciones de paquetes}
+    \pause
+    \item {\color<5->{gray} Incorporación de inicializacion por nombre}
+\ei
+\pause
+\begin{lstlisting}
+    use hyperref, graphicx, listings
+\end{lstlisting}
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} Similar a como se hace en \LaTeX}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+\subt{Contrucción de instancia}
+\begin{center}
+{\small
+\textbf{Instancias de documentos}}
+\end{center}
+\begin{lstlisting}
+    foo :: Article {
+        font: 10pt
+        paper: letter
+    }
+\end{lstlisting}
+\pause
+\bi
+    \item {\color<3->{gray} Clases de documentos}
+    \pause
+    \item {\color<4->{gray} Simbolos `\texttt{::}' y `\texttt{:}'}
+    \pause
+    \item {\color<5->{gray} Atributo-Valor}
+    \pause
+    \item {\color<6->{gray} Unidades y variables definidas}
+\ei
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} El uso del simbolo `\texttt{:}' fue influenciado por CSS}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+\subt{Formato de texto}
+\begin{center}
+{\small
+\textbf{Instancias de texto}}
+\end{center}
+\begin{lstlisting}
+    titulo :: Text {
+        align: center
+        size: LARGE
+        text: '\vspace{4em}\OhTeX\vspace{4em}'
+    }
+
+    texto :: Text {
+        text: '\OhTeX{} es un lenguaje de programación orientado a
+        objetos para la composición tipográfica, haciendo uso de
+        \LaTeX{} como base para ello. Ofrece la facilidad de manejar
+        elementos tipográficos de una manera abstracta y expresiva,
+        facilitando la comprensión y aprendizaje del mismo.'
+    }
+\end{lstlisting}
+
+\bi
+    \pause
+    \item {\color<3->{gray} Formato de texto como un atributo}
+    \pause
+    \item {\color<4->{gray} Usa de \textit{verbatim} \LaTeX{} en \OhTeX{}}
+\ei
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} Integración, manteniendo similitudes}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+\subt{Incorporación de elementos tipográficos y salida}
+
+\begin{lstlisting}
+    foo << titulo << texto
+
+    foo >> 'foo'
+\end{lstlisting}
+
+\pause
+\bi
+    \item {\color<3->{gray} Operador `\texttt{<<}' y `\texttt{>>}'}
+    \pause
+    \item {\color<4->{gray} Estructuración de un documento}
+    \pause
+    \item {\color<5->{gray} Composición referencial}
+\ei
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} Crear un elemento tipográfico no lo incluye en un documento}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+\subt{Proceso de traducción}
+\begin{columns}[c] % the "c" option specifies center vertical alignment
+    \column{.15\textwidth} % column designated by a command
+        \begin{enumerate}
+            \item \OhTeX
+            \item \textit{Ruby}
+            \item \LaTeX
+            \item PDF
+        \end{enumerate}
+    \pause
+    \column{.85\textwidth}
+    \begin{center}
+    {\bf \LaTeX{} generado}
+    \end{center}
+    \begin{lstlisting}
+    \documentclass[10pt,letterpaper]{article}
+    \usepackage[utf8]{inputenc}
+        
+    \begin{document}
+    \begin{center}
+    {\LARGE \vspace{4em}\OhTeX\vspace{4em}}
+    \end{center}
+
+    {\normalsize \OhTeX{} es un lenguaje de programación
+        orientado a objetos para la composición
+        tipográfica, haciendo uso de \LaTeX{} como base
+        para ello. Ofrece la facilidad de manejar elementos
+        tipográficos de una manera abstracta y expresiva,
+        facilitando la comprensión y aprendizaje del mismo.
+    }
+    \end{document}
+    \end{lstlisting}
+\end{columns}
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} Puede que sean ``menos'' caracteres. Eso no significa mayor expresividad}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\OhTeX}
+
+\begin{lstlisting}
+    use inputenc { encode: utf8 }
+
+    foo :: Article {
+        font: 10pt
+        paper: letter
+    }
+
+    titulo :: Text {
+        align: center
+        size: LARGE
+        text: '\vspace{4em}\OhTeX\vspace{4em}'
+    }
+
+    texto :: Text {
+        text: '\OhTeX{} es un lenguaje de programación orientado a
+        objetos para la composición tipográfica, haciendo uso de
+        \LaTeX{} como base para ello. Ofrece la facilidad de manejar
+        elementos tipográficos de una manera abstracta y expresiva,
+        facilitando la comprensión y aprendizaje del mismo.'
+    }
+
+    foo << titulo << texto
+
+    foo >> 'foo'
+\end{lstlisting}
+\end{frame}
+
+%\begin{frame}[fragile]
+%\frametitle{\OhTeX}
+%
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%\frametitle{\OhTeX}
+%
+%\end{frame}
+
+\begin{frame}{Contenido}
+\bi
+    \item Origen
+    \item Influencias y Allegados
+    \item Implementación
+    \item Manejo de objetos tipográficos
+    \item Estructuración de un documento
+    \item Conclusión
+\ei
+\end{frame}
+
+\begin{frame}{Origen}
+\bi
+    \item Bi Sheng. China. Mediados del siglo 11
+        \bi
+            \item \textit{Types} movibles de cerámica
+        \ei
+    \pause
+    \item Corea. Siglo 13-14
+        \bi
+            \item \textit{Types} movibles metálicos
+        \ei
+    \pause
+    \item Johannes Gutenberg. Magnuncia, Alemania. Mediados del siglo 15
+        \bi
+            \item Prensa
+        \ei
+    \pause
+    \item Ottmar Mergenthaler. Finales del siglo 19
+        \bi
+            \item Maquina Linotapia
+        \ei
+    \pause
+    \item Foto-composición tipográfica. 1970-1980.
+    \pause
+    \item Composición tipográfica digital.
+        \bi
+            \item \TeX. Donald Knuth. 1978
+            \item \LaTeX. Leslie Lamport. 1985
+        \ei
+\ei
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} El libro más viejo impreso con \textit{types} movibles es el \textit{Jikji}}
+\end{frame}
+
+\begin{frame}{Origen}
+\begin{columns}[c]
+    \column{.5\textwidth}
+        \begin{center}
+            \ig[height=\textwidth]{images/type.png}
+        \end{center}
+    \column{.5\textwidth}
+        \begin{center}
+            \ig[height=0.8\textwidth]{images/movable_type.jpg}
+        \end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Contenido}
+\bi
+    \item \sout{Origen}
+    \item Influencias y Allegados
+    \item Implementación
+    \item Manejo de objetos tipográficos
+    \item Estructuración de un documento
+    \item Conclusión
+\ei
+\end{frame}
+
+\begin{frame}{Influencias y Allegados}
+\bi
+    \pause
+    \item Herramientas de composición tipográfica
+        \bi
+            \item Lenguajes de marcado
+            \item \TeX/\LaTeX
+        \ei
+    \pause
+    \item Lenguaje de programación orientados a objetos
+        \bi
+            \item Ruby
+        \ei
+    \pause
+    \item Lenguaje de estilo y formato
+        \bi
+            \item CSS
+        \ei
+    \pause
+    \item Notación legible por humano
+        \bi
+            \item JSON
+        \ei
+    \pause
+    \item Hermano?
+        \bi
+            \item Curl
+        \ei
+\ei
+\end{frame}
+
+\begin{frame}{Influencias y Allegados}
+\bi
+    \pause
+    \item Aplicaciones integradas con \LaTeX
+        \bi
+            \item LyX, TeXmacs (no \TeX)
+            \item Texmaker
+            \item Overleaf, ShareLaTeX
+        \ei
+    \pause
+    \item \OhTeX. Lenguaje de dominio específico
+        \bi
+            \item Que tan específico?
+            \item Ventajas y Desventajas
+        \ei
+    \pause
+    \item \OhTeX. Lenguaje embebido
+        \bi
+            \item Ruby
+            \item \LaTeX
+            \item Tiene que ser embebido?
+        \ei
+\ei
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} WYSIWYM: \textit{what-you-see-is-you-mean}. WYSIWYG: \textit{what-you-see-is-you-get}}
+\end{frame}
+
+\begin{frame}{Contenido}
+\bi
+    \item \sout{Origen}
+    \item \sout{Influencias y Allegados}
+    \item Implementación
+    \item Manejo de objetos tipográficos
+    \item Estructuración de un documento
+    \item Conclusión
+\ei
+\end{frame}
+
+\begin{frame}{Implementación}
+\bi
+    \onslide<1->{
+    \item \textit{Lexer} y \textit{Parser}
+        \bi
+            \item Por qué Ruby?
+        \ei
+    }
+    \onslide<2->{
+    \item De librería a DSL
+    }
+    \onslide<3->{
+    \item Consecuencias de usar dos intermediarios
+        \bi
+            \item Cuales son esenciales?
+            \item Por qué dejar archivos intermedios?
+        \ei
+    }
+    \onslide<4->{
+    \item Consideración de opciones
+    }
+\ei
+
+\vfill
+\onslide<2->{
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} DSL: \textit{Domain specific language}}
+}
+\end{frame}
+
+\begin{frame}{Contenido}
+\bi
+    \item \sout{Origen}
+    \item \sout{Influencias y Allegados}
+    \item \sout{Implementación}
+    \item Manejo de objetos tipográficos
+    \item Estructuración de un documento
+    \item Conclusión
+\ei
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Manejo de objetos tipográficos}
+\subt{Estructuras de control}
+
+\begin{lstlisting}
+    tabla1 :: Table {
+        header : ['Número', 'Cuadrado']
+    }
+
+    valores = [1,2,3,4,5,6,7,8,9]
+
+    for i in values {
+        tabla1.add_row([i, i*i])
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Manejo de objetos tipográficos}
+\subt{Estructuras de control}
+
+\begin{lstlisting}
+    nombre :: Text {
+        size  : Large
+        align : left
+    }
+
+    .. Suponiendo que tenemos un objeto membrete y un texto 
+    foo << membrete << nombre << lipsum1
+
+    nombres = [
+        'Sr. Doe',
+        'Sra. Jane',
+        'Dr. John',
+        'Prof. Jenny'
+    ]
+
+    for r in nombres {
+        nombre.text = r
+        foo >> r
+    }
+\end{lstlisting}
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} Generar documentos similares a través de estructuras de control}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Manejo de objetos tipográficos}
+\subt{Referencia a un mismo objeto}
+
+\begin{lstlisting}
+    ..{ Suponiendo que tenemos un objeto 'encabezado' usado
+        comunmente en documentos administrativos y/o repetitivos }.. 
+    
+    carta :: Letter
+    acta :: Article
+    memo :: Memo
+
+    carta << encabezado << nombre1 << texto1
+
+    acta << encabezado << contenido
+
+    memo << encabezado << titulo << texto2
+
+    ...
+\end{lstlisting}
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} El uso de un identificador para un objeto tipográfico evita reescribirlo}
+\end{frame}
+
+\begin{frame}{Contenido}
+\bi
+    \item \sout{Origen}
+    \item \sout{Influencias y Allegados}
+    \item \sout{Implementación}
+    \item \sout{Manejo de objetos tipográficos}
+    \item Estructuración de un documento
+    \item Conclusión
+\ei
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Estructuración de un documento}
+\bi
+    \item \LaTeX. Secuencia de elementos tipográficos
+    %\item \OhTeX. Árbol de objetos tipográficos
+\ei
+
+\begin{lstlisting}
+    \documentclass[10pt,letterpaper]{book}
+    \usepackage[spanish]{babel}
+
+    \begin{document}
+    % elementos tipográficos
+    
+    \section{Sección 1}
+
+    \begin{itemize}
+        % Items
+    \end{itemize}
+
+    \section{Sección 2}
+
+    % texto lipsum
+
+    % elementos tipográficos
+    \end{document}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Estructuración de un documento}
+\bi
+    %\item \LaTeX. Secuencia de elementos tipográficos
+    \item \OhTeX. Árbol de objetos tipográficos
+\ei
+
+\begin{lstlisting}
+    main :: Book {
+        font : 10pt
+        paper : letter
+    }
+
+    seccion1 :: Section { name : 'Sección 1' }
+    seccion2 :: Section { name : 'Sección 2' }
+
+    lista :: List {
+        items : [...]
+    }
+
+    seccion1 << lista
+
+    texto :: Text {
+        text : .. lipsum
+    }
+
+    seccion2 << texto
+
+    main << seccion1 << seccion2
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Estructuración de un documento}
+\bi
+    %\item \LaTeX. Secuencia de elementos tipográficos
+    \item \OhTeX. Árbol de objetos tipográficos
+\ei
+\begin{center}
+\ig[height=0.5\textheight]{images/arbol.png}
+\end{center}
+
+\pause
+\vfill
+\rule{0.5\textwidth}{0.3pt}\\
+{\scriptsize \color{hilight} La estructuración se asemeja a un tabla de contenido}
+\end{frame}
+
+\begin{frame}{Contenido}
+\bi
+    \item \sout{Origen}
+    \item \sout{Influencias y Allegados}
+    \item \sout{Implementación}
+    \item \sout{Manejo de objetos tipográficos}
+    \item \sout{Estructuración de un documento}
+    \item Conclusión
+\ei
+\end{frame}
+
+\begin{frame}{Conclusión}
+
+\bi
+    \item Expresividad
+    \item Dificultad de aprendizaje
+    \item Usabilidad
+    \item Lenguajes anfitriones
+    \item Implementación
+    \item Diversos gustos personales
+\ei
+
+\end{frame}
+
+% \begin{frame}{It's all about money}
+% \bi
+%     \item {\color<3| handout 0>{hilight} Research}
+%     \item {\color<3| handout 0>{hilight} Writing}
+%     \item {\color<3| handout 0>{hilight} Peer review, editorial oversight}
+%     \item {\color<4| handout 0>{hilight} Journal administration}
+%     \item {\color<4| handout 0>{hilight} Copy editing, typesetting}
+%     \item {\color<4| handout 0>{hilight} Distribution}
+%     \item<2->{\color<2| handout 0>{vhilight} \color<4| handout 0>{hilight} Profit}
+% \ei
+% \end{frame}
+\end{document}  

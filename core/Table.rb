@@ -1,13 +1,14 @@
 class Table
 
-    attr_writer :header
+    attr_accessor :name,
+                  :rows,
+                  :cols,
+                  :header
 
-    def initialize name, n, m, header=nil, tb=[]
-        @name   = name
-        @n      = n
-        @m      = m
-        @header = header
-        @tb     = tb
+    attr_reader :tb 
+
+    def initialize 
+        @tb = []
     end
 
     def add_row r
@@ -20,7 +21,7 @@ class Table
     end
 
     def to_tex
-        tex = "\n\\begin{tabular}{#{"|" + (" c " * @m) + "|"}}\n\\hline\n"
+        tex = "\n\\begin{tabular}{#{"|" + (" c " * @cols) + "|"}}\n\\hline\n"
         if @header
             @header.each { |h| tex << "#{h.to_s} & " }
             tex = tex[0..-4] << "\\\\\n\\hline\n"

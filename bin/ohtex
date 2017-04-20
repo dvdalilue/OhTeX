@@ -1,12 +1,27 @@
 #!/bin/bash
 
 if [[ $1 ]]; then
-	#echo $1
-	fileN="${1%.*}"
-	echo $fileN
+	printf "This is OhTeX, a object-oriented typesetter (Ruby/LaTex translator)\n"
+	fileN="${1%.rb}"
+    pathN=$(dirname $1)
+    baseN=$(basename ${1%.rb})
+    logN="${pathN}/${baseN}"_otex.log
+	#echo $logN
 	ruby $1 > "$fileN".tex
-	pdflatex "$fileN".tex
+    rm -f "$fileN".pdf
+    for i in {1..2}; do
+	   pdflatex -interaction=nonstopmode -output-directory=$pathN "$fileN".tex > "$fileN"_otex.log
+    done
 	rm -f "$fileN".out "$fileN".aux "$fileN".log
+
+    if [ ! -f "$fileN".pdf ]; then
+        printf "\n"
+        tmp/error_log.rb $logN
+        printf "\nPDF not generated!\n"
+        exit
+    fi
+    printf "PDF generated!"; printf " (in "; echo -n "$fileN".pdf; printf ")"
+    printf "\nBye Bye!\n"
 	exit
 fi
 
